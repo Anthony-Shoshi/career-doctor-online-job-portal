@@ -12,7 +12,16 @@
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 	          <!-- <li class="nav-item cta mr-md-2"><a href="new-post.html" class="nav-link">Post a Job</a></li> -->
-	          <li class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Want a Job</a></li>
+	         @guest
+						<li class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Want a Job</a></li>
+						@else
+						@if(Auth::user()->user_type == 'company')
+						<li class="nav-item cta mr-md-2"><a href="new-post.html" class="nav-link">Post a Job</a></li>
+						@endif
+						@if(Auth::user()->user_type == 'candidate')
+						<li class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Want a Job</a></li>
+						@endif
+						@endguest
 						@guest
 						<li class="nav-item"><a href="{{route('login')}}" class="nav-link">Sign in / Create Account</a></li>
 						@else

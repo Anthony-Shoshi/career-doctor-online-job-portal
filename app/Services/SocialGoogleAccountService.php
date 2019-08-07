@@ -24,6 +24,7 @@ class SocialGoogleAccountService
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
+                    'user_type' => 'candidate',
                     'password' => md5(rand(1, 10000)),
                 ]);
             }

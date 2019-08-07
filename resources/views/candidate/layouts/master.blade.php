@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>JobPortal - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Career Doctor</title>
+    <link rel="shortcut icon" href="{{asset('user/assets/images/favicon.ico')}}" type="images/x-icon">
+    <link rel="icon" href="{{asset('user/assets/images/favicon.ico')}}" type="images/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     

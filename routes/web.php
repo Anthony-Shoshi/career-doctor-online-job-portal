@@ -17,10 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/backoffice/login', function () {
+    return 'Admin login page will be shown here.';
+});
+
+Route::get('/register/company', 'SignInController@registerCompany')->name('registerCompany');
+
 Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
 
 Route::get('/callback', 'SocialAuthGoogleController@callback');
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/register/company', 'SignInController@registerCompany')->name('registerCompany');

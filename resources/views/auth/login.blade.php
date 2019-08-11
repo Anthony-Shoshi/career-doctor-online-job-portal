@@ -133,18 +133,6 @@
 											</div>
 										</div>
                                     </div>
-                                    <center>Or</center>
-                                    <center>Sign in with</center>
-                                    <div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-                                                    <a href="#" class="fa fa-facebook"></a>
-                                                    <a href="{{route('redirect')}}" class="fa fa-google"></a>
-												</div>
-											</div>
-										</div>
-                                    </div>
                                     <center>Don't have a <strong>Career Doctor</strong> account?</center>
                                     <div class="text-center">
                                         <a href="{{route('registerCompany')}}" class="btn btn-custom">Create Account</a>

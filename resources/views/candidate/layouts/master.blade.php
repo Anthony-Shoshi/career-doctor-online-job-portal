@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('user/assets/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('user/assets/css/style.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+
     @yield('myCss')
     
   </head>
@@ -63,6 +65,20 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{{ asset('user/assets/js/google-map.js') }}"></script>
   <script src="{{ asset('user/assets/js/main.js') }}"></script>
+  <script src="{{ asset('js/toastr.min.js') }}"></script>
+
+  <!-- toastr notification -->
+  <script>
+    @if(Session::has('success'))
+      toastr.success("{{ Session::get('success') }}");
+    @endif
+
+    @if(Session::has('delete'))
+      toastr.error("{{ Session::get('delete') }}");
+    @endif
+    
+  </script>
+
 
   @yield('myJs')
 

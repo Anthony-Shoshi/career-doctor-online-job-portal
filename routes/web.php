@@ -19,15 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-<<<<<<< Updated upstream
-Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
-
-Route::get('/callback', 'SocialAuthGoogleController@callback');
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/register/company', 'SignInController@registerCompany')->name('registerCompany');
-=======
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Admin
@@ -54,4 +45,3 @@ Route::group(['namespace' => 'Company'], function () {
 Route::group(['namespace' => 'CV'], function () {
     Route::get('/create/cv', 'CvController@index')->name('index');
 });
->>>>>>> Stashed changes

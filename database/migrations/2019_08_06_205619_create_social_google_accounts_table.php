@@ -14,6 +14,7 @@ class CreateSocialGoogleAccountsTable extends Migration
     public function up()
     {
         Schema::create('social_google_accounts', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('provider_user_id');
             $table->string('provider');

@@ -1,0 +1,185 @@
+
+#banner-map .col-md-9{
+  padding-left: 0;
+  padding-right: 0;
+}
+#finddo-accordion {
+    clear: both;
+}
+.input-group-addon {
+  border:none;
+  border-radius: 0;
+  color: #fff;
+  font-size: 14px;
+  padding: 0 18px;
+}
+#banner-map .form-control,
+#listing-2 .form-control {
+  border: 1px solid #f2f3f8;
+  border-radius: 0;
+  font-size: 14px;
+  height: 43px;
+  box-shadow:none;
+}
+#finddo-accordion .panel-heading .finddo-accordion-toggle:after {
+    margin: 0 0 0 15px;
+}
+#finddo-accordion .panel-heading {
+  border: medium none;
+  border-radius: 0;
+  color: #fff;
+}
+#finddo-accordion.panel-group .panel {
+  border: medium none;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+#finddo-accordion .panel-body select {
+  height: 34px;
+}
+#finddo-accordion .collapse {
+  border-left: 1px solid #f2f3f8;
+  border-bottom: 1px solid #f2f3f8;
+  border-right: 1px solid #f2f3f8;
+}
+#finddo-accordion.panel-group .panel {
+  border-radius:0;
+}
+#finddo-accordion .panel-title a {
+    display: block;
+}
+#finddo-accordion .panel-title a:hover {
+    text-decoration: none;
+}
+#finddo-accordion .panel-title a:after {
+    font-family: FontAwesome;
+    content: '';
+    float: right;
+}
+#finddo-accordion .panel-title a.collapsed:after {
+    content: '';
+}
+.reset-btn #finddo-reset {
+  border-radius: 0;
+  display: block;
+  float: none;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  color:#333;
+  margin-bottom:20px;
+}
+#finddo-geolocate, #finddo-target {
+  border-radius: 0;
+  height: 43px;
+  line-height: 43px;
+  margin: 30px auto;
+  padding: 0;
+  width: 49%;
+}
+.map-radius label {
+  display: inline-block;
+  font-weight: normal;
+  margin: 6px 0;
+  max-width: 100%;
+  width: 30%;
+}
+#finddo-wrapper {
+    height: 843px;
+    width: auto;
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+}
+.reset-btn {
+  margin-top: 15px;
+}
+.map-popup > a {
+  color: #fff;
+  display: inline-block;
+  padding: 10px 40px;
+  margin-top:10px;
+}
+#finddo-canvas {
+    width: 100%;
+    height: 100%;
+    float: right;
+}
+#finddo-places {
+    background: #fff;
+    position: absolute;
+    left: -320px;
+    z-index:3;
+    height: 100%;
+    width: 320px;
+    padding: 0 20px;
+    overflow: auto;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+@media(max-width:767px){
+    #finddo-places.hidden-xs {
+        display: none!important;
+    }
+}
+@media(min-width:768px){
+    #finddo-places.hidden-xs {
+        display: block!important;
+    }
+}
+#finddo-results-num {
+  color: #3a2f2f;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 0 0 15px;
+  text-transform: uppercase;
+}
+.finddo-place {
+    display: none;
+    padding: 15px 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+	background: #3a2f2f;
+}
+.finddo-place:hover,
+.finddo-place.active {
+  border: medium none;
+  transition: 0.3s;
+}
+.finddo-place h3,
+.finddo-place p {
+	color:#fff;
+}
+.finddo-place h3 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+}
+.finddo-place h3:before {
+    font-family: FontAwesome;
+    content: '';
+    margin-right: 10px;
+}
+h4.finddo-title {
+  font-size: 20px;
+  margin: 10px 0 0;
+  padding-bottom: 15px;
+}
+.finddo-brand {
+  float: left;
+  height: auto;
+  margin: 0 15px 0 0;
+  width: 38%;
+}
+.map-popup {
+  color: #3a2f2f;
+  display: inline-block;
+  float: right;
+  font-size: 15px;
+  line-height: 25px;
+  padding:0;
+  width: 58%;
+}
+.finddo-brand img {
+    max-height: 100%;
+    max-width: 100%;
+}

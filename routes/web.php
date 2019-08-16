@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 // Admin
 Route::group(['namespace' => 'Admin'], function () {
@@ -37,7 +38,7 @@ Route::group(['namespace' => 'Candidate'], function () {
 
 // Company
 Route::group(['namespace' => 'Company'], function () {
-    Route::get('/register/company', 'SignInController@registerCompany')->name('registerCompany');
+    Route::get('/registerCompany', 'SignInController@registerCompany')->name('registerCompany');
     Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
 });
 

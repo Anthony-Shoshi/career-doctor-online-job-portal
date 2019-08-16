@@ -35,4 +35,14 @@ class HomeController extends Controller
         }
         //return view('home');
     }
+
+    public function dashboard()
+    {
+        if (Auth::user()->user_type == 'candidate') {
+            return view('candidate.dashboard');
+        }
+        if (Auth::user()->user_type == 'company') {
+            return view('company.dashboard');
+        }
+    }
 }

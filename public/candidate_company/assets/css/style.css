@@ -2653,6 +2653,25 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 }
 
 /*== LogIn Register Page ==*/
+
+.my_form {
+  padding: 40px 40px 0;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.my_form_two {
+  padding: 40px 40px 0;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  border-radius: 4px;
+  margin-top: 20px;
+}
 .login_form {
   background-color: #ffffff;
   padding: 40px 40px 0;
@@ -2729,10 +2748,10 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 }
 .sign_up_form li.nav-item .nav-link {
   background-color: transparent;
-  border: 1px solid #79b530
+  border: 1px solid #000000;
 }
 .sign_up_form li.nav-item .nav-link.active{ 
-  background-color: #79b530;
+  background-color: #000000;
 }
 
 /*== Search Widget Faq Page ==*/
@@ -3903,9 +3922,10 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 .header_user_notif li.user_setting {
   position: relative;
 }
-.header_user_notif li.user_setting .btn {
+.header_user_notif li.user_setting .btn {    
   border: 1px solid transparent;
   color: #979797;
+  margin-top: 17px;
 }
 .header_user_notif li.user_setting .btn:focus {
   border: 1px solid transparent;

@@ -3,7 +3,7 @@
 			<div class="row">
 				<div class="col-sm-12 col-lg-2 pb25 pt25">
 					<div class="logo-widget">
-						<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
+						<img class="img-fluid" src="{{ ('candidate_company/assets/images/header-logo.png') }}" alt="header-logo.png">
 					</div>
 				</div>
 				<div class="col-sm-12 col-lg-6 pb25 pt25 pl60 pr40 brdr_left_right">

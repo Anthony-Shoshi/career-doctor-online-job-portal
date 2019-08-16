@@ -1,4 +1,4 @@
-<header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
+<header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu" style="background-color:#262626;">
 		<div class="container">
 		    <!-- Ace Responsive Menu -->
 		    <nav>
@@ -52,7 +52,7 @@
 					<li><a href="{{ route('login') }}" class="btn btn-md">Log<span class="dn-md">in</span>/Reg<span class="dn-md">ister</span></a></li>
 					@else
 					<li>
-						<a href="#" class="btn btn-md">Dashboard</a>
+						<a href="{{ route('dashboard') }}" class="btn btn-md">Dashboard</a>
 						<a href="{{ route('logout') }}" class="btn btn-md" onclick="event.preventDefault();
 							document.getElementById('logout-form').submit();">Logout</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -93,7 +93,7 @@
 				@guest
 					<li><a href="{{ route('login') }}" class="text-thm">Log<span class="dn-md">in</span>/Reg<span class="dn-md">ister</span></a></li>
 					@else
-						<li><a href="#" class="text-thm">Dashboard</a></li>
+						<li><a href="{{ route('dashboard') }}" class="text-thm">Dashboard</a></li>
 						<li><a href="{{ route('logout') }}" class="text-thm" onclick="event.preventDefault();
 							document.getElementById('logout-form').submit();">Logout</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -1,179 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login </title>
-	<link rel="shortcut icon" href="{{asset('user/assets/images/favicon.ico')}}" type="images/x-icon">
-    <link rel="icon" href="{{asset('user/assets/images/favicon.ico')}}" type="images/x-icon">
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" id="bootstrap-css">
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-    <div class="container">
-    	<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="panel panel-login">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link">As a Candidate</a>
-							</div>
-							<div class="col-xs-6">
-								<a href="#" id="register-form-link">As a Company</a>
-							</div>
-						</div>
+@extends('candidate.layouts.master')
+
+@section('myCss')
+<link rel="stylesheet" href="{{ asset('candidate_company/assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('candidate_company/assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('candidate_company/assets/css/responsive.css') }}">
+@endsection
+
+@section('content')
+
+<!-- main login registration area -->
+<br><br><br>
+    <section class="our-log-reg bgc-fa">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-6">
+					<div class="my_form">
+						<h3>Shortlisted Jobs & other Features</h3>
+						Save yourself from unwanted hassle!
 						<hr>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-                                <!-- candidate -->
-								<form id="login-form" action="{{ route('login') }}" method="post" role="form" style="display: block;">
-                                    @csrf
-									<div class="form-group">
-                                        <input type="email" name="email" value="{{ old('email') }}" id="username" tabindex="1" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-									</div>
-									<div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-									</div>
-									<div class="form-group text-center">
-										<input type="checkbox" tabindex="3" class="form-check-input" name="remember" id="remember"  {{ old('remember') ? 'checked' : '' }}>
-										<label for="remember"> Remember Me</label>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Sign In">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-                                                    @if (Route::has('password.request'))
-                                                        <a class="forgot-password" href="{{ route('password.request') }}">
-                                                            {{ __('Forgot Your Password?') }}
-                                                        </a>
-                                                    @endif
-												</div>
-											</div>
-										</div>
-                                    </div>
-                                    <center>Or</center>
-                                    <center>Sign in with</center>
-                                    <div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-                                                    <a href="#" class="fa fa-facebook"></a>
-                                                    <a href="{{route('redirect')}}" class="fa fa-google"></a>
-												</div>
-											</div>
-										</div>
-                                    </div>
-                                    <center>Don't have a <strong>Career Doctor</strong> account?</center>
-                                    <div class="text-center">
-                                        <a href="{{route('register')}}" class="btn btn-custom">Create Account</a>
-                                    </div>
+						Use Shortlisted Jobs feature to save preferred jobs and get back to it easily.
+						<hr>
+						Stay up-to-date with statistical report of job activities.
+						<hr>
+						Save yourself from unwanted hassle!
+						<hr>
+						Use Shortlisted Jobs feature to save preferred jobs and get back to it easily.
+						<hr>
+						Stay up-to-date with statistical report of job activities.
+						<hr>
+						</div>
+				</div>
+				<div class="col-sm-12 col-lg-6">
+					<div class="sign_up_form">
+						<div class="heading">
+							<h3 class="text-center">Login</h3>
+						</div>
+						<ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Candidate</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Company</a>
+							</li>
+						</ul>
+						<!-- candidate -->
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+								<form action="{{ route('login') }}" method="post">
+								@csrf
+							 <div class="form-group">
+								<input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Enter email">
+								 @error('email')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							</div>
+							<div class="form-group">
+								<input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Enter Password">
+								 @error('password')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							</div>
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" name="remember" id="remember"  {{ old('remember') ? 'checked' : '' }}>
+								<label class="form-check-label" for="exampleCheck1">Remember me</label>
+								@if (Route::has('password.request'))
+								<a class="tdu text-thm float-right" href="{{ route('password.request') }}">Forgot Password?</a>
+								@endif
+							</div>
+							<button type="submit" class="btn btn-log btn-block btn-thm">Login</button>
+							<p class="text-center">Don't have a <strong>Career Doctor</strong> account? <a class="text-thm" href="{{ route('register') }}">Sign Up!</a></p>
+							<hr>
+							<div class="row mt40">
+								<div class="col-lg">
+									<a href="#" style="border-radius: 4px;height: 50px;margin-bottom: 40px;" class="btn btn-block color-white bgc-fb"><i class="fa fa-facebook float-left mt5"></i> Facebook</a>
+								</div>
+								<div class="col-lg">
+									<a href="{{ route('redirect') }}" style="border-radius: 4px;height: 50px;margin-bottom: 40px;" class="btn btn-block color-white bgc-gogle"><i class="fa fa-google float-left mt5"></i> Google</a>
+								</div>
+							</div>
 								</form>
-								<!-- company  -->
-                                <form id="register-form" action="" method="post" role="form" style="display: none;">
-									@csrf
-									<div class="form-group">
-                                        <input type="email" name="email" value="{{ old('email') }}" id="username" tabindex="1" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-									</div>
-									<div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-									</div>
-									<div class="form-group text-center">
-										<input type="checkbox" tabindex="3" class="form-check-input" name="remember" id="remember"  {{ old('remember') ? 'checked' : '' }}>
-										<label for="remember"> Remember Me</label>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Sign In">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-													@if (Route::has('password.request'))
-                                                        <a class="forgot-password" href="{{ route('password.request') }}">
-                                                            {{ __('Forgot Your Password?') }}
-                                                        </a>
-                                                    @endif
-												</div>
-											</div>
-										</div>
-                                    </div>
-                                    <center>Don't have a <strong>Career Doctor</strong> account?</center>
-                                    <div class="text-center">
-                                        <a href="{{route('registerCompany')}}" class="btn btn-custom">Create Account</a>
-                                    </div>
+							</div>
+							<!-- company -->
+							<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+								<form action="{{ route('login') }}" method="post">
+								@csrf
+							 <div class="form-group">
+						    	<input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Enter email">
+								 @error('email')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							</div>
+							<div class="form-group">
+						    	<input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Enter Password">
+								 @error('password')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							</div>
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" name="remember" id="remember"  {{ old('remember') ? 'checked' : '' }}>
+								<label class="form-check-label" for="exampleCheck1">Remember me</label>
+								@if (Route::has('password.request'))
+								<a class="tdu text-thm float-right" href="{{ route('password.request') }}">Forgot Password?</a>
+								@endif
+							</div>
+							<button type="submit" class="btn btn-log btn-block btn-thm">Login</button>
+							<p class="text-center">Don't have a <strong>Career Doctor</strong> account? <a class="text-thm" href="{{ route('registerCompany') }}">Sign Up!</a></p>
+							<hr>
 								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-<script>
-    $(function() {
-
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-		location.hash = this.getAttribute("href");
-	});
-
-	$(window).on("popstate", function() {
-    var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
-    $("a[href='" + anchor + "']").tab("show");
-	});
-
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-});
-
-</script>
-</body>
-</html>
+		</div>
+	</section>
+@endsection

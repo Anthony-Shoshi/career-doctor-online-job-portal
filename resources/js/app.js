@@ -27,6 +27,10 @@ Vue.component(
     "dropdown",
     require("./components/DropDownComponent.vue").default
 );
+Vue.component(
+    "checkbox",
+    require("./components/CheckboxComponent.vue").default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,5 +39,6 @@ Vue.component(
  */
 
 const app = new Vue({
-    el: "#app"
+    el: "#app",
+    data: {}
 });

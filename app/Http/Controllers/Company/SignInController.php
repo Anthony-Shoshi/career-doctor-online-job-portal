@@ -23,7 +23,7 @@ class SignInController extends Controller
 
     public function getCities($id)
     {
-        $cities = City::where('country_id', $id)->pluck("name", "id");
+        $cities = City::where('country_id', $id)->orderBy('name', 'asc')->pluck("name", "id");
         return json_encode($cities);
     }
 

@@ -59,7 +59,15 @@
 									</div>
                                     <button type="submit" class="btn btn-log btn-block btn-dark">Register</button>
                                     <p class="text-center">Already have a <strong>Career Doctor</strong> account? <a class="text-thm" href="{{route('login')}}">Sign In!</a></p>
-                                <br>
+								<hr>
+								<div class="row mt40">
+								<div class="col-lg">
+									<a href="#" style="border-radius: 4px;height: 50px;margin-bottom: 40px;padding:10px;" class="btn btn-block color-white bgc-fb"><i class="fa fa-facebook float-left mt5"></i> Facebook</a>
+								</div>
+								<div class="col-lg">
+									<a href="{{ route('redirect') }}" style="border-radius: 4px;height: 50px;margin-bottom: 40px;padding:10px;" class="btn btn-block color-white bgc-gogle"><i class="fa fa-google float-left mt5"></i> Google</a>
+								</div>
+							</div>
                                 </form>
 							</div>
 							

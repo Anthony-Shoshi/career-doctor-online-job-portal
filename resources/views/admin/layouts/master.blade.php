@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="{{ asset('admin/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+  @yield('myCss')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -40,21 +42,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
+    
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -113,5 +101,15 @@
 <script src="{{ asset('admin/assets/dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin/assets/dist/js/demo.js') }}"></script>
+<script src="{{ asset('js/toastr.js') }}"></script>
+<script>
+  @if(Session::has('success'))
+    toastr.success("{{ Session::get('success') }}");
+  @endif
+  @if(Session::has('delete'))
+    toastr.error("{{ Session::get('delete') }}");
+  @endif
+</script>
+@yield('myJs')
 </body>
 </html>

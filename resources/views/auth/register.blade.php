@@ -53,13 +53,15 @@
 									<div class="form-group">
 										<input type="password" name="password_confirmation" id="password" tabindex="2" class="form-control" placeholder="Enter Password Confirmation" autocomplete="new-password">
 									</div>
+									<div id="app">
 									<div class="form-group form-check">
-										<input type="checkbox" class="form-check-input" id="exampleCheck2">
+										<input type="checkbox" v-model="checked" class="form-check-input" id="exampleCheck2">
 										<label class="form-check-label" for="exampleCheck2">By Registering You Confirm That You Accept <a class="text-thm" href="page-terms-and-policies.html">Terms & Conditions</a> And <a class="text-thm" href="page-terms-and-policies.html">Privacy Policy</a></label>
 									</div>
-                                    <button type="submit" class="btn btn-log btn-block btn-dark">Register</button>
+                                    <button :disabled="!checked" type="submit" class="btn btn-log btn-block btn-dark">Register</button>
                                     <p class="text-center">Already have a <strong>Career Doctor</strong> account? <a class="text-thm" href="{{route('login')}}">Sign In!</a></p>
-								<hr>
+									</div>
+									<hr>
 								<div class="row mt40">
 								<div class="col-lg">
 									<a href="#" style="border-radius: 4px;height: 50px;margin-bottom: 40px;padding:10px;" class="btn btn-block color-white bgc-fb"><i class="fa fa-facebook float-left mt5"></i> Facebook</a>
@@ -94,5 +96,14 @@
 </div>
 </div>
 </section>
-
+@section('myJs')
+<script>
+new Vue({
+	el : '#app',
+	data: {
+	checked : false
+	}
+});
+</script>
+@endsection
 @endsection

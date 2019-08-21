@@ -157,6 +157,7 @@
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/timepicker.js') }}"></script>
 <!-- Custom script for all pages --> 
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/script.js') }}"></script>
+<script src="{{asset('js/vue.js')}}"></script>
 @yield('myJs')
 </body>
 </html>

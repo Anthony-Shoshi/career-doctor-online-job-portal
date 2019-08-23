@@ -10,7 +10,7 @@ class CreateCompanyGeneralInfoTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'company_general_info';
+    public $tableName = 'company_general_infos';
 
     /**
      * Run the migrations.
@@ -73,8 +73,8 @@ class CreateCompanyGeneralInfoTable extends Migration
      *
      * @return void
      */
-     public function down()
-     {
-       Schema::dropIfExists($this->tableName);
-     }
+    public function down()
+    {
+        Schema::dropIfExists($this->tableName);
+    }
 }

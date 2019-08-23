@@ -39,6 +39,8 @@ Route::group(['namespace' => 'Candidate'], function () {
 // Company
 Route::group(['namespace' => 'Company'], function () {
     Route::get('/registerCompany', 'SignInController@registerCompany')->name('registerCompany');
+    Route::get('/getCities/{id}', 'SignInController@getCities');
+    Route::post('/company/register/save', 'SignInController@saveRegisterCompany')->name('saveRegisterCompany');
     Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
 });
 

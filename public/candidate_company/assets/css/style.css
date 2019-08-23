@@ -2670,7 +2670,6 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
   -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
   box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
   border-radius: 4px;
-  margin-top: 20px;
 }
 .login_form {
   background-color: #ffffff;
@@ -2706,6 +2705,14 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 }
 
 /*== SignUP Form ==*/
+.my_sign_up_form {
+  background-color: #ffffff;
+  padding: 40px 40px 0;
+  -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  -moz-box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.09);
+  border-radius: 4px;
+}
 .sign_up_form {
   background-color: #ffffff;
   padding: 40px 40px 0;
@@ -2719,7 +2726,7 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 }
 .sign_up_form .form-control{
   border-radius: 4px;
-  color: #7f7f7f;
+  color: #000000;
   height: 50px;
   margin-bottom: 20px;
 }

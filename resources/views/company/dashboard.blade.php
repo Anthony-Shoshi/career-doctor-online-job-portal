@@ -124,7 +124,11 @@
 									<a class="dropdown-item" href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a>
 									<a class="dropdown-item" href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a>
 									<a class="dropdown-item" href="page-candidates-change-password.html"><span class="flaticon-locked"></span> Change Password</a>
-									<a class="dropdown-item" href="page-log-reg.html"><span class="flaticon-logout"></span> Logout</a>
+									<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();"><span class="flaticon-logout"></span> Logout</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										@csrf
+									</form>
 									<a class="dropdown-item" href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a>
 						    	</div>
 						    </div>
@@ -198,7 +202,11 @@
 								<a class="dropdown-item" href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a>
 								<a class="dropdown-item" href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a>
 								<a class="dropdown-item" href="page-candidates-change-password.html"><span class="flaticon-locked"></span> Change Password</a>
-								<a class="dropdown-item" href="page-log-reg.html"><span class="flaticon-logout"></span> Logout</a>
+								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+								document.getElementById('logout-form').submit();"><span class="flaticon-logout"></span> Logout</a>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
 								<a class="dropdown-item" href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a>
 					    	</div>
 					    </div>

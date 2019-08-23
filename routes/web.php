@@ -24,7 +24,22 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 // Admin
 Route::group(['namespace' => 'Admin'], function () {
-    Route::get('/backoffice/login', 'SignInController@adminLogin')->name('adminLogin');
+    //Route::get('/backoffice', 'AdminController@index')->name('adminHome');
+    Route::get('/backoffice', 'SignInController@adminLogin')->name('adminLogin');
+    //Category
+    Route::get('/addCategory', 'CategoryController@addCategory')->name('addCategory');
+    Route::post('/saveCategory', 'CategoryController@saveCategory')->name('saveCategory');
+    Route::get('/categoryList', 'CategoryController@categoryList')->name('categoryList');
+    Route::get('/editCategory/{id}', 'CategoryController@editCategory')->name('editCategory');
+    Route::post('/updateCategory', 'CategoryController@updateCategory')->name('updateCategory');
+    Route::get('/deleteCategory/{id}', 'CategoryController@deleteCategory')->name('deleteCategory');
+    //Industry
+    Route::get('/addIndustry', 'IndustryController@addIndustry')->name('addIndustry');
+    Route::post('/saveIndustry', 'IndustryController@saveIndustry')->name('saveIndustry');
+    Route::get('/industryList', 'IndustryController@industryList')->name('industryList');
+    Route::get('/editIndustry/{id}', 'IndustryController@editIndustry')->name('editIndustry');
+    Route::post('/updateIndustry', 'IndustryController@updateIndustry')->name('updateIndustry');
+    Route::get('/deleteIndustry/{id}', 'IndustryController@deleteIndustry')->name('deleteIndustry');
 });
 
 // Candidate

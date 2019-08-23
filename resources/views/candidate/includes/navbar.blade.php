@@ -4,7 +4,7 @@
 		    <nav>
 		        <!-- Menu Toggle btn-->
 		        <div class="menu-toggle">
-		            <img class="nav_logo_img img-fluid" src="images/header-logo.png" alt="header-logo.png">
+		            <img class="nav_logo_img img-fluid" src="{{ ('candidate_company/assets/images/header-logo.png') }}" alt="header-logo.png">
 		            <button type="button" id="menu-btn">
 		                <span class="icon-bar"></span>
 		                <span class="icon-bar"></span>

@@ -1,671 +1,719 @@
 @extends('candidate.layouts.master')
 
 @section('content')
-<div class="hero-wrap js-fullheight" style="background-image: url('{{asset('user/assets/images/bg_2.jpg')}}');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
-          <div class="col-xl-10 ftco-animate mb-5 pb-5" data-scrollax=" properties: { translateY: '70%' }">
-          	<p class="mb-4 mt-5 pt-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">We have <span class="number" data-number="850000">0</span> great job offers you deserve!</p>
-            <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Your Dream <br><span>Job is Waiting</span></h1>
 
-						<div class="ftco-search">
-							<div class="row">
-		            <div class="col-md-12 nav-link-wrap">
-			            <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-			              <a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill" role="tab" aria-controls="v-pills-1" aria-selected="true">Find a Job</a>
-
-			            </div>
-			          </div>
-			          <div class="col-md-12 tab-wrap">
-			            
-			            <div class="tab-content p-4" id="v-pills-tabContent">
-
-			              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-			              	<form action="#" class="search-job">
-			              		<div class="row">
-			              			<div class="col-md">
-			              				<div class="form-group">
-				              				<div class="form-field">
-				              					<div class="icon"><span class="icon-briefcase"></span></div>
-								                <input type="text" class="form-control" placeholder="eg. Garphic. Web Developer">
-								              </div>
-							              </div>
-			              			</div>
-			              			<div class="col-md">
-			              				<div class="form-group">
-			              					<div class="form-field">
-				              					<div class="select-wrap">
-						                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-						                      <select name="" id="" class="form-control">
-						                      	<option value="">Category</option>
-						                      	<option value="">Full Time</option>
-						                        <option value="">Part Time</option>
-						                        <option value="">Freelance</option>
-						                        <option value="">Internship</option>
-						                        <option value="">Temporary</option>
-						                      </select>
-						                    </div>
-								              </div>
-							              </div>
-                          </div>
-			              			<div class="col-md">
-			              				<div class="form-group">
-			              					<div class="form-field">
-				              					<div class="icon"><span class="icon-map-marker"></span></div>
-								                <input type="text" class="form-control" placeholder="Location">
-								              </div>
-							              </div>
-			              			</div>
-			              			<div class="col-md">
-			              				<div class="form-group">
-			              					<div class="form-field">
-								                <input type="submit" value="Search" class="form-control btn btn-primary">
-								              </div>
-							              </div>
-			              			</div>
-			              		</div>
-			              	</form>
-			              </div>
-
-			            </div>
-			          </div>
-			        </div>
-		        </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-   <section class="ftco-section services-section bg-light">
-      <div class="container">
-        <div class="row d-flex">
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-resume"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Search Millions of Jobs</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-collaboration"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Easy To Manage Jobs</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
-              </div>
-            </div>    
-          </div>
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-promotions"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Top Careers</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
-              </div>
-            </div>      
-          </div>
-          <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-            <div class="media block-6 services d-block">
-              <div class="icon"><span class="flaticon-employee"></span></div>
-              <div class="media-body">
-                <h3 class="heading mb-3">Search Expert Candidates</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
-              </div>
-            </div>      
-          </div>
-        </div>
-      </div>
-		</section>
-		
-	<section class="ftco-section ftco-counter">
-    	<div class="container">
-    		<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Categories work wating for you</span>
-            <h2 class="mb-4"><span>Current</span> Job Posts</h2>
-          </div>
-        </div>
-        <div class="row">
-        	<div class="col-md-3 ftco-animate">
-        		<ul class="category">
-        			<li><a href="#">Web Development <span class="number" data-number="1000">0</span></a></li>
-        			<li><a href="#">Graphic Designer <span class="number" data-number="1000">0</span></a></li>
-        			<li><a href="#">Multimedia <span class="number" data-number="2000">0</span></a></li>
-        			<li><a href="#">Advertising <span class="number" data-number="900">0</span></a></li>
-        		</ul>
-        	</div>
-        	<div class="col-md-3 ftco-animate">
-        		<ul class="category">
-        			<li><a href="#">Education &amp; Training <span class="number" data-number="3500">0</span></a></li>
-        			<li><a href="#">English <span class="number" data-number="1560">0</span></a></li>
-        			<li><a href="#">Social Media <span class="number" data-number="1000">0</span></a></li>
-        			<li><a href="#">Writing <span class="number" data-number="2500">0</span></a></li>
-        		</ul>
-        	</div>
-        	<div class="col-md-3 ftco-animate">
-        		<ul class="category">
-        			<li><a href="#">PHP Programming <span class="number" data-number="5500">0</span></a></li>
-        			<li><a href="#">Project Management <span class="number" data-number="2000">0</span></a></li>
-        			<li><a href="#">Finance Management <span class="number" data-number="800">0</span></a></li>
-        			<li><a href="#">Office &amp; Admin <span class="number" data-number="7000">0</span></a></li>
-        		</ul>
-        	</div>
-        	<div class="col-md-3 ftco-animate">
-        		<ul class="category">
-        			<li><a href="#">Web Designer <span><span class="number" data-number="8000">0</span></span></a></li>
-        			<li><a href="#">Customer Service <span class="number" data-number="4000">0</span></a></li>
-        			<li><a href="#">Marketing &amp; Sales <span class="number" data-number="3300">0</span></a></li>
-        			<li><a href="#">Software Development <span class="number" data-number="1356">0</span></a></li>
-        		</ul>
-        	</div>
-        </div>
-    	</div>
-    </section>
-
-		<section class="ftco-section bg-light">
-			<div class="container">
-				<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Recently Added Jobs</span>
-            <h2 class="mb-4"><span>Recent</span> Jobs</h2>
-          </div>
-        </div>
-				<div class="row">
-					<div class="col-md-12 ftco-animate">
-
-            <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-                <div class="job-post-item-header d-flex align-items-center">
-                  <h2 class="mr-3 text-black h3">Frontend Development</h2>
-                  <div class="badge-wrap">
-                   <span class="bg-primary text-white badge py-2 px-3">Partime</span>
-                  </div>
-                </div>
-                <div class="job-post-item-body d-block d-md-flex">
-                  <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-                  <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-                </div>
-              </div>
-
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-            </div>
-          </div><!-- end -->
-
-          <div class="col-md-12 ftco-animate">
-						<div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-						  <div class="mb-4 mb-md-0 mr-5">
-						   <div class="job-post-item-header d-flex align-items-center">
-						     <h2 class="mr-3 text-black h4">Full Stack Developer</h2>
-						     <div class="badge-wrap">
-						      <span class="bg-warning text-white badge py-2 px-3">Full Time</span>
-						     </div>
-						   </div>
-						   <div class="job-post-item-body d-block d-md-flex">
-						     <div class="mr-3"><span class="icon-layers"></span> <a href="#">Google, Inc.</a></div>
-						     <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-						   </div>
-						  </div>
-
-						  <div class="ml-auto d-flex">
-						  	<a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-danger rounded-circle btn-favorite d-flex align-items-center">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-
-						</div>
-          </div> <!-- end -->
-          <div class="col-md-12 ftco-animate">
-           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-               <div class="job-post-item-header d-flex align-items-center">
-                 <h2 class="mr-3 text-black h4">Open Source Interactive Developer</h2>
-                 <div class="badge-wrap">
-                  <span class="bg-info text-white badge py-2 px-3">Freelance</span>
-                 </div>
-               </div>
-               <div class="job-post-item-body d-block d-md-flex">
-                 <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
-                 <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-               </div>
-              </div>
-              
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-           </div>
-         </div> <!-- end -->
-         <div class="col-md-12 ftco-animate">
-
-           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-               <div class="job-post-item-header d-flex align-items-center">
-                 <h2 class="mr-3 text-black h4">Frontend Development</h2>
-                 <div class="badge-wrap">
-                  <span class="bg-secondary text-white badge py-2 px-3">Internship</span>
-                 </div>
-               </div>
-               <div class="job-post-item-body d-block d-md-flex">
-                 <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-                 <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-               </div>
-              </div>
-
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-           </div>
-         </div> <!-- end -->
-         <div class="col-md-12 ftco-animate">
-           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-               <div class="job-post-item-header d-flex align-items-center">
-                 <h2 class="mr-3 text-black h4">Open Source Interactive Developer</h2>
-                 <div class="badge-wrap">
-                  <span class="bg-danger text-white badge py-2 px-3">Temporary</span>
-                 </div>
-               </div>
-               <div class="job-post-item-body d-block d-md-flex">
-                 <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
-                 <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-               </div>
-              </div>
-              
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-           </div>
-         </div> <!-- end -->
-         <div class="col-md-12 ftco-animate">
-
-            <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-                <div class="job-post-item-header d-flex align-items-center">
-                  <h2 class="mr-3 text-black h3">Frontend Development</h2>
-                  <div class="badge-wrap">
-                   <span class="bg-primary text-white badge py-2 px-3">Partime</span>
-                  </div>
-                </div>
-                <div class="job-post-item-body d-block d-md-flex">
-                  <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-                  <div><span class="icon-map-marker"></span> <span>Western City, UK</span></div>
-                </div>
-              </div>
-
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-            </div>
-          </div><!-- end -->
-
-          <div class="col-md-12 ftco-animate">
-						<div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-						  <div class="mb-4 mb-md-0 mr-5">
-						   <div class="job-post-item-header d-flex align-items-center">
-						     <h2 class="mr-3 text-black h4">Full Stack Developer</h2>
-						     <div class="badge-wrap">
-						      <span class="bg-warning text-white badge py-2 px-3">Full Time</span>
-						     </div>
-						   </div>
-						   <div class="job-post-item-body d-block d-md-flex">
-						     <div class="mr-3"><span class="icon-layers"></span> <a href="#">Google, Inc.</a></div>
-						     <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-						   </div>
-						  </div>
-
-						  <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-
-						</div>
-          </div> <!-- end -->
-          <div class="col-md-12 ftco-animate">
-           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-               <div class="job-post-item-header d-flex align-items-center">
-                 <h2 class="mr-3 text-black h4">Open Source Interactive Developer</h2>
-                 <div class="badge-wrap">
-                  <span class="bg-info text-white badge py-2 px-3">Freelance</span>
-                 </div>
-               </div>
-               <div class="job-post-item-body d-block d-md-flex">
-                 <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
-                 <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-               </div>
-              </div>
-              
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-           </div>
-         </div> <!-- end -->
-         <div class="col-md-12 ftco-animate">
-
-           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-               <div class="job-post-item-header d-flex align-items-center">
-                 <h2 class="mr-3 text-black h4">Frontend Development</h2>
-                 <div class="badge-wrap">
-                  <span class="bg-secondary text-white badge py-2 px-3">Internship</span>
-                 </div>
-               </div>
-               <div class="job-post-item-body d-block d-md-flex">
-                 <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
-                 <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-               </div>
-              </div>
-
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-           </div>
-         </div> <!-- end -->
-         <div class="col-md-12 ftco-animate">
-           <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center">
-
-              <div class="mb-4 mb-md-0 mr-5">
-               <div class="job-post-item-header d-flex align-items-center">
-                 <h2 class="mr-3 text-black h4">Open Source Interactive Developer</h2>
-                 <div class="badge-wrap">
-                  <span class="bg-danger text-white badge py-2 px-3">Temporary</span>
-                 </div>
-               </div>
-               <div class="job-post-item-body d-block d-md-flex">
-                 <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
-                 <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
-               </div>
-              </div>
-              
-              <div class="ml-auto d-flex">
-                <a href="job-single.html" class="btn btn-primary py-2 mr-1">Apply Job</a>
-                <a href="#" class="btn btn-secondary rounded-circle btn-favorite d-flex align-items-center icon">
-                	<span class="icon-heart"></span>
-                </a>
-              </div>
-           </div>
-         </div> <!-- end -->
+<section class="home-one parallax ulockd_bgih1" data-stellar-background-ratio="0.3">
+		<div class="container">
+			<div class="row home-content">
+				<div class="col-lg-8">
+					<div class="home-text">
+						<h2 class="fz40">Find The Job That Fits Your Life</h2>
+						<p class="color-silver">Each month, more than 7 million jobseekers turn to website in their search for work, making over 160,000 applications every day.</p>
+					</div>
 				</div>
-				<div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+				<div class="col-lg-12">
+					<div class="home-job-search-box mt20 mb20">
+						<form class="form-inline">
+							<div class="search_option_one">
+							    <div class="form-group">
+							    	<label for="exampleInputName"><span class="flaticon-search"></span></label>
+							    	<input type="text" class="form-control h70" id="exampleInputName" placeholder="Job Title or Keywords">
+							    </div>
+							</div>
+							<div class="search_option_two">
+							    <div class="form-group">
+							    	<label for="exampleInputEmail"><span class="flaticon-location-pin"></span></label>
+							    	<input type="text" class="form-control h70" id="exampleInputEmail" placeholder="Location">
+							    </div>
+							</div>
+							<div class="search_option_button">
+							    <button type="submit" class="btn btn-thm btn-secondary h70">Search</button>								
+							</div>
+						</form>
+					</div>
+					<p class="color-silver"><span class="color-white">Trending Keywords:</span> DesignCer,  Developer,  Web,  IOS,  PHP,  Senior,  Engineer</p>
+				</div>
 			</div>
-		</section>
-   
-    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);" data-stellar-background-ratio="0.5">
-    	<div class="container">
-    		<div class="row justify-content-center">
-    			<div class="col-md-10">
-		    		<div class="row">
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="1350000">0</strong>
-		                <span>Jobs</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="40000">0</strong>
-		                <span>Members</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="30000">0</strong>
-		                <span>Resume</span>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-		            <div class="block-18 text-center">
-		              <div class="text">
-		                <strong class="number" data-number="10500">0</strong>
-		                <span>Company</span>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-	        </div>
-        </div>
-    	</div>
-    </section>
+		</div>
+	</section>
 
+	<!-- Popular Job Categories -->
+	<section class="popular-job bgc-fa">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="ulockd-main-title">
+						<h3 class="mt0">Popular Job Categories</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg1" style="background-image: url(images/service/1.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-pen"></span></div>
+							<div class="details">
+								<h5>Design, Art & Multimedia</h5>
+								<p>22 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg2" style="background-image: url(images/service/2.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-mortarboard"></span></div>
+							<div class="details">
+								<h5>Education Training</h5>
+								<p>48 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg3" style="background-image: url(images/service/3.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-bars"></span></div>
+							<div class="details">
+								<h5>Accounting / Finance</h5>
+								<p>97 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg4" style="background-image: url(images/service/4.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-interview"></span></div>
+							<div class="details">
+								<h5>Human Resource</h5>
+								<p>17 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg5" style="background-image: url(images/service/5.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-antenna"></span></div>
+							<div class="details">
+								<h5>Telecommunications</h5>
+								<p>60 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg6" style="background-image: url(images/service/6.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-food"></span></div>
+							<div class="details">
+								<h5>Restaurant / Food Service</h5>
+								<p>22 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg7" style="background-image: url(images/service/7.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-customer-support"></span></div>
+							<div class="details">
+								<h5>Construction / Facilities</h5>
+								<p>05 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<a href="#" class="icon_hvr_img_box sbbg8" style="background-image: url(images/service/8.jpg);">
+						<div class="overlay">
+							<div class="icon"><span class="flaticon-care"></span></div>
+							<div class="details">
+								<h5>Health</h5>
+								<p>10 Open Positions</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-6 offset-lg-3">
+					<div class="pjc_all_btn text-center">
+						<a class="btn btn-transparent" href="#">Browse All Categories <span class="flaticon-right-arrow pl10"></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <section class="ftco-section testimony-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-          	<span class="subheading">Testimonial</span>
-            <h2 class="mb-4"><span>Happy</span> Clients</h2>
-          </div>
-        </div>
-        <div class="row ftco-animate">
-          <div class="col-md-12">
-            <div class="carousel-testimony owl-carousel ftco-owl">
-              <div class="item">
-                <div class="testimony-wrap py-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">Marketing Manager</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_2.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">Interface Designer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_3.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">UI Designer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">Web Developer</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimony-wrap py-4 pb-5">
-                  <div class="user-img mb-4" style="background-image: url(images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                  </div>
-                  <div class="text">
-                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <p class="name">Roger Scott</p>
-                    <span class="position">System Analyst</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+	<!-- How It's Work -->
+	<section class="popular-job">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="ulockd-main-title">
+						<h3 class="mt0">How It Works?</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-lg-4 prpl5">
+					<div class="icon_box_hiw">
+						<div class="icon"><div class="list_tag float-right"><p>1</p></div><span class="flaticon-unlocked"></span></div>
+						<div class="details">
+							<h4>Create An Account</h4>
+							<p>Post a job to tell us about your project. We'll quickly match you with the right freelancers.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 prpl5 mt20-xxsd">
+					<div class="icon_box_hiw">
+						<div class="icon middle"><div class="list_tag float-right"><p>2</p></div><span class="flaticon-job"></span></div>
+						<div class="details">
+							<h4>Search Jobs</h4>
+							<p>Browse profiles, reviews, and proposals then interview top candidates.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 prpl5 mt20-xxsd">
+					<div class="icon_box_hiw">
+						<div class="icon"><div class="list_tag float-right"><p>3</p></div><span class="flaticon-trophy"></span></div>
+						<div class="details">
+							<h4>Save & Apply</h4>
+							<p>Use the Upwork platform to chat, share files, and collaborate from your desktop or on the go.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <section class="ftco-section bg-light">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Our Blog</span>
-            <h2><span>Recent</span> Blog</h2>
-          </div>
-        </div>
-        <div class="row d-flex">
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto enim non iste maxime optio, ut com</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet nobis natus incidunt officia assumenda.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi obcaecati praesentium,</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('images/image_4.jpg');">
-              </a>
-              <div class="text mt-3">
-              	<div class="meta mb-2">
-                  <div><a href="#">December 2, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor minima, dolores quis, dolorum accusamu</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-		
-		<section class="ftco-section-parallax">
-      <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-              <h2>Subcribe to our Newsletter</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
-              <div class="row d-flex justify-content-center mt-4 mb-4">
-                <div class="col-md-8">
-                  <form action="#" class="subscribe-form">
-                    <div class="form-group d-flex">
-                      <input type="text" class="form-control" placeholder="Enter email address">
-                      <input type="submit" value="Subscribe" class="submit px-3">
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+	<!-- Features Job List Design -->
+	<section class="popular-job bgc-fa pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ulockd-main-title">
+						<h3 class="mt0">Featured Jobs</h3>
+						<a class="text-thm float-right" href="#">Browse All Jobs <i class="flaticon-right-arrow pl15"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+
+				<div class="col-sm-12 col-lg-12">
+					<div class="fj_post">
+						<div class="details">
+							<h5 class="job_chedule text-thm mt0">Full Time</h5>
+							<div class="thumb fn-smd">
+								<img class="img-fluid" src="images/partners/1.jpg" alt="1.jpg">
+							</div>
+							<h4>JEB Product Sales Specialist, Russia & CIS</h4>
+							<p>Posted 23 August by <a class="text-thm" href="#">Wiggle CRC</a></p>
+							<ul class="featurej_post">
+								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">Bothell, WA, USA</a></li>
+								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
+							</ul>
+						</div>
+						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
+					</div>
+				</div>
+
+				<div class="col-sm-12 col-lg-12">
+					<div class="fj_post">
+						<div class="details">
+							<h5 class="job_chedule text-thm mt0">Part Time</h5>
+							<div class="thumb fn-smd">
+								<img class="img-fluid" src="images/partners/2.jpg" alt="2.jpg">
+							</div>
+							<h4>General Ledger Accountant</h4>
+							<p>Posted 23 August by <a class="text-thm" href="#">Robert Half Finance & Accounting</a></p>
+							<ul class="featurej_post">
+								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">RG40, Wokingham</a></li>
+								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
+							</ul>
+						</div>
+						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
+					</div>
+				</div>
+				<div class="col-sm-12 col-lg-12">
+					<div class="fj_post">
+						<div class="details">
+							<h5 class="job_chedule text-thm mt0">Full Time</h5>
+							<div class="thumb fn-smd">
+								<img class="img-fluid" src="images/partners/3.jpg" alt="3.jpg">
+							</div>
+							<h4>Junior Digital Graphic Designer</h4>
+							<p>Posted 23 August by <a class="text-thm" href="#">Parkside Recruitment - Uxbridge Finance</a></p>
+							<ul class="featurej_post">
+								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">New Denham, UB8 1JG</a></li>
+								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
+							</ul>
+						</div>
+						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
+					</div>
+				</div>
+				<div class="col-sm-12 col-lg-12">
+					<div class="fj_post">
+						<div class="details">
+							<h5 class="job_chedule text-thm mt0">Full Time</h5>
+							<div class="thumb fn-smd">
+								<img class="img-fluid" src="images/partners/4.jpg" alt="4.jpg">
+							</div>
+							<h4>UX/UI Designer</h4>
+							<p>Yesterday <a class="text-thm" href="#">NonStop Recruitment Ltd</a></p>
+							<ul class="featurej_post">
+								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">Bothell, WA, USA</a></li>
+								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
+							</ul>
+						</div>
+						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Browse Local Jobs -->
+	<section class="job-location pb30">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ulockd-main-title">
+						<h3 class="mt0">Browse Local Jobs</h3>
+						<a class="text-thm float-right" href="#">Browse All Local Jobs <i class="flaticon-right-arrow pl15"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
+					<a href="#" class="job_loc_img_box">
+						<div class="thumb"><img class="img-fluid" src="images/service/9.jpg" alt="9.jpg"></div>
+						<div class="details">
+							<h4>London</h4>
+							<h5>152,141</h5>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<a href="#" class="job_loc_img_box">
+						<div class="thumb"><img class="img-fluid" src="images/service/10.jpg" alt="10.jpg"></div>
+						<div class="details">
+							<h4>Manchester</h4>
+							<h5>586,478</h5>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<a href="#" class="job_loc_img_box">
+						<div class="thumb"><img class="img-fluid" src="images/service/11.jpg" alt="11.jpg"></div>
+						<div class="details">
+							<h4>Liverpool</h4>
+							<h5>15,258</h5>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<a href="#" class="job_loc_img_box">
+						<div class="thumb"><img class="img-fluid" src="images/service/12.jpg" alt="12.jpg"></div>
+						<div class="details">
+							<h4>Istanbul</h4>
+							<h5>152,141</h5>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<a href="#" class="job_loc_img_box">
+						<div class="thumb"><img class="img-fluid" src="images/service/13.jpg" alt="13.jpg"></div>
+						<div class="details">
+							<h4>New York</h4>
+							<h5>586,478</h5>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<a href="#" class="job_loc_img_box">
+						<div class="thumb"><img class="img-fluid" src="images/service/14.jpg" alt="14.jpg"></div>
+						<div class="details">
+							<h4>Los Angeles</h4>
+							<h5>15,258</h5>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Expert Freelancer List -->
+	<section class="expert-freelancer bgc-fa">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ulockd-main-title">
+						<h3 class="mt0">Hire Expert Freelancer</h3>
+						<a class="text-thm float-right" href="#">Browse All Freelancers <i class="flaticon-right-arrow pl15"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ef_slider">
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/1.jpg" alt="1.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Ali TUFAN</h4>
+									<p>App Designer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">100%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$85</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/2.jpg" alt="2.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Dominikus YURI</h4>
+									<p>Front-end Developer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>United States</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/usa.png" alt="usa.png"></li>
+										</ul>
+										
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">100%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$200</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/3.jpg" alt="3.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Deanna ROSE</h4>
+									<p>UI - UX Designer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Brazil</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/brazil.png" alt="brazil.png"></li>
+										</ul>
+										
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">100%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/4.jpg" alt="4.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Lori Ramos</h4>
+									<p>UX/UI Designer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">88%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/5.jpg" alt="5.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Michele Snyder</h4>
+									<p>Front-End Developer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">88%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/6.jpg" alt="6.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Randall Warren</h4>
+									<p>Graphics Designer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">88%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/7.jpg" alt="7.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Peter Hawkins</h4>
+									<p>Magento Certified Developer</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">88%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/8.jpg" alt="8.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Martha Griffin</h4>
+									<p>Medical Professed</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">88%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="ef_post">
+								<div class="ef_header">
+									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
+									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
+								</div>
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/team/9.jpg" alt="9.jpg">
+								</div>
+								<div class="freelancer_review">
+									<div class="everage_rating">4.5</div>
+									<ul class="rating_list">
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
+										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
+									</ul>
+									<h4 class="title">Kathleen Moreno</h4>
+									<p>Marketing Expert</p>
+								</div>
+								<div class="details">
+									<div class="job_locate">
+										<p>Location</p>
+										<ul class="float-right">
+											<li class="list-inline-item m0"><p>Turkey</p></li>
+											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
+										</ul>
+									</div>
+									<div class="job_srate">
+										<p>Job Success</p>
+										<p class="float-right">88%</p>
+									</div>
+									<div class="ef_prf_link mt10">
+										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 @endsection

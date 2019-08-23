@@ -1,54 +1,107 @@
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="{{url('/')}}">Career Doctor</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+<header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu" style="background-color:#262626;">
+		<div class="container">
+		    <!-- Ace Responsive Menu -->
+		    <nav>
+		        <!-- Menu Toggle btn-->
+		        <div class="menu-toggle">
+		            <img class="nav_logo_img img-fluid" src="images/header-logo.png" alt="header-logo.png">
+		            <button type="button" id="menu-btn">
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		            </button>
+		        </div>
+		        <a href="{{ url('/') }}" class="navbar_brand float-left dn-smd">
+		            <img class="img-fluid" src="{{ ('candidate_company/assets/images/header-logo.png') }}" alt="header-logo.png">
+		        </a>
+		        <!-- Responsive Menu Structure-->
+		        <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+		        <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+		            <li>
+		                <a href="{{ url('/') }}"><span class="title">Home</span></a>
+					</li>
+					@guest
+		            <li>
+		                <a href="#"><span class="title">Find A Job</span></a>
+		            </li>
+					@else
+					@if(auth::user()->user_type == 'candidate')
+					<li class="last">
+		                <a href="#"><span class="title">Find A Job</span></a>
+					</li>
+					@endif
+					@if(auth::user()->user_type == 'company')
+					<li class="last">
+		                <a href="page-employer-post-job.html"><span class="title">Post a Job</span></a>
+					</li>
+					@endif
+					@endguest
+		            
+		            <li>
+		                <a href="#"><span class="title">Blog</span></a>
+					</li>
+					<li>
+		                <a href="#"><span class="title">About Us</span></a>
+					</li>
+					<li>
+		                <a href="#"><span class="title">Contact Us</span></a>
+		            </li>
+		        </ul>
+		        <ul class="sign_up_btn pull-right dn-smd mt10">
+					@guest
+					<li><a href="{{ route('login') }}" class="btn btn-md">Log<span class="dn-md">in</span>/Reg<span class="dn-md">ister</span></a></li>
+					@else
+					<li>
+						<a href="{{ route('dashboard') }}" class="btn btn-md">Dashboard</a>
+						<a href="{{ route('logout') }}" class="btn btn-md" onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();">Logout</a>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+						@csrf
+					</form>
+					</li>
+					@endguest
+	            </ul><!-- Button trigger modal -->
+		    </nav>
+		</div>
+	</header>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <!-- <li class="nav-item cta mr-md-2"><a href="new-post.html" class="nav-link">Post a Job</a></li> -->
-	         @guest
-						<li class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Want a Job</a></li>
-						@else
-						@if(Auth::user()->user_type == 'company')
-						<li class="nav-item cta mr-md-2"><a href="new-post.html" class="nav-link">Post a Job</a></li>
-						@endif
-						@if(Auth::user()->user_type == 'candidate')
-						<li class="nav-item cta cta-colored"><a href="job-post.html" class="nav-link">Want a Job</a></li>
-						@endif
-						@endguest
-						@guest
-						<li class="nav-item"><a href="{{route('login')}}" class="nav-link">Sign in / Create Account</a></li>
-						@else
-						<li class="nav-item dropdown">
-								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-										{{ Auth::user()->name }} <span class="caret"></span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-										@if(Auth::user()->user_type == 'candidate')
-										<a href="{{ route('candidateProfile') }}" class="dropdown-item">Profile</a>
-										<a href="{{ route('index') }}" target="_blank" class="dropdown-item">Create CV</a>
-										@endif
-										@if(Auth::user()->user_type == 'company')
-										<a href="{{ route('companyProfile') }}" class="dropdown-item">Profile</a>
-										@endif
-										<a class="dropdown-item" href="{{ route('logout') }}"
-												onclick="event.preventDefault();
-																			document.getElementById('logout-form').submit();">
-												{{ __('Logout') }}
-										</a>
-										<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-												@csrf
-										</form>
-								</div>
-						</li>
-						@endguest
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+<!-- Main Header Nav For Mobile -->
+
+	<div id="page" class="stylehome1 h0">
+		<div class="mobile-menu">
+			<div class="header stylehome1">
+	            <img class="nav_logo_img img-fluid float-left mt25" src="{{ ('candidate_company/assets/images/header-logo.png') }}" alt="header-logo.png">
+				<a class="bg-thm" href="#menu"><span></span></a>
+			</div>
+		</div><!-- /.mobile-menu -->
+		<nav id="menu" class="stylehome1">
+			<ul>
+				<li><a href="{{ url('/') }}">Home</a></li>
+				@guest
+				<li><a href="#">Find a Job</a></li>
+				@else
+				@if(auth::user()->user_type == 'candidate')
+				<li><a href="#">Find a Job</a></li>
+				@endif
+				@if(auth::user()->user_type == 'company')
+				<li><a href="#">Post a Job</a></li>
+				@endif
+				@endguest
+				<li><a href="#">Blog</a></li>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Contact Us</a></li>
+				@guest
+					<li><a href="{{ route('login') }}" class="text-thm">Log<span class="dn-md">in</span>/Reg<span class="dn-md">ister</span></a></li>
+					@else
+						<li><a href="{{ route('dashboard') }}" class="text-thm">Dashboard</a></li>
+						<li><a href="{{ route('logout') }}" class="text-thm" onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();">Logout</a>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+						@csrf
+					</form>
+					</li>
+				@endguest
+				<!-- <li><a class="text-thm" href="page-log-reg.html">Login/Register</a></li> -->
+			</ul>
+		</nav>
+	</div>

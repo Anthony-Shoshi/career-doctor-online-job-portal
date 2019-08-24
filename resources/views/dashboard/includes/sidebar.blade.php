@@ -1,7 +1,7 @@
 <div class="col-sm-12 col-lg-4 col-xl-3 dn-smd">
 					<div class="user_profile">
 						<div class="media">
-						  	<img src="images/team/8.jpg" class="align-self-start mr-3 rounded-circle" alt="8.jpg">
+						  	<img src="{{asset(auth::user()->image)}}" class="align-self-start mr-3 rounded-circle" alt="User Image">
 						  	<div class="media-body">
 						    	<h5 class="mt-0">Hi, {{auth::user()->name}}</h5>
 						    	<p>{{auth::user()->user_type}}</p>
@@ -25,8 +25,8 @@
 							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif
 							@if(auth::user()->user_type == 'company')
-							<li class="active"><a href="page-employer-dashboard.html"><span class="flaticon-dashboard"></span> Dashboard</a></li>
-							<li><a href="page-employer-profile.html"><span class="flaticon-profile"></span> Company Profile</a></li>
+							<li class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"><span class="flaticon-dashboard"></span> Dashboard</a></li>
+							<li class="{{Request::is('/company/profile') ? 'active' : ''}}"><a href="{{route('companyProfile')}}"><span class="flaticon-profile"></span> Company Profile</a></li>
 							<li><a href="page-employer-post-job.html"><span class="flaticon-resume"></span> Post a New Job</a></li>
 							<li><a href="page-employer-manage-job.html"><span class="flaticon-paper-plane"></span> Manage Jobs</a></li>
 							<li><a href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a></li>

@@ -57,6 +57,7 @@ Route::group(['namespace' => 'Company'], function () {
     Route::get('/getCities/{id}', 'SignInController@getCities');
     Route::post('/company/register/save', 'SignInController@saveRegisterCompany')->name('saveRegisterCompany');
     Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
+    Route::post('/company/profile/update', 'CompanyController@updateCompanyProfile')->name('updateCompanyProfile');
 });
 
 //CV

@@ -9,6 +9,7 @@ use App\JobIndustry;
 use App\CompanyGeneralInfo;
 use App\User;
 use auth;
+use Hash;
 
 class CompanyController extends Controller
 {
@@ -89,4 +90,44 @@ class CompanyController extends Controller
 
         return redirect()->back()->with('success', 'Company Profile Updated Successfully!');
     }
+
+    public function changePassword()
+    {
+        return view('company.changePassword.changePassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate(
+            [
+                'oldPassword' => 'required',
+                'newPassword' => 'required',
+                'confirmPassword' => 'required'
+            ],
+            [
+                'oldPassword.required' => 'The old password field is required!',
+                'newPassword.required' => 'The new password field is required!',
+                'confirmPassword.required' => 'The confirm password field is required!',
+            ]
+        );
+
+        $user = User::findOrFail($request->id);
+        if (Hash::check($request->oldPassword, $user->password)) {
+            if ($request->oldPassword != $request->newPassword) {
+                if ($request->newPassword == $request->confirmPassword) {
+                    $user->password = Hash::make($request->newPassword);
+                    $user->save();
+                    return redirect()->back()->with('success', 'Password changed successfully!');
+                } else {
+                    return redirect()->back()->with('delete', 'Confirm password not matched with new password!');
+                }
+            } else {
+                return redirect()->back()->with('delete', 'New Password cannot be same as old password!');
+            }
+        } else {
+            return redirect()->back()->with('delete', 'Old password not matched with stored password!');
+        }
+
+    }
+
 }

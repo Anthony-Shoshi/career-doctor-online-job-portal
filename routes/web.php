@@ -49,6 +49,8 @@ Route::group(['namespace' => 'Candidate'], function () {
     Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
     Route::post('/candidate/profile/save', 'CandidateController@saveCandidateProfile')->name('saveCandidateProfile');
     Route::post('/candidate/profile/update', 'CandidateController@updateCandidateProfile')->name('updateCandidateProfile');
+    Route::get('/candidate/changePassword', 'CandidateController@changePassword')->name('changePassword');
+    Route::post('/candidate/updatePassword', 'CandidateController@updatePassword')->name('updatePassword');
 });
 
 // Company
@@ -58,6 +60,8 @@ Route::group(['namespace' => 'Company'], function () {
     Route::post('/company/register/save', 'SignInController@saveRegisterCompany')->name('saveRegisterCompany');
     Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
     Route::post('/company/profile/update', 'CompanyController@updateCompanyProfile')->name('updateCompanyProfile');
+    Route::get('/company/changePassword', 'CompanyController@changePassword')->name('changePassword');
+    Route::post('/company/updatePassword', 'CompanyController@updatePassword')->name('updatePassword');
 });
 
 //CV

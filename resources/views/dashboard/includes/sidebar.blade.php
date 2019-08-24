@@ -20,7 +20,7 @@
 							<li><a href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a></li>
 							<li><a href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a></li>
 							<li><a href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a></li>
-							<li><a href="page-candidates-change-password.html"><span class="flaticon-locked"></span> Change Password</a></li>
+							<li class="{{Request::is('/candidate/changePassword') ? 'active' : ''}}"><a href="{{route('changePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="page-log-reg.html"><span class="flaticon-logout"></span> Logout</a></li>
 							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif
@@ -32,7 +32,7 @@
 							<li><a href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a></li>
 							<li><a href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a></li>
 							<li><a href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a></li>
-							<li><a href="page-employer-change-password.html"><span class="flaticon-locked"></span> Change Password</a></li>
+							<li class="{{Request::is('/company/changePassword') ? 'active' : ''}}"><a href="{{route('changePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="page-log-reg.html"><span class="flaticon-logout"></span> Logout</a></li>
 							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif

@@ -25,7 +25,6 @@ class SocialGoogleAccountService
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
                     'user_type' => 'candidate',
-                    'image' => 'upload/candidate/profile/default.jpg',
                     'hash_key' => 'something',
                     'unique_id' => 'something',
                     'password' => md5(rand(1, 10000)),

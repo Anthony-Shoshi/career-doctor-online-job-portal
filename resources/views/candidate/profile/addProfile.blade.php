@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-sm-12 col-lg-8 col-xl-9">
-					<form action="{{ route('saveCandidateProfile') }}" method="post" enctype="multipart/form-data" class="my_profile_form_area employer_profile">
+					<form action="{{ route('saveCandidateProfile') }}" method="post" class="my_profile_form_area employer_profile">
 						<div class="row">
 							<div class="col-lg-12">
 								<h4 class="fz20 mb20">My Profile</h4>
@@ -13,10 +13,9 @@
               				<div class="col-lg-12">
 							    <div class="avatar-upload mb30">
 							        <div class="avatar-edit">
-							            <input class="btn btn-thm" name="image" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+							            <input class="btn btn-thm" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
 							            <label for="imageUpload"></label>
 							        </div>
-									<label style="color:#221f1f;margin-bottom: 4%;"> Upload Profile Image</label>
 							        <div class="avatar-preview">
 							            <div id="imagePreview"></div>
 							        </div>
@@ -118,25 +117,9 @@
 									@enderror
 								</div>
 							</div>
-							<div class="col-md-6 col-lg-4">
+							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
-							    	<label for="fullname"> Select your skill from following list</label>
-									<select name="industry_id" id="fullname" class="form-control @error('industry_id') is-invalid @enderror">
-									<option value="">Select Skill</option>
-									@foreach($jobIndustries as $jobIndustry)
-									<option value="{{$jobIndustry->id}}">{{$jobIndustry->industry_name}}</option>
-									@endforeach
-									<select>
-									@error('industry_id')
-										<span class="invalid-feedback" role="alert">
-											<strong>{{ $message }}</strong>
-										</span>
-									@enderror
-								</div>
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<div class="my_profile_input form-group">
-							    	<label for="fullname"> Current Postal Code</label>
+							    	<label for="fullname"> Current Position</label>
 									<input type="text" name="current_postcode" id="fullname" class="form-control @error('current_postcode') is-invalid @enderror">
 									@error('current_postcode')
 										<span class="invalid-feedback" role="alert">
@@ -145,9 +128,9 @@
 									@enderror
 								</div>
 							</div>
-							<div class="col-md-6 col-lg-4">
+							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
-							    	<label for="fullname">Status</label>
+							    	<label for="fullname">Current Employer</label>
 									<input type="text" id="fullname" name="current_status" class="form-control @error('current_status') is-invalid @enderror">
 									@error('current_status')
 										<span class="invalid-feedback" role="alert">

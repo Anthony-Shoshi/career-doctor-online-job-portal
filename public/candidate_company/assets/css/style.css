@@ -6986,6 +6986,11 @@ a.scrollToHome.text-thm:hover{ color: #79b530 !important;}
 .contact_details .address_list li {
   clear: both;
 }
+
+.contact_details .address_list li a:hover{
+  color: black;
+}
+
 .contact_details .address_list li a{
   color: #ffffff;
   display: -webkit-flex;

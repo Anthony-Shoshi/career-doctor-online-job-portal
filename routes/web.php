@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('/aboutUs', 'PageController@aboutUs')->name('aboutUs');
+Route::get('/contactUs', 'PageController@contactUs')->name('contactUs');
+Route::get('/allBlog', 'PageController@allBlog')->name('allBlog');
 
 // Admin
 Route::group(['namespace' => 'Admin'], function () {

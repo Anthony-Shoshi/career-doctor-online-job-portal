@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/style.css') }}">
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/responsive.css') }}">
+<!-- toastr -->
+<link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <!-- Title -->
 <title>CareerUp - The Most Popular Job Board HTML Template</title>
 <!-- Favicon -->
@@ -158,7 +160,7 @@
 <!-- Custom script for all pages --> 
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/script.js') }}"></script>
 <script src="{{asset('js/vue.js')}}"></script>
-<script type="text/javascript" src="{{ asset('js/toastr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/toastr.js') }}"></script>
 <script>
     @if(Session::has('success'))
       toastr.success("{{ Session::get('success') }}");

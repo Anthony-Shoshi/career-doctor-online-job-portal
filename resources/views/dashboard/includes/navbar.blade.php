@@ -86,7 +86,7 @@
 	                </li>
 	                <li class="user_setting">
 						<div class="dropdown">
-	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown"><span>{{auth::user()->name}}</span></a> 
+	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown"><img class="rounded-circle" src="{{asset(auth::user()->image)}}" alt="User Image"> <span class="pl15 pr15">{{auth::user()->name}}</span></a> 
 						    <div class="dropdown-menu">
 						    	<div class="user_set_header">
 							    	<p>Hi, {{auth::user()->name}} <br><span class="address">{{auth::user()->user_type}}</span></p>
@@ -178,7 +178,7 @@
                 </li>
                 <li class="user_setting">
 					<div class="dropdown">
-                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown">{{auth::user()->name}}</a> 
+                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown"><img class="rounded-circle" src="{{asset(auth::user()->image)}}" alt="User Image" title="CreativeLayers"></a> 
 					    <div class="dropdown-menu">
 					    	<div class="user_set_header">
 						    	<p>Hi, {{auth::user()->name}} <br><span class="address">{{auth::user()->user_type}}</span></p>
@@ -218,7 +218,7 @@
 		        </li>
             </ul>
 			<div class="header stylehome1 dashbord_mobile_logo">
-	            <img class="nav_logo_img img-fluid float-left mt25" src="images/header-logo.png" alt="header-logo.png">
+	            <img class="nav_logo_img img-fluid float-left mt25" src="{{asset('candidate_company/assets/images/header-logo.png')}}" alt="header-logo.png">
 				<a class="bg-thm" href="#menu"><span></span></a>
 			</div>
 		</div><!-- /.mobile-menu -->

@@ -23,7 +23,7 @@
 						</ul> -->
 						<div class="tab-content" id="pills-tabContent">
 							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-								<form action="{{ route('saveRegisterCompany') }}" method="post">
+								<form action="{{ route('saveRegisterCompany') }}" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="user_type" value="company">
                                     @csrf
 									<h4>Account Information</h4>
@@ -63,7 +63,7 @@
 									<hr>
 									<div class="form-row">
 										<div class="form-group col-md-6">
-										<input type="company_name" name="company_name" id="company_name" tabindex="2" class="form-control @error('company_name') is-invalid @enderror" placeholder="Enter Company Name" autocomplete="company_name" value="{{old('company_name')}}">
+										<input type="text" name="company_name" id="company_name" tabindex="2" class="form-control @error('company_name') is-invalid @enderror" placeholder="Enter Company Name" autocomplete="company_name" value="{{old('company_name')}}">
 										@error('company_name')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -118,10 +118,23 @@
 									</div>
 									</div>
 									<div class="form-row">
-									<div class="form-group col-md-6">
+									<div class="form-group col-md-4">
+									<select name="industry_id" id="industry_id" class="form-control @error('industry_id') is-invalid @enderror">
+											<option value=" " selected>Select Industry Type</option>
+											@foreach($jobIndustries as $jobIndustry)
+											<option value={{$jobIndustry->id}}>{{$jobIndustry->industry_name}}</option>
+											@endforeach
+										</select>
+										@error('industry_id')
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
+									</div>
+									<div class="form-group col-md-4">
 										<input type="file" class="form-control" name="company_banner">
 									</div>
-									<div class="form-group col-md-6">
+									<div class="form-group col-md-4">
 										<textarea name="company_description" class="form-control" id="company_description" cols="30" rows="10" placeholder="Enter Company Description"></textarea>
 									</div>
 									</div>

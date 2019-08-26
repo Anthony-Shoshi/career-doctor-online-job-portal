@@ -38,13 +38,13 @@
 					@endguest
 		            
 		            <li>
-		                <a href="#"><span class="title">Blog</span></a>
+		                <a href="{{route('allBlog')}}"><span class="title">Blog</span></a>
 					</li>
 					<li>
-		                <a href="#"><span class="title">About Us</span></a>
+		                <a href="{{route('aboutUs')}}"><span class="title">About Us</span></a>
 					</li>
 					<li>
-		                <a href="#"><span class="title">Contact Us</span></a>
+		                <a href="{{route('contactUs')}}"><span class="title">Contact Us</span></a>
 		            </li>
 		        </ul>
 		        <ul class="sign_up_btn pull-right dn-smd mt10">
@@ -87,9 +87,9 @@
 				<li><a href="#">Post a Job</a></li>
 				@endif
 				@endguest
-				<li><a href="#">Blog</a></li>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Contact Us</a></li>
+				<li><a href="{{route('allBlog')}}">Blog</a></li>
+				<li><a href="{{route('aboutUs')}}">About Us</a></li>
+				<li><a href="{{route('contactUs')}}">Contact Us</a></li>
 				@guest
 					<li><a href="{{ route('login') }}" class="text-thm">Log<span class="dn-md">in</span>/Reg<span class="dn-md">ister</span></a></li>
 					@else

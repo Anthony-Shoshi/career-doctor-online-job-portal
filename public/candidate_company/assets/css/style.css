@@ -3717,6 +3717,7 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 }
 .user_profile .media img {
   width: 65px;
+  height: 75px;
 }
 .dashbord_nav_list {
   margin-left: 20px;
@@ -3832,7 +3833,8 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
   width: 23px;
 }
 .header_user_notif li img {
-  width: 54px;
+  width: 60px;
+  height: 55px;
 }
 .header_user_notif .user_notif {
   position: relative;
@@ -3932,7 +3934,6 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 .header_user_notif li.user_setting .btn {    
   border: 1px solid transparent;
   color: #979797;
-  margin-top: 17px;
 }
 .header_user_notif li.user_setting .btn:focus {
   border: 1px solid transparent;
@@ -6985,6 +6986,11 @@ a.scrollToHome.text-thm:hover{ color: #79b530 !important;}
 .contact_details .address_list li {
   clear: both;
 }
+
+.contact_details .address_list li a:hover{
+  color: black;
+}
+
 .contact_details .address_list li a{
   color: #ffffff;
   display: -webkit-flex;

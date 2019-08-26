@@ -1,7 +1,7 @@
 <div class="col-sm-12 col-lg-4 col-xl-3 dn-smd">
 					<div class="user_profile">
 						<div class="media">
-						  	<img src="{{asset(auth::user()->image)}}" class="align-self-start mr-3 rounded-circle" alt="User Image">
+						  	<img src="images/team/8.jpg" class="align-self-start mr-3 rounded-circle" alt="8.jpg">
 						  	<div class="media-body">
 						    	<h5 class="mt-0">Hi, {{auth::user()->name}}</h5>
 						    	<p>{{auth::user()->user_type}}</p>
@@ -20,19 +20,19 @@
 							<li><a href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a></li>
 							<li><a href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a></li>
 							<li><a href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a></li>
-							<li class="{{Request::is('/candidate/changePassword') ? 'active' : ''}}"><a href="{{route('changePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
+							<li><a href="page-candidates-change-password.html"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="page-log-reg.html"><span class="flaticon-logout"></span> Logout</a></li>
 							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif
 							@if(auth::user()->user_type == 'company')
-							<li class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"><span class="flaticon-dashboard"></span> Dashboard</a></li>
-							<li class="{{Request::is('/company/profile') ? 'active' : ''}}"><a href="{{route('companyProfile')}}"><span class="flaticon-profile"></span> Company Profile</a></li>
+							<li class="active"><a href="page-employer-dashboard.html"><span class="flaticon-dashboard"></span> Dashboard</a></li>
+							<li><a href="page-employer-profile.html"><span class="flaticon-profile"></span> Company Profile</a></li>
 							<li><a href="page-employer-post-job.html"><span class="flaticon-resume"></span> Post a New Job</a></li>
 							<li><a href="page-employer-manage-job.html"><span class="flaticon-paper-plane"></span> Manage Jobs</a></li>
 							<li><a href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a></li>
 							<li><a href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a></li>
 							<li><a href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a></li>
-							<li class="{{Request::is('/company/changePassword') ? 'active' : ''}}"><a href="{{route('changePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
+							<li><a href="page-employer-change-password.html"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="page-log-reg.html"><span class="flaticon-logout"></span> Logout</a></li>
 							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif

@@ -43,6 +43,21 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/editIndustry/{id}', 'IndustryController@editIndustry')->name('editIndustry');
     Route::post('/updateIndustry', 'IndustryController@updateIndustry')->name('updateIndustry');
     Route::get('/deleteIndustry/{id}', 'IndustryController@deleteIndustry')->name('deleteIndustry');
+    //Country
+    Route::get('/addCountry', 'CountryController@addCountry')->name('addCountry');
+    Route::post('/saveCountry', 'CountryController@saveCountry')->name('saveCountry');
+    Route::get('/countryList', 'CountryController@countryList')->name('countryList');
+    Route::get('/editCountry/{id}', 'CountryController@editCountry')->name('editCountry');
+    Route::post('/updateCountry', 'CountryController@updateCountry')->name('updateCountry');
+    Route::get('/deleteCountry/{id}', 'CountryController@deleteCountry')->name('deleteCountry');
+    //City
+    Route::get('/addCity', 'CityController@addCity')->name('addCity');
+    Route::post('/saveCity', 'CityController@saveCity')->name('saveCity');
+    Route::get('/countryListToGetCities', 'CityController@countryListToGetCities')->name('countryListToGetCities');
+    Route::get('/cityList/{id}', 'CityController@cityList')->name('cityList');
+    Route::get('/editCity/{id}', 'CityController@editCity')->name('editCity');
+    Route::post('/updateCity', 'CityController@updateCity')->name('updateCity');
+    Route::get('/deleteCity/{id}', 'CityController@deleteCity')->name('deleteCity');
 });
 
 // Candidate

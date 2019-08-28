@@ -15,4 +15,9 @@ class City extends Model
     {
         return $this->hasMany(CandidateGeneralInfo::class);
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

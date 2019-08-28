@@ -79,6 +79,52 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link {{Request::is('addCountry') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-pie-chart"></i>
+              <p>
+                Country
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('addCountry')}}" class="nav-link {{Request::is('addCountry') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Country</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('countryList')}}" class="nav-link {{Request::is('countryList') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Country List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link {{Request::is('addCity') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-pie-chart"></i>
+              <p>
+                City
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('addCity')}}" class="nav-link {{Request::is('addCity') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add City</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('countryListToGetCities')}}" class="nav-link {{Request::is('countryListToGetCities') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>City List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

@@ -25,8 +25,12 @@ class SignInController extends Controller
 
     public function getCities($id)
     {
-        $cities = City::where('country_id', $id)->orderBy('name', 'asc')->pluck("name", "id");
-        return json_encode($cities);
+        $cities = City::where('country_id', $id)->orderBy('name', 'asc')->get();
+        $option = '';
+        foreach ($cities as $city) {
+           $option .= '<option value="' . $city->id . '">' . $city->name . '</option>';
+        }
+        return $option;
     }
 
     public function saveRegisterCompany(Request $request)
@@ -60,20 +64,10 @@ class SignInController extends Controller
         $user->email = $request->email;
         $user->user_type = $request->user_type;
         $user->image = 'upload/company/profile/default.jpg';
-        // if ($request->file('image')) {
-        //     $cvImage = $request->file('image');
-        //     $imageOrigirnalName = $cvImage->getClientOriginalName();
-        //     $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
-        //     $uploadPath = 'uploads/user/cvImage/';
-        //     $cvImage->move($uploadPath, $imageName);
-        //     $imageUrl = $uploadPath . $imageName;
-        //     $personalInformation->image = $imageUrl;
-        // } else {
-        //     $mostWanted->image = 'upload/mostwanted/default.jgp';
-        // }
-
         $user->hash_key = 'anything';
         $user->unique_id = rand(1, 100000);
+        $user->created_by = rand(1, 100);
+        $user->updated_by = rand(1, 100);
         $user->password = hash::make($request->password);
         $user->save();
 
@@ -85,7 +79,6 @@ class SignInController extends Controller
         $companyGeneralInfo->company_default_country_id = $request->company_default_country_id;
         $companyGeneralInfo->company_default_city_id = $request->company_default_city_id;
         $companyGeneralInfo->company_default_postcode = $request->company_default_postcode;
-
         if ($request->file('company_banner')) {
             $companyBannerImage = $request->file('company_banner');
             $imageOrigirnalName = $companyBannerImage->getClientOriginalName();
@@ -95,19 +88,15 @@ class SignInController extends Controller
             $imageUrl = $uploadPath . $imageName;
             $companyGeneralInfo->company_banner = $imageUrl;
         }
-
         $companyGeneralInfo->company_description = $request->company_description;
         $companyGeneralInfo->contact_person_name = $request->contact_person_name;
         $companyGeneralInfo->contact_person_email = $request->contact_person_email;
         $companyGeneralInfo->contact_person_position = $request->contact_person_position;
         $companyGeneralInfo->contact_person_phone = $request->contact_person_phone;
-
+        $companyGeneralInfo->created_by = $user->id;
+        $companyGeneralInfo->updated_by = $user->id;
         $companyGeneralInfo->save();
-
         auth()->login($user);
-
         return redirect('/home');
-
-
     }
 }

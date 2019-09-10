@@ -208,32 +208,22 @@ new Vue({
 });
 </script>
 <script type="text/javascript">
-    jQuery(document).ready(function ()
-    {
-            jQuery('select[name="company_default_country_id"]').on('change',function(){
-               var countryID = jQuery(this).val();
-               if(countryID)
-               {
-                  jQuery.ajax({
-                     url : '/CareerDoctor/public/getCities/' +countryID,
-                     type : "GET",
-                     dataType : "json",
-                     success:function(data)
-                     {
-                        console.log(data);
-                        jQuery('select[name="company_default_city_id"]').empty();
-                        jQuery.each(data, function(key,value){
-                           $('select[name="company_default_city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                     }
-                  });
-               }
-               else
-               {
-                  $('select[name="company_default_city_id"]').empty();
-               }
-            });
-    });
+	// Country City
+	$(document).on('change','#company_default_country_id',function(){
+		var countryID = $(this).val();
+		if (countryID != ''){
+			$.ajax({
+				url: '{{ url('getCities') }}/' + countryID,
+				type: 'GET',
+				success:function(data){
+					$('#company_default_city_id').html(data);
+				}
+			})
+		}
+		else {
+			$('#company_default_city_id').html('<option value="">Select City</option>');
+		}
+	});
 </script>
 @endsection
 @endsection

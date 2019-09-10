@@ -4497,16 +4497,13 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
   top: 0;
   opacity: 0;
 }
-.my_resume_skill{
-  margin-bottom: 60px;
-  margin-top: 50px;
-}
+
 .my_resume_skill .title {
   font-size: 20px;
   margin-bottom: 20px;
 }
 .my_resume_skill .bootstrap-tagsinput{
-  padding: 30px;
+  padding: 20px;
 }
 .my_resume_skill .bootstrap-tagsinput input{
   font-size: 14px;
@@ -9412,4 +9409,90 @@ label{
 }
 button.btn.my-2.my-sm-0{
   box-shadow: none;
-}    
+}
+
+.profileAvatar{
+  position: relative;
+  max-width: 205px;
+}
+
+.profileAvatarEdit{
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+
+.profileAvatarPriview{
+  width: 150px;
+  height: 130px;
+  position: relative;
+}
+
+.profileAvatarEdit input{
+  display: none;
+}
+
+.profileAvatarEdit input + label{
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #79b530;
+  border: 1px solid #79b530;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  line-height: 30px;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.profileAvatarPriview #imagePreview{
+  background-color: #f3f2f2;
+}
+
+.profileAvatarEdit input + label::after{
+  content: "Browse";
+  color: #ffffff;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+}
+
+.profileAvatarEdit input + label:hover {
+  background-color: #ffffff;
+  border: 1px solid #79b530;
+}
+
+.profileAvatarEdit input + label:hover::after{
+  color: #79b530;
+}
+
+.profileAvatarPriview div{
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.panel-body input {
+    height: 50px;
+}
+
+.panel-body select {
+    height: 50px;
+}
+
+.panel-body textarea {
+    height: 120px;
+}

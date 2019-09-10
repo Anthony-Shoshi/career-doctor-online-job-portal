@@ -38,17 +38,16 @@ class CreateMessagesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
+            $table->integer('candidate_cover_letter')->default('0');
             $table->text('message');
             $table->tinyInteger('is_seen')->default('0');
             $table->dateTime('seen_at')->nullable()->default(null);
-            $table->tinyInteger('row_delete')->default('0');
-
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->tinyInteger('is_deleted')->default('0');
             $table->index(["user_to"], 'fk_messages_2_idx');
-
             $table->index(["user_from"], 'fk_messages_3_idx');
-
             $table->index(["thread"], 'fk_messages_1_idx');
-
             $table->unique(["id"], 'id_UNIQUE');
             $table->timestamps();
 

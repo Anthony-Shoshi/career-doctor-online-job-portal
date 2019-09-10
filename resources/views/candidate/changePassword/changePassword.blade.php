@@ -5,7 +5,7 @@
 <div class="col-lg-6 col-xl-6">
 					<div class="password_change_form">
 						<h4>Change Password</h4>
-						<form action={{route('updatePassword')}} method="post">
+						<form action={{route('candidateUpdatePassword')}} method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{auth::user()->id}}">       
 							<div class="form-group">

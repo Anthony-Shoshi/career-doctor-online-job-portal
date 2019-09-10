@@ -13,18 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+    Auth::routes();
+
+//Without auth middleware route list
 Route::get('/aboutUs', 'PageController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'PageController@contactUs')->name('contactUs');
 Route::get('/allBlog', 'PageController@allBlog')->name('allBlog');
+Route::get('/registerCompany', 'Company\SignInController@registerCompany')->name('registerCompany');
+Route::get('/getCities/{id}', 'Company\SignInController@getCities');
+Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
+Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
 
+//Auth middleware route list
+Route::group(['middleware'=>'auth'], function() {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+ 
 // Admin
 Route::group(['namespace' => 'Admin'], function () {
     //Route::get('/backoffice', 'AdminController@index')->name('adminHome');
@@ -60,29 +69,31 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/deleteCity/{id}', 'CityController@deleteCity')->name('deleteCity');
 });
 
-// Candidate
-Route::group(['namespace' => 'Candidate'], function () {
-    Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
-    Route::get('/callback', 'SocialAuthGoogleController@callback');
-    Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
-    Route::post('/candidate/profile/save', 'CandidateController@saveCandidateProfile')->name('saveCandidateProfile');
-    Route::post('/candidate/profile/update', 'CandidateController@updateCandidateProfile')->name('updateCandidateProfile');
-    Route::get('/candidate/changePassword', 'CandidateController@changePassword')->name('changePassword');
-    Route::post('/candidate/updatePassword', 'CandidateController@updatePassword')->name('updatePassword');
-});
+//Candidate
+    Route::group(['namespace' => 'Candidate'], function () {
+        Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
+        Route::get('/callback', 'SocialAuthGoogleController@callback');
+        Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
+        Route::get('/candidate/changePassword', 'CandidateController@changePassword')->name('candidateChangePassword');
+        Route::post('/candidate/updatePassword', 'CandidateController@updatePassword')->name('candidateUpdatePassword');
+    });
 
-// Company
-Route::group(['namespace' => 'Company'], function () {
-    Route::get('/registerCompany', 'SignInController@registerCompany')->name('registerCompany');
-    Route::get('/getCities/{id}', 'SignInController@getCities');
-    Route::post('/company/register/save', 'SignInController@saveRegisterCompany')->name('saveRegisterCompany');
-    Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
-    Route::post('/company/profile/update', 'CompanyController@updateCompanyProfile')->name('updateCompanyProfile');
-    Route::get('/company/changePassword', 'CompanyController@changePassword')->name('changePassword');
-    Route::post('/company/updatePassword', 'CompanyController@updatePassword')->name('updatePassword');
-});
+//Company
+    Route::group(['namespace' => 'Company'], function () {
+        Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
+        Route::post('/company/profile/update', 'CompanyController@updateCompanyProfile')->name('updateCompanyProfile');
+        Route::get('/company/changePassword', 'CompanyController@changePassword')->name('companyChangePassword');
+        Route::post('/company/updatePassword', 'CompanyController@updatePassword')->name('companyUpdatePassword');
+    });
 
-//CV
-Route::group(['namespace' => 'CV'], function () {
-    Route::get('/create/cv', 'CvController@index')->name('index');
+//Resume
+    Route::group(['namespace' => 'Resume'], function () {
+        Route::get('/create/resume', 'ResumeController@createResume')->name('createResume');
+        Route::POST('/candidate/resume/save', 'ResumeController@saveCandidateResume')->name('saveCandidateResume');
+        Route::get('/edit/resume', 'ResumeController@editResume')->name('editResume');
+        Route::POST('/candidate/resume/update', 'ResumeController@updateCandidateResume')->name('updateCandidateResume');
+        Route::get('/remove/{type}/{id}', 'ResumeController@remove')->name('removeEdu');
+        Route::get('/view/resume', 'ResumeController@viewResume')->name('viewResume');
+    });
+
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\City;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
@@ -20,7 +21,8 @@ class CompanyController extends Controller
         $companyGeneralInfo = CompanyGeneralInfo::where('user_id', auth::user()->id)->first();
         $jobIndustries = JobIndustry::orderBy('industry_name', 'asc')->get();
         $countries = Country::all();
-        return view('company.profile.addProfile')->with(compact('jobIndustries', 'countries', 'companyGeneralInfo', 'companyImage'));
+        $cities = City::where('country_id',$companyGeneralInfo->company_default_country_id)->get();
+        return view('company.profile.addProfile')->with(compact('jobIndustries', 'countries', 'companyGeneralInfo', 'companyImage','cities'));
     }
 
     public function updateCompanyProfile(Request $request)
@@ -54,7 +56,6 @@ class CompanyController extends Controller
         $companyGeneralInfo->company_default_country_id = $request->company_default_country_id;
         $companyGeneralInfo->company_default_city_id = $request->company_default_city_id;
         $companyGeneralInfo->company_default_postcode = $request->company_default_postcode;
-
         if ($request->file('company_banner')) {
             $companyBannerImage = $request->file('company_banner');
             $imageOrigirnalName = $companyBannerImage->getClientOriginalName();
@@ -62,16 +63,20 @@ class CompanyController extends Controller
             $uploadPath = 'upload/company/banner/';
             $companyBannerImage->move($uploadPath, $imageName);
             $imageUrl = $uploadPath . $imageName;
-            $companyGeneralInfo->company_banner = $imageUrl;
+            if ($companyGeneralInfo->company_banner != ''){
+                unlink($companyGeneralInfo->company_banner);
+                $companyGeneralInfo->company_banner = $imageUrl;
+            } else {
+                $companyGeneralInfo->company_banner = $imageUrl;
+            }
         }
-        //$companyGeneralInfo->company_banner = $request->company_banner;
-
         $companyGeneralInfo->company_description = $request->company_description;
         $companyGeneralInfo->contact_person_name = $request->contact_person_name;
         $companyGeneralInfo->contact_person_email = $request->contact_person_email;
         $companyGeneralInfo->contact_person_position = $request->contact_person_position;
         $companyGeneralInfo->contact_person_phone = $request->contact_person_phone;
-
+        $companyGeneralInfo->created_by = auth::user()->id;
+        $companyGeneralInfo->updated_by = auth::user()->id;
         $companyGeneralInfo->save();
 
         // Company profile image

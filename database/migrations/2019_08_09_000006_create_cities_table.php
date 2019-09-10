@@ -29,12 +29,10 @@ class CreateCitiesTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->string('name');
-            $table->tinyInteger('row_delete')->default('1');
+            $table->tinyInteger('is_deleted')->default('0');
             $table->dateTime('created_at')->default('2013-12-31 18:31:01');
             $table->dateTime('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-
             $table->index(["country_id"], 'fk_cities_1_idx');
-
             $table->unique(["id"], 'id_UNIQUE');
             
         });

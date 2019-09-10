@@ -30,10 +30,8 @@ class CreateViewCompanyTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->dateTime('created_at');
-
+            $table->timestamps();
             $table->index(["company"], 'fk_view_company_1_idx');
-
             $table->unique(["id"], 'id_UNIQUE');
 
         });

@@ -51,6 +51,9 @@ class CreateCandidateGeneralInfoTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('current_status');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->tinyInteger('is_deleted')->default('0');
 
             $table->index(["industry_id"], 'candidate_general_info_pk2_idx');
 

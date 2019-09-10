@@ -28,6 +28,8 @@ class SocialGoogleAccountService
                     'image' => 'upload/candidate/profile/default.jpg',
                     'hash_key' => 'something',
                     'unique_id' => 'something',
+                    'created_by' => rand(1,100),
+                    'updated_by' => rand(1,100),
                     'password' => md5(rand(1, 10000)),
                 ]);
             }

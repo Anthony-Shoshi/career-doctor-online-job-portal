@@ -69,7 +69,9 @@ class RegisterController extends Controller
             'user_type' => $data['user_type'],
             'image' => 'upload/candidate/profile/default.jpg',
             'hash_key' => 'something',
-            'unique_id' => 1,
+            'unique_id' => rand(0,100),
+            'created_by' => rand(0,100),
+            'updated_by' => rand(0,100),
             'password' => Hash::make($data['password']),
         ]);
     }

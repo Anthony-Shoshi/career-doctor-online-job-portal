@@ -34,7 +34,9 @@ class CreateMessageThreadsTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->string('subject');
-
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->tinyInteger('is_deleted')->default('0');
             $table->index(["user_from"], 'fk_message_threads_1_idx');
 
             $table->index(["user_to"], 'fk_message_threads_2_idx');

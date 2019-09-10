@@ -8,7 +8,6 @@
 							<div class="col-lg-12">
 								<h4 class="fz20 mb20">Company Profile</h4>
               				</div>
-							<!-- <form action="{{ route('saveCandidateProfile') }}" method="post"> -->
 							@csrf
               <input type="hidden" name="id" value="{{$companyGeneralInfo->id}}">
               		<div class="col-lg-6">
@@ -27,8 +26,9 @@
 							<div class="avatar-upload mb30">
 								<label style="color:#221f1f;margin-bottom: 4%;"> Current Company Banner</label>
 								<div class="avatar-preview">
-                        <!-- <label for="fullname"> Current Image</label> -->
+								@if($companyGeneralInfo->company_banner != '')
                         		<img src="{{asset($companyGeneralInfo->company_banner)}}" alt="Banner Image" style="height: 100%;width: 100%;">
+								@endif
 							        </div>
 							    </div>
 							</div>
@@ -60,10 +60,9 @@
               <div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    	<label for="fullname"> Current Country</label>
-									<select name="company_default_country_id" id="fullname" class="form-control @error('company_default_country_id') is-invalid @enderror">
-									<option value="{{$companyGeneralInfo->country->id}}">{{$companyGeneralInfo->country->name}}</option>
+									<select name="company_default_country_id" id="company_default_country_id" class="form-control @error('company_default_country_id') is-invalid @enderror">
 									@foreach($countries as $country)
-									<option value="{{$country->id}}">{{$country->name}}</option>
+										<option value="{{$country->id}}"{{ ($companyGeneralInfo->company_default_country_id == $country->id ? ' selected' : '' ) }}>{{$country->name}}</option>
 									@endforeach
 									<select>
 									@error('company_default_country_id')
@@ -76,8 +75,10 @@
 							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    	<label for="fullname"> Current City</label>
-									<select name="company_default_city_id" id="fullname" class="form-control @error('company_default_city_id') is-invalid @enderror">
-									<option value="{{$companyGeneralInfo->city->id}}">{{$companyGeneralInfo->city->name}}</option>
+									<select name="company_default_city_id" id="company_default_city_id" class="form-control @error('company_default_city_id') is-invalid @enderror">
+										@foreach($cities as $city)
+											<option value="{{ $city->id }}"{{ ($companyGeneralInfo->company_default_city_id == $city->id) ? ' selected' : '' }}>{{ $city->name }}</option>
+										@endforeach
 									<select>
 									@error('company_default_city_id')
 										<span class="invalid-feedback" role="alert">
@@ -168,7 +169,6 @@
 									<button class="btn btn-lg btn-thm">Update</button>									
 								</div>
 							</div>
-							<!-- </form> -->
 						</div>
 </form>
 				</div>
@@ -190,32 +190,22 @@ $("#imageUpload").change(function() {
 });
 </script>
 <script type="text/javascript">
-    jQuery(document).ready(function ()
-    {
-            jQuery('select[name="company_default_country_id"]').on('change',function(){
-               var countryID = jQuery(this).val();
-               if(countryID)
-               {
-                  jQuery.ajax({
-                     url : '/CareerDoctor/public/getCities/' +countryID,
-                     type : "GET",
-                     dataType : "json",
-                     success:function(data)
-                     {
-                        console.log(data);
-                        jQuery('select[name="company_default_city_id"]').empty();
-                        jQuery.each(data, function(key,value){
-                           $('select[name="company_default_city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
-                     }
-                  });
-               }
-               else
-               {
-                  $('select[name="company_default_city_id"]').empty();
-               }
-            });
-    });
+	// Country City
+	$(document).on('change','#company_default_country_id',function(){
+		var countryID = $(this).val();
+		if (countryID != ''){
+			$.ajax({
+				url: '{{ url('getCities') }}/' + countryID,
+				type: 'GET',
+				success:function(data){
+					$('#company_default_city_id').html(data);
+				}
+			})
+		}
+		else {
+			$('#company_default_city_id').html('<option value="">Select City</option>');
+		}
+	});
 </script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyABqK-5ngi3F1hrEsk7-mCcBPsjHM5_Gj0"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/googlemaps1.js') }}"></script>

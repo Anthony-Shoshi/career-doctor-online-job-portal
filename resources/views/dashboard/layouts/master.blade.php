@@ -67,6 +67,8 @@
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/timepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/chart.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/chart.custome.js') }}"></script>
+{{--vue js--}}
+<script src={{asset('js/vue.js')}}></script>
 <!-- Custom script for all pages --> 
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/script.js') }}"></script>
 <!-- toastr -->

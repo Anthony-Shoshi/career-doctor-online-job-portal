@@ -30,10 +30,8 @@ class CreateViewJobTable extends Migration
                 ->references('id')->on('jobs')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->dateTime('created_at');
-
+            $table->timestamps();
             $table->index(["job"], 'fk_view_job_1_idx');
-
             $table->unique(["id"], 'id_UNIQUE');
 
         });

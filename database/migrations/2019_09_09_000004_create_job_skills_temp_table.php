@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobSkillsTable extends Migration
+class CreateJobSkillsTempTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'job_skills';
+    public $tableName = 'job_skills_temp';
 
     /**
      * Run the migrations.
-     * @table job_skills
+     * @table job_skills_temp
      *
      * @return void
      */
@@ -23,15 +23,14 @@ class CreateJobSkillsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('user');
             $table->string('skill_name', 100);
-            $table->string('skill_code', 10);
             $table->text('skill_description')->nullable()->default(null);
+            $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED'])->default('PENDING');
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->tinyInteger('is_deleted')->default('0');
-            $table->unique(["skill_code"], 'skill_code_UNIQUE');
             $table->unique(["id"], 'id_UNIQUE');
-            $table->unique(["skill_name"], 'skill_name_UNIQUE');
             $table->timestamps();
         });
     }

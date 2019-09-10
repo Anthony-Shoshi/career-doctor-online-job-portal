@@ -26,12 +26,11 @@ class CreateJobIndustriesTable extends Migration
             $table->string('industry_name');
             $table->string('industry_code', 10);
             $table->string('industry_description', 45)->nullable()->default(null);
-            $table->integer('row_delete')->default('0');
-
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->tinyInteger('is_deleted')->default('0');
             $table->unique(["industry_code"], 'industry_code_UNIQUE');
-
             $table->unique(["id"], 'id_UNIQUE');
-
             $table->unique(["industry_name"], 'industry_name_UNIQUE');
             $table->timestamps();
         });

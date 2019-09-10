@@ -52,7 +52,9 @@ class CreateCompanyGeneralInfoTable extends Migration
             $table->string('contact_person_email', 100);
             $table->string('contact_person_position', 100);
             $table->string('contact_person_phone', 100)->nullable()->default(null);
-            $table->integer('row_delete')->default('0');
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->tinyInteger('is_deleted')->default('0');
 
             $table->index(["user_id"], 'fk_company_general_info_1_idx');
 

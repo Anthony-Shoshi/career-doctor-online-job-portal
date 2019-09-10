@@ -30,10 +30,8 @@ class CreateViewCandidateTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->string('created_at', 45);
-
+            $table->timestamps();
             $table->index(["candidate"], 'fk_view_candidate_1_idx');
-
             $table->unique(["id"], 'id_UNIQUE');
 
         });

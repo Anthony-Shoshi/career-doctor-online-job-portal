@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobsTable extends Migration
+class CreateExperienceSkillRecordTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'jobs';
+    public $tableName = 'experience_skill_record';
 
     /**
      * Run the migrations.
-     * @table jobs
+     * @table experience_skill_record
      *
      * @return void
      */
@@ -23,43 +23,30 @@ class CreateJobsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedBigInteger('company');
-            $table->foreign('company')
+            $table->unsignedBigInteger('user');
+            $table->foreign('user')
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->unsignedInteger('job_category');
-            $table->foreign('job_category')
-                ->references('id')->on('job_categories')
+            $table->unsignedInteger('candidate_experience');
+            $table->foreign('candidate_experience')
+                ->references('id')->on('candidate_experiences')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->unsignedInteger('job_industry');
-            $table->foreign('job_industry')
-                ->references('id')->on('job_industries')
+            $table->unsignedInteger('job_skill');
+            $table->foreign('job_skill')
+                ->references('id')->on('job_skills')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->string('title');
-            $table->integer('type');
-            $table->text('description')->nullable()->default(null);
-            $table->tinyInteger('min_exp_year');
-            $table->tinyInteger('max_exp_year');
-            $table->decimal('min_salary', 10, 2);
-            $table->decimal('max_salary', 10, 2);
-            $table->tinyInteger('is_negotiable');
-            $table->tinyInteger('is_published');
+            $table->integer('duration_in_month')->default('1');
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->tinyInteger('is_deleted')->default('0');
-            $table->index(["job_category"], 'fk_jobs_2_idx');
-
-            $table->index(["job_industry"], 'fk_jobs_3_idx');
-
-            $table->index(["company"], 'fk_jobs_1_idx');
-
+            $table->index(["job_skill"], 'fk_experience_skill_record_1_idx');
+            $table->index(["candidate_experience"], 'fk_experience_skill_record_3_idx');
+            $table->index(["user"], 'fk_experience_skill_record_2_idx');
             $table->unique(["id"], 'id_UNIQUE');
-            
             $table->timestamps();
-            
         });
     }
 

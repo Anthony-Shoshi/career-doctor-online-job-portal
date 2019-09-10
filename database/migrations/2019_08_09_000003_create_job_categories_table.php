@@ -26,12 +26,11 @@ class CreateJobCategoriesTable extends Migration
             $table->string('category_name', 100);
             $table->string('category_code', 10);
             $table->text('category_description')->nullable()->default(null);
-            $table->integer('row_deleted')->default('0');
-
+            $table->integer('created_by');
+            $table->integer('updated_by');
+            $table->tinyInteger('is_deleted')->default('0');
             $table->unique(["id"], 'id_UNIQUE');
-
             $table->unique(["category_name"], 'category_name_UNIQUE');
-
             $table->unique(["category_code"], 'category_code_UNIQUE');
             $table->timestamps();
         });

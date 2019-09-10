@@ -10,7 +10,7 @@ class CreateJobSkillsTempTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'job_skills_temp';
+    public $tableName = 'job_skills_temps';
 
     /**
      * Run the migrations.

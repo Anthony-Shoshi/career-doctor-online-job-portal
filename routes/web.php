@@ -28,6 +28,7 @@ Route::get('/registerCompany', 'Company\SignInController@registerCompany')->name
 Route::get('/getCities/{id}', 'Company\SignInController@getCities');
 Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
 Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
+Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin');
 
 //Auth middleware route list
 Route::group(['middleware'=>'auth'], function() {
@@ -37,7 +38,7 @@ Route::group(['middleware'=>'auth'], function() {
 // Admin
 Route::group(['namespace' => 'Admin'], function () {
     //Route::get('/backoffice', 'AdminController@index')->name('adminHome');
-    Route::get('/backoffice', 'SignInController@adminLogin')->name('adminLogin');
+    //Route::get('/backoffice', 'SignInController@adminLogin')->name('adminLogin');
     //Category
     Route::get('/addCategory', 'CategoryController@addCategory')->name('addCategory');
     Route::post('/saveCategory', 'CategoryController@saveCategory')->name('saveCategory');
@@ -67,6 +68,17 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/editCity/{id}', 'CityController@editCity')->name('editCity');
     Route::post('/updateCity', 'CityController@updateCity')->name('updateCity');
     Route::get('/deleteCity/{id}', 'CityController@deleteCity')->name('deleteCity');
+    //Job Skills
+    Route::get('/addJobSkills', 'JobSkillsController@addJobSkills')->name('addJobSkills');
+    Route::post('/saveJobSkill', 'JobSkillsController@saveJobSkill')->name('saveJobSkill');
+    Route::get('/editJobSkill/{id}', 'JobSkillsController@editJobSkill')->name('editJobSkill');
+    Route::post('/updateJobSkill', 'JobSkillsController@updateJobSkill')->name('updateJobSkill');
+    Route::get('/deleteJobSkill/{id}', 'JobSkillsController@deleteJobSkill')->name('deleteJobSkill');
+    Route::get('/jobSkillsList', 'JobSkillsController@jobSkillsList')->name('jobSkillsList');
+    Route::get('/newJobSkillsList', 'JobSkillsController@newJobSkillsList')->name('newJobSkillsList');
+    Route::get('/acceptNewJobSkill/{id}', 'JobSkillsController@acceptNewJobSkill')->name('acceptNewJobSkill');
+    Route::get('/rejectNewJobSkill/{id}', 'JobSkillsController@rejectNewJobSkill')->name('rejectNewJobSkill');
+
 });
 
 //Candidate

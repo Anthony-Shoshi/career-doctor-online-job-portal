@@ -33,9 +33,9 @@
             </a>
           </li>
           <!-- menu-open -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{Request::is('addIndustry') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-pie-chart"></i>
+          <li class="nav-item has-treeview {{Request::is('addIndustry') ? 'menu-open' : '' || Request::is('industryList') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{Request::is('addIndustry') ? 'active' : '' || Request::is('industryList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-industry"></i>
               <p>
                 Industry
                 <i class="right fa fa-angle-left"></i>
@@ -56,9 +56,9 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{Request::is('addCategory') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-pie-chart"></i>
+          <li class="nav-item has-treeview {{Request::is('addCategory') ? 'menu-open' : '' || Request::is('categoryList') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addCategory') ? 'active' : '' || Request::is('categoryList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-list"></i>
               <p>
                 Category
                 <i class="right fa fa-angle-left"></i>
@@ -79,9 +79,9 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{Request::is('addCountry') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-pie-chart"></i>
+          <li class="nav-item has-treeview {{Request::is('addCountry') ? 'menu-open' : '' || Request::is('countryList') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addCountry') ? 'active' : '' || Request::is('countryList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-globe"></i>
               <p>
                 Country
                 <i class="right fa fa-angle-left"></i>
@@ -102,9 +102,9 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{Request::is('addCity') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-pie-chart"></i>
+          <li class="nav-item has-treeview {{Request::is('addCity') ? 'menu-open' : '' || Request::is('countryListToGetCities') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addCity') ? 'active' : '' || Request::is('countryListToGetCities') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-building"></i>
               <p>
                 City
                 <i class="right fa fa-angle-left"></i>
@@ -121,6 +121,35 @@
                 <a href="{{route('countryListToGetCities')}}" class="nav-link {{Request::is('countryListToGetCities') ? 'active' : ''}}">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>City List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('addJobSkills') ? 'menu-open' : '' || Request::is('jobSkillsList') ? 'menu-open' : '' || Request::is('newJobSkillsList') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addJobSkills') ? 'active' : '' || Request::is('jobSkillsList') ? 'active' : '' || Request::is('newJobSkillsList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-check"></i>
+              <p>
+                Job Skills
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('addJobSkills')}}" class="nav-link {{Request::is('addJobSkills') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Job Skills</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('jobSkillsList')}}" class="nav-link {{Request::is('jobSkillsList') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Job Skills List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('newJobSkillsList')}}" class="nav-link {{Request::is('newJobSkillsList') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>New Job Skills List</p>
                 </a>
               </li>
             </ul>

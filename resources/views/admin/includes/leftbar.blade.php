@@ -154,6 +154,52 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview {{Request::is('addJobType') ? 'menu-open' : '' || Request::is('jobTypeList') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addJobType') ? 'active' : '' || Request::is('jobTypeList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-globe"></i>
+              <p>
+                Job Types
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('addJobType')}}" class="nav-link {{Request::is('addJobType') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Job Type</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('jobTypeList')}}" class="nav-link {{Request::is('jobTypeList') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Job Type List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('addJobQualification') ? 'menu-open' : '' || Request::is('jobQualificationList') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addJobQualification') ? 'active' : '' || Request::is('jobQualificationList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-globe"></i>
+              <p>
+                Job Qualification
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('addJobQualification')}}" class="nav-link {{Request::is('addJobQualification') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Qualification</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('jobQualificationList')}}" class="nav-link {{Request::is('jobQualificationList') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Qualification List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

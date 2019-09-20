@@ -24,43 +24,45 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Country Name</th>
-                    <th>ISO 3</th>
-                    <th>ISO 2</th>
-                    <th>Currency</th>
-                    <th>Capital City</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($countries as $country)
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-hover">
+                    <thead>
                     <tr>
-                        <td>{{$country->name}}</td>
-                        <td>{{$country->iso3}}</td>
-                        <td>{{$country->iso2}}</td>
-                        <td>{{$country->currency}}</td>
-                        <td>{{$country->capital}}</td>
-                        <td>
-                            <a href="{{route('editCountry',[$country->id])}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                            <a href="{{route('deleteCountry',[$country->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this country?');"><i class="fa fa-trash"></i></a>
-                        </td>
+                        <th>Country Name</th>
+                        <th>ISO 3</th>
+                        <th>ISO 2</th>
+                        <th>Currency</th>
+                        <th>Capital City</th>
+                        <th>Action</th>
                     </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Country Name</th>
-                    <th>ISO 3</th>
-                    <th>ISO 2</th>
-                    <th>Currency</th>
-                    <th>Capital City</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($countries as $country)
+                        <tr>
+                            <td>{{$country->name}}</td>
+                            <td>{{$country->iso3}}</td>
+                            <td>{{$country->iso2}}</td>
+                            <td>{{$country->currency}}</td>
+                            <td>{{$country->capital}}</td>
+                            <td>
+                                <a href="{{route('editCountry',[$country->id])}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('deleteCountry',[$country->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this country?');"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Country Name</th>
+                        <th>ISO 3</th>
+                        <th>ISO 2</th>
+                        <th>Currency</th>
+                        <th>Capital City</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>

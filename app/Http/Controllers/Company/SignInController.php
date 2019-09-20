@@ -49,6 +49,7 @@ class SignInController extends Controller
                 'contact_person_name' => ['required', 'string', 'max:255'],
                 'contact_person_email' => ['required', 'string', 'email', 'max:255'],
                 'contact_person_position' => 'required',
+                'contact_person_phone' => 'nullable|numeric',
             ],
             [
                 'industry_id.required' => 'The industry type field is required.',

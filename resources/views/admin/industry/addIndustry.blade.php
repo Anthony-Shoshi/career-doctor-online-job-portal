@@ -66,9 +66,6 @@
 <form action="{{route('saveIndustry')}}" method="post">
 @csrf
 <div class="card card-success">
-    <!-- <div class="card-header">
-        <h3 class="card-title"></h3>
-    </div> -->
     <div class="card-body">
         <label>Industry Name</label>
         <input name="industry_name" value="{{old('industry_name')}}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Industry Name">

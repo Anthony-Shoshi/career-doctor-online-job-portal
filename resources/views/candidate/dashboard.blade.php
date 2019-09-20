@@ -1,6 +1,13 @@
 @extends('dashboard.layouts.master')
 
 @section('content')
+@section('myCss')
+	<style>
+		ul{
+			list-style: none;
+		}
+	</style>
+@endsection
 <div class="col-lg-8 col-xl-9">
 					<div class="row">
 						<div class="col-lg-12">

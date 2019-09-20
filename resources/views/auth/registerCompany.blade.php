@@ -30,7 +30,7 @@
 									<hr>
 									<div class="form-row">
 									<div class="form-group col-md-6">
-										<input type="text" name="name" id="username" tabindex="1" class="form-control @error('name') is-invalid @enderror" placeholder="Enter Username" value="{{old('name')}}" autocomplete="name" autofocus>
+										<input type="text" name="name" id="username" tabindex="1" class="form-control @error('name') is-invalid @enderror" placeholder="Enter Username" value="{{old('name')}}" autocomplete="name">
 										@error('name')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
 										@enderror
 										</div>
 									<div class="form-group col-md-6">
-										<input type="text" name="email" id="email" tabindex="1" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email" value="{{old('email')}}" autocomplete="email" autofocus>
+										<input type="text" name="email" id="email" tabindex="1" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email" value="{{old('email')}}" autocomplete="email">
 										@error('email')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -71,7 +71,7 @@
 										@enderror
 									</div>
 									<div class="form-group col-md-6">
-										<textarea name="company_default_address" class="form-control @error('company_default_address') is-invalid @enderror" id="company_default_address" cols="30" rows="10" placeholder="Enter Company Address"></textarea>
+										<textarea name="company_default_address" class="form-control @error('company_default_address') is-invalid @enderror" id="company_default_address" cols="30" rows="10" placeholder="Enter Company Address">{{old('company_default_address')}}</textarea>
 										@error('company_default_address')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -79,17 +79,12 @@
 										@enderror
 									</div>
 									</div>
-									 <!-- <div id="app">
-										<dropdown></dropdown>
-									</div> -->
-									<!-- here template for dropdown -->
 									<div class="form-row">
-			
 									<div class="form-group col-md-4">
 									<select name="company_default_country_id" id="company_default_country_id" class="form-control @error('company_default_country_id') is-invalid @enderror">
 											<option value=" " selected>Select Country</option>
 											@foreach($countries as $country)
-											<option value={{$country->id}}>{{$country->name}}</option>
+											<option value={{$country->id}}{{ old('company_default_country_id') == $country->id ? ' selected' : '' }}>{{$country->name}}</option>
 											@endforeach
 										</select>
 										@error('company_default_country_id')
@@ -122,7 +117,7 @@
 									<select name="industry_id" id="industry_id" class="form-control @error('industry_id') is-invalid @enderror">
 											<option value=" " selected>Select Industry Type</option>
 											@foreach($jobIndustries as $jobIndustry)
-											<option value={{$jobIndustry->id}}>{{$jobIndustry->industry_name}}</option>
+											<option value={{$jobIndustry->id}}{{ old('industry_id') == $jobIndustry->id ? ' selected' : ''}}>{{$jobIndustry->industry_name}}</option>
 											@endforeach
 										</select>
 										@error('industry_id')
@@ -135,14 +130,14 @@
 										<input type="file" class="form-control" name="company_banner">
 									</div>
 									<div class="form-group col-md-4">
-										<textarea name="company_description" class="form-control" id="company_description" cols="30" rows="10" placeholder="Enter Company Description"></textarea>
+										<textarea name="company_description" class="form-control" id="company_description" cols="30" rows="10" placeholder="Enter Company Description">{{ old('company_description') }}</textarea>
 									</div>
 									</div>
 									<h4>Contact Information</h4>
 									<hr>
 									<div class="form-row">
 									<div class="form-group col-md-6">
-										<input type="text" name="contact_person_name" id="contact_person_name" tabindex="1" class="form-control @error('contact_person_name') is-invalid @enderror" placeholder="Enter Contact Person's Name" value="{{old('contact_person_name')}}" autocomplete="contact_person_name" autofocus>
+										<input type="text" name="contact_person_name" id="contact_person_name" tabindex="1" class="form-control @error('contact_person_name') is-invalid @enderror" placeholder="Enter Contact Person's Name" value="{{old('contact_person_name')}}" autocomplete="contact_person_name">
 										@error('contact_person_name')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -150,7 +145,7 @@
 										@enderror
 										</div>
 									<div class="form-group col-md-6">
-										<input type="email" name="contact_person_email" id="contact_person_email" tabindex="1" class="form-control @error('contact_person_email') is-invalid @enderror" placeholder="Enter Contact Person's Email" value="{{old('contact_person_email')}}" autocomplete="contact_person_email" autofocus>
+										<input type="email" name="contact_person_email" id="contact_person_email" tabindex="1" class="form-control @error('contact_person_email') is-invalid @enderror" placeholder="Enter Contact Person's Email" value="{{old('contact_person_email')}}" autocomplete="contact_person_email">
 										@error('contact_person_email')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -176,9 +171,6 @@
 										@enderror
 									</div>
 									</div>
-									<!-- <div id="app">
-										<checkbox></checkbox>
-									</div> -->
 									<div id="app">
 									<div class="form-group form-check">
 										<input type="checkbox" v-model="checked" class="form-check-input" id="exampleCheck2">

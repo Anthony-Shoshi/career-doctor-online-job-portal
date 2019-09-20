@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\City;
+use App\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
@@ -38,6 +39,7 @@ class CompanyController extends Controller
                 'contact_person_name' => ['required', 'string', 'max:255'],
                 'contact_person_email' => ['required', 'string', 'email', 'max:255'],
                 'contact_person_position' => 'required',
+                'contact_person_phone' => 'nullable|numeric',
             ],
             [
                 'industry_id.required' => 'The industry type field is required.',
@@ -56,19 +58,12 @@ class CompanyController extends Controller
         $companyGeneralInfo->company_default_country_id = $request->company_default_country_id;
         $companyGeneralInfo->company_default_city_id = $request->company_default_city_id;
         $companyGeneralInfo->company_default_postcode = $request->company_default_postcode;
-        if ($request->file('company_banner')) {
-            $companyBannerImage = $request->file('company_banner');
-            $imageOrigirnalName = $companyBannerImage->getClientOriginalName();
-            $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
+        if ($request->hasFile('company_banner')){
+            $image = $request->file('company_banner');
+            $imageName = rand(time(), 1000) . '.' . $image->getClientOriginalExtension();
             $uploadPath = 'upload/company/banner/';
-            $companyBannerImage->move($uploadPath, $imageName);
-            $imageUrl = $uploadPath . $imageName;
-            if ($companyGeneralInfo->company_banner != ''){
-                unlink($companyGeneralInfo->company_banner);
-                $companyGeneralInfo->company_banner = $imageUrl;
-            } else {
-                $companyGeneralInfo->company_banner = $imageUrl;
-            }
+            \Image::make($image)->resize(150,130)->save(public_path('upload/company/banner/') . $imageName);
+            $companyGeneralInfo->company_banner = $uploadPath . $imageName;
         }
         $companyGeneralInfo->company_description = $request->company_description;
         $companyGeneralInfo->contact_person_name = $request->contact_person_name;
@@ -80,59 +75,33 @@ class CompanyController extends Controller
         $companyGeneralInfo->save();
 
         // Company profile image
-        // $userImage = User::findOrFail(auth::user()->id);
-        // if ($request->file('image')) {
-        //     $companyImage = $request->file('image');
-        //     $imageOrigirnalName = $companyImage->getClientOriginalName();
-        //     $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
-        //     $uploadPath = 'upload/company/profile/';
-        //     $companyImage->move($uploadPath, $imageName);
-        //     $imageUrl = $uploadPath . $imageName;
-        //     $userImage->image = $imageUrl;
-        // }
-
-        // $userImage->save();
+        $user = User::findOrFail(auth::user()->id);
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = rand(time(), 1000) . '.' . $image->getClientOriginalExtension();
+            $uploadPath = 'upload/company/profile/';
+            \Image::make($image)->resize(150,130)->save(public_path('upload/company/profile/') . $imageName);
+            if ($user->image != 'upload/company/profile/default.jpg'){
+                unlink($user->image);
+                $user->image = $uploadPath . $imageName;
+            } else {
+                $user->image = $uploadPath . $imageName;
+            }
+        }
+        $user->save();
 
         return redirect()->back()->with('success', 'Company Profile Updated Successfully!');
     }
 
-    public function changePassword()
-    {
-        return view('company.changePassword.changePassword');
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $request->validate(
-            [
-                'oldPassword' => 'required',
-                'newPassword' => 'required',
-                'confirmPassword' => 'required'
-            ],
-            [
-                'oldPassword.required' => 'The old password field is required!',
-                'newPassword.required' => 'The new password field is required!',
-                'confirmPassword.required' => 'The confirm password field is required!',
-            ]
-        );
-
-        $user = User::findOrFail($request->id);
-        if (Hash::check($request->oldPassword, $user->password)) {
-            if ($request->oldPassword != $request->newPassword) {
-                if ($request->newPassword == $request->confirmPassword) {
-                    $user->password = Hash::make($request->newPassword);
-                    $user->save();
-                    return redirect()->back()->with('success', 'Password changed successfully!');
-                } else {
-                    return redirect()->back()->with('delete', 'Confirm password not matched with new password!');
-                }
-            } else {
-                return redirect()->back()->with('delete', 'New Password cannot be same as old password!');
-            }
-        } else {
-            return redirect()->back()->with('delete', 'Old password not matched with stored password!');
-        }
-
+    public function companyProfileView($id){
+        $data = array();
+        $jobsPostedByThisCompany = Job::where('company', $id)->orderBy('created_at','DESC')->where('is_published', 1)->limit(3)->get();
+        $company = CompanyGeneralInfo::where('user_id',$id)->first();
+        $data['jobsPosted'] = Job::where('company', $id)->count();
+        $data['industry'] = \App\JobIndustry::where('id', $company->industry_id)->first();
+        $data['country'] = Country::where('id', $company->company_default_country_id)->first();
+        $data['city'] = City::where('id', $company->company_default_city_id)->first();
+        return view('company.profile.companyProfileView', $data)->with('company', $company)->with('jobsPostedByThisCompany',$jobsPostedByThisCompany);
     }
 
 }

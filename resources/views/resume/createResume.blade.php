@@ -14,6 +14,9 @@
                 padding-top: 13px !important;
             }
         }
+        .required {
+            color: red;
+        }
     </style>
 @endsection
 @section('content')
@@ -83,7 +86,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Contact Phone Number <span class="required">*</span></label>
-                                <input type="text" class="form-control" value="{{old('contact_phone')}}" name="contact_phone" required>
+                                <input type="number" class="form-control" value="{{old('contact_phone')}}" name="contact_phone" required>
                             </div>
                         </div>
                         <div class="form-row">

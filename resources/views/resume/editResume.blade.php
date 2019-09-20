@@ -14,6 +14,9 @@
                 padding-top: 13px !important;
             }
         }
+        .required {
+            color: red;
+        }
     </style>
 @endsection
 @section('content')

@@ -1,4 +1,11 @@
 @extends('candidate.layouts.master')
+@section('myCss')
+	<style>
+		ul {
+			list-style: none;
+		}
+	</style>
+@endsection
 @section('content')
 <!-- Inner Page Breadcrumb -->
 	<section class="inner_page_breadcrumb bgc-f0 pt30 pb30" aria-label="breadcrumb">

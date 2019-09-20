@@ -20,4 +20,9 @@ class City extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
 }

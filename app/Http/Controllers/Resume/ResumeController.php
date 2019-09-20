@@ -172,14 +172,12 @@ class ResumeController extends Controller
 
         // candidate image save in User table
         $user = User::findOrFail(auth::user()->id);
-        if ($request->file('image')) {
-            $candidateImage = $request->file('image');
-            $imageOrigirnalName = $candidateImage->getClientOriginalName();
-            $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = rand(time(), 1000) . '.' . $image->getClientOriginalExtension();
             $uploadPath = 'upload/candidate/profile/';
-            $candidateImage->move($uploadPath, $imageName);
-            $imageUrl = $uploadPath . $imageName;
-            $user->image = $imageUrl;
+            \Image::make($image)->resize(150,130)->save(public_path('upload/candidate/profile/') . $imageName);
+            $user->image = $uploadPath . $imageName;
         }
 
         $user->save();
@@ -272,22 +270,19 @@ class ResumeController extends Controller
 
         // candidate image save in User table
         $user = User::findOrFail(auth::user()->id);
-        if ($request->file('image')) {
-            $candidateImage = $request->file('image');
-            $imageOrigirnalName = $candidateImage->getClientOriginalName();
-            $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
+        if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = rand(time(), 1000) . '.' . $image->getClientOriginalExtension();
             $uploadPath = 'upload/candidate/profile/';
-            $candidateImage->move($uploadPath, $imageName);
-            $imageUrl = $uploadPath . $imageName;
+            \Image::make($image)->resize(150,130)->save(public_path('upload/candidate/profile/') . $imageName);
             if ($user->image != 'upload/candidate/profile/default.jpg'){
                 unlink($user->image);
-                $user->image = $imageUrl;
+                $user->image = $uploadPath . $imageName;
             } else {
-                $user->image = $imageUrl;
+                $user->image = $uploadPath . $imageName;
             }
-
         }
-        //$user->save();
+        $user->save();
 
         // candidate education
         if (count($request->degree) != 0) {

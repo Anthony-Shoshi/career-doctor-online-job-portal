@@ -194,81 +194,41 @@
 				<div class="col-lg-12">
 					<div class="ulockd-main-title">
 						<h3 class="mt0">Featured Jobs</h3>
-						<a class="text-thm float-right" href="#">Browse All Jobs <i class="flaticon-right-arrow pl15"></i></a>
+						<a class="text-thm float-right" href="{{ route('jobListView') }}" target="_blank">Browse All Jobs <i class="flaticon-right-arrow pl15"></i></a>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-
+			    @foreach($jobs as $job)
 				<div class="col-sm-12 col-lg-12">
 					<div class="fj_post">
 						<div class="details">
-							<h5 class="job_chedule text-thm mt0">Full Time</h5>
+							@php
+								$jobTpe = \App\JobType::where('id',$job->job_type)->first();
+								$city = \App\City::where('id',$job->city_id)->first();
+								$country = \App\Country::where('id',$job->country_id)->first();
+								$currency = \App\Currency::where('id',$job->currency)->first();
+								$company = \App\CompanyGeneralInfo::where('user_id',$job->company)->first();
+							@endphp
+							<h5 class="job_chedule text-thm mt0">{{ $jobTpe->title }}</h5>
 							<div class="thumb fn-smd">
-								<img class="img-fluid" src="images/partners/1.jpg" alt="1.jpg">
+								<img class="img-fluid" src="{{ asset($company->company_banner) }}" alt="1.jpg" height ="100px" width="120px">
 							</div>
-							<h4>JEB Product Sales Specialist, Russia & CIS</h4>
-							<p>Posted 23 August by <a class="text-thm" href="#">Wiggle CRC</a></p>
+							<h4>{{ $job->title }}</h4>
+							<p>Posted : {{ date_format(new DateTime($job->created_at),'d M, Y') }} by <a class="text-thm" target="_blank" href="{{route('companyProfileView',[$job->company])}}">{{ $company->company_name }}</a></p>
 							<ul class="featurej_post">
-								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">Bothell, WA, USA</a></li>
-								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
+								<li class="list-inline-item"><span class="flaticon-location-pin"></span> {{ $city->name }}, {{ $country->name }}</li>
+								@if($job->is_negotiable == 1)
+								<li class="list-inline-item"><span class="flaticon-price pl20"></span> Negotiable</li>
+								@else
+								<li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $job->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $job->max_salary/1000 .'k' }} {{ $currency->code }}</li>
+								@endif
 							</ul>
 						</div>
-						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
+						<a class="btn btn-md btn-transparent float-right fn-smd" href="{{ route('singleJobView',[$job->id]) }}" target="_blank">Browse Job</a>
 					</div>
 				</div>
-
-				<div class="col-sm-12 col-lg-12">
-					<div class="fj_post">
-						<div class="details">
-							<h5 class="job_chedule text-thm mt0">Part Time</h5>
-							<div class="thumb fn-smd">
-								<img class="img-fluid" src="images/partners/2.jpg" alt="2.jpg">
-							</div>
-							<h4>General Ledger Accountant</h4>
-							<p>Posted 23 August by <a class="text-thm" href="#">Robert Half Finance & Accounting</a></p>
-							<ul class="featurej_post">
-								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">RG40, Wokingham</a></li>
-								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
-							</ul>
-						</div>
-						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
-					</div>
-				</div>
-				<div class="col-sm-12 col-lg-12">
-					<div class="fj_post">
-						<div class="details">
-							<h5 class="job_chedule text-thm mt0">Full Time</h5>
-							<div class="thumb fn-smd">
-								<img class="img-fluid" src="images/partners/3.jpg" alt="3.jpg">
-							</div>
-							<h4>Junior Digital Graphic Designer</h4>
-							<p>Posted 23 August by <a class="text-thm" href="#">Parkside Recruitment - Uxbridge Finance</a></p>
-							<ul class="featurej_post">
-								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">New Denham, UB8 1JG</a></li>
-								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
-							</ul>
-						</div>
-						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
-					</div>
-				</div>
-				<div class="col-sm-12 col-lg-12">
-					<div class="fj_post">
-						<div class="details">
-							<h5 class="job_chedule text-thm mt0">Full Time</h5>
-							<div class="thumb fn-smd">
-								<img class="img-fluid" src="images/partners/4.jpg" alt="4.jpg">
-							</div>
-							<h4>UX/UI Designer</h4>
-							<p>Yesterday <a class="text-thm" href="#">NonStop Recruitment Ltd</a></p>
-							<ul class="featurej_post">
-								<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">Bothell, WA, USA</a></li>
-								<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">$13.00 - $18.00 per hour</a></li>
-							</ul>
-						</div>
-						<a class="btn btn-md btn-transparent float-right fn-smd" href="#">Browse Job</a>
-					</div>
-				</div>
+				@endforeach
 			</div>
 		</div>
 	</section>

@@ -24,6 +24,7 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
+            <div class="table-responsive">
             <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -55,6 +56,7 @@
                 </tr>
                 </tfoot>
             </table>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>

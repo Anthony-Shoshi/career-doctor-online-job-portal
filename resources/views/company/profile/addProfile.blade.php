@@ -10,28 +10,30 @@
               				</div>
 							@csrf
               <input type="hidden" name="id" value="{{$companyGeneralInfo->id}}">
-              		<div class="col-lg-6">
+              				<div class="col-lg-6">
 							    <div class="avatar-upload mb30">
 							        <div class="avatar-edit">
-							            <input class="btn btn-thm" name="company_banner" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-							            <label for="imageUpload"></label>
+							            <input class="btn btn-thm" name="company_banner" type='file' id="bannerUpload" data-preview="banner" accept=".png, .jpg, .jpeg" />
+							            <label for="bannerUpload"></label>
 							        </div>
-                      <label style="color:#221f1f;margin-bottom: 4%;"> Update Company Banner</label>
+                      					<label style="color:#221f1f;margin-bottom: 4%;"> Update Company Banner</label>
 							        <div class="avatar-preview">
-							            <div id="imagePreview"></div>
+							            <div id="banner" style="background-image: url({{asset(($companyGeneralInfo->company_banner))}});"></div>
 							        </div>
 							    </div>
 							</div>
-              <div class="col-lg-6">
+						  <div class="col-lg-6">
 							<div class="avatar-upload mb30">
-								<label style="color:#221f1f;margin-bottom: 4%;"> Current Company Banner</label>
+								<div class="avatar-edit">
+									<input class="btn btn-thm" name="image" type='file' id="profileUpload" data-preview="profile" accept=".png, .jpg, .jpeg" />
+									<label for="profileUpload"></label>
+								</div>
+								<label style="color:#221f1f;margin-bottom: 4%;"> Update Profile Image</label>
 								<div class="avatar-preview">
-								@if($companyGeneralInfo->company_banner != '')
-                        		<img src="{{asset($companyGeneralInfo->company_banner)}}" alt="Banner Image" style="height: 100%;width: 100%;">
-								@endif
-							        </div>
-							    </div>
+									<div id="profile" style="background-image: url({{asset((auth::user()->image))}});"></div>
+								</div>
 							</div>
+						  </div>
 							<div class="col-lg-12">
 								<div class="my_profile_thumb_edit"></div>
 							</div>
@@ -90,7 +92,7 @@
 							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    	<label for="fullname"> Industry Type</label>
-                  	<select name="industry_id" id="industry_id" class="form-control @error('industry_id') is-invalid @enderror">
+                  						<select name="industry_id" id="industry_id" class="form-control @error('industry_id') is-invalid @enderror">
 											<option value="{{$companyGeneralInfo->industry->id}}" selected>{{$companyGeneralInfo->industry->industry_name}}</option>
 											@foreach($jobIndustries as $jobIndustry)
 											<option value={{$jobIndustry->id}}>{{$jobIndustry->industry_name}}</option>
@@ -123,7 +125,7 @@
 							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    <label for="fullname"> Contact Person's Name</label>
-									<input type="text" name="contact_person_name" id="contact_person_name" tabindex="1" class="form-control @error('contact_person_name') is-invalid @enderror" value="{{$companyGeneralInfo->contact_person_name}}" autocomplete="contact_person_name" autofocus>
+									<input type="text" name="contact_person_name" id="contact_person_name" tabindex="1" class="form-control @error('contact_person_name') is-invalid @enderror" value="{{$companyGeneralInfo->contact_person_name}}" autocomplete="contact_person_name">
 										@error('contact_person_name')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -134,7 +136,7 @@
 							<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    	<label for="fullname"> Contact Person's Email</label>
-									<input type="email" name="contact_person_email" id="contact_person_email" tabindex="1" class="form-control @error('contact_person_email') is-invalid @enderror" value="{{$companyGeneralInfo->contact_person_email}}" autocomplete="contact_person_email" autofocus>
+									<input type="email" name="contact_person_email" id="contact_person_email" tabindex="1" class="form-control @error('contact_person_email') is-invalid @enderror" value="{{$companyGeneralInfo->contact_person_email}}" autocomplete="contact_person_email">
 										@error('contact_person_email')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
@@ -153,7 +155,7 @@
 										@enderror
 								</div>
 							</div>
-              <div class="col-md-6 col-lg-6">
+              			<div class="col-md-6 col-lg-6">
 								<div class="my_profile_input form-group">
 							    <label for="fullname">Contact Person's Phone Number</label>
 								  <input type="text" name="contact_person_phone" id="contact_person_phone" tabindex="2" class="form-control @error('contact_person_phone') is-invalid @enderror" autocomplete="contact_person_phone" value="{{$companyGeneralInfo->contact_person_phone}}">
@@ -174,19 +176,25 @@
 				</div>
 @section('myJs')
 <script>
-function readURL(input) {
+function readURL(input, preview) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-            $('#imagePreview').hide();
-            $('#imagePreview').fadeIn(650);
+            $(preview).css('background-image', 'url('+e.target.result +')');
+            $(preview).hide();
+            $(preview).fadeIn(650);
         }
         reader.readAsDataURL(input.files[0]);
 	}
 }
-$("#imageUpload").change(function() {
-    readURL(this);
+$("#bannerUpload").change(function() {
+	var preview = '#' + $(this).data('preview');
+    readURL(this, preview);
+});
+
+$("#profileUpload").change(function() {
+	var preview = '#' + $(this).data('preview');
+    readURL(this, preview);
 });
 </script>
 <script type="text/javascript">

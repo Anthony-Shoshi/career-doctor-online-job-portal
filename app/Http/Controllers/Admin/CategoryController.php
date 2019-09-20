@@ -29,6 +29,8 @@ class CategoryController extends Controller
         $jobCategories->category_name = $request->category_name;
         $jobCategories->category_code = rand(1, 1000000);
         $jobCategories->category_description = $request->category_description;
+        $jobCategories->created_by = auth::user()->id;
+        $jobCategories->updated_by = auth::user()->id;
         $jobCategories->save();
 
         return redirect()->back()->with('success', 'Category added successfully!');
@@ -61,6 +63,8 @@ class CategoryController extends Controller
         $jobCategories->category_name = $request->category_name;
         $jobCategories->category_code = rand(1, 1000000);
         $jobCategories->category_description = $request->category_description;
+        $jobCategories->created_by = auth::user()->id;
+        $jobCategories->updated_by = auth::user()->id;
         $jobCategories->save();
 
         return redirect('/categoryList')->with('success', 'Category updated successfully!');

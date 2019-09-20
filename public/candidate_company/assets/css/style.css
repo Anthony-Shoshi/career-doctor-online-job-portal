@@ -159,11 +159,18 @@ p {
   font-size: 16px;
   font-weight: 400; }
 
-ul,
-ol {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
+.note-editor.note-frame .note-editing-area .note-editable ul{
+  margin-left: 20px;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable ol{
+  margin-left: -20px;
+}
+
+/*ul,ol {*/
+/*  list-style: none;*/
+/*  margin: 0;*/
+/*  padding: 0; }*/
 
 iframe {
   border: none;
@@ -9495,4 +9502,9 @@ button.btn.my-2.my-sm-0{
 
 .panel-body textarea {
     height: 120px;
+}
+
+/*custom details*/
+.custom-details {
+  padding-left: 46px;
 }

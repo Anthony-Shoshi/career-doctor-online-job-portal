@@ -58,7 +58,7 @@ class JobSkillsController extends Controller
         $jobSkill->updated_by = Auth::user()->id;
         $jobSkill->save();
 
-        return redirect()->back()->with('success', 'Job Skill updated successfully!');
+        return redirect('jobSkillsList')->with('success', 'Job Skill updated successfully!');
     }
 
     public function deleteJobSkill($id){

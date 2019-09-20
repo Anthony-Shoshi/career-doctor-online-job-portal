@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,10 +29,12 @@ class HomeController extends Controller
             return view('admin.home');
         }
         if (Auth::user()->user_type == 'candidate') {
-            return view('candidate.home');
+            $jobs = DB::table('jobs')->where('is_published','1')->orderBy('created_at','DESC')->limit('4')->get();
+            return view('candidate.home')->with('jobs',$jobs);
         }
         if (Auth::user()->user_type == 'company') {
-            return view('company.home');
+            $jobs = DB::table('jobs')->where('is_published','1')->orderBy('created_at','DESC')->limit('4')->get();
+            return view('company.home')->with('jobs',$jobs);
         }
         //return view('home');
     }

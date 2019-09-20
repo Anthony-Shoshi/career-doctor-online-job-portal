@@ -25,30 +25,32 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Country Name</th>
-                    <th>View City</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($countries as $country)
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-hover">
+                    <thead>
                     <tr>
-                        <td>{{$country->name}}</td>
-                        <td>
-                            <a href="{{route('cityList',[$country->id])}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
-                        </td>
+                        <th>Country Name</th>
+                        <th>View City</th>
                     </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Country Name</th>
-                    <th>View City</th>
-                </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($countries as $country)
+                        <tr>
+                            <td>{{$country->name}}</td>
+                            <td>
+                                <a href="{{route('cityList',[$country->id])}}" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Country Name</th>
+                        <th>View City</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>

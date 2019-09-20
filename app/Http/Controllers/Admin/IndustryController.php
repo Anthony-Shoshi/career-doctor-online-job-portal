@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JobIndustry;
+use auth;
 
 class IndustryController extends Controller
 {
@@ -28,6 +29,8 @@ class IndustryController extends Controller
         $jobIndustry->industry_name = $request->industry_name;
         $jobIndustry->industry_code = rand(1, 1000000);
         $jobIndustry->industry_description = $request->industry_description;
+        $jobIndustry->created_by = auth::user()->id;
+        $jobIndustry->updated_by = auth::user()->id;
         $jobIndustry->save();
 
         return redirect()->back()->with('success', 'Industry added successfully!');
@@ -60,6 +63,8 @@ class IndustryController extends Controller
         $jobIndustry->industry_name = $request->industry_name;
         $jobIndustry->industry_code = rand(1, 1000000);
         $jobIndustry->industry_description = $request->industry_description;
+        $jobIndustry->created_by = auth::user()->id;
+        $jobIndustry->updated_by = auth::user()->id;
         $jobIndustry->save();
 
         return redirect('/industryList')->with('success', 'Industry updated successfully!');

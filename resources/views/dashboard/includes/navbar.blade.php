@@ -116,7 +116,7 @@
 									<a class="dropdown-item {{Request::is('company/post/job') ? 'active' : ''}}" href="{{ route('postJob') }}"><span class="flaticon-resume"></span> Post a New Job</a>
 									<a class="dropdown-item {{Request::is('company/manage/job') ? 'active' : ''}}" href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a>
 									<a class="dropdown-item" href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
-									<a class="dropdown-item" href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a>
+									<a class="dropdown-item {{Request::is('followed/by') ? 'active' : ''}}" href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a>
 									<a class="dropdown-item" href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a>
 									<a class="dropdown-item {{Request::is('company/changePassword') ? 'active' : ''}}" href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 									@endif
@@ -214,7 +214,7 @@
 								<a class="dropdown-item {{Request::is('company/post/job') ? 'active' : ''}}" href="{{ route('postJob') }}"><span class="flaticon-resume"></span> Post a New Job</a>
 								<a class="dropdown-item {{Request::is('company/manage/job') ? 'active' : ''}}" href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a>
 								<a class="dropdown-item" href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
-								<a class="dropdown-item" href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a>
+								<a class="dropdown-item {{Request::is('followed/by') ? 'active' : ''}}" href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a>
 								<a class="dropdown-item" href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a>
 								<a class="dropdown-item {{Request::is('company/changePassword') ? 'active' : ''}}" href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 								@endif

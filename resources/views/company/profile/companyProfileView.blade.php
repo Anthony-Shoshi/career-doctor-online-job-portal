@@ -17,7 +17,7 @@
                             </p>
                             <ul class="address_list">
                                 <li class="list-inline-item"><a href="#"><span class="flaticon-link text-thm2"></span> www.themeforest.com</a></li>
-                                <li class="list-inline-item"><a href="#"><span class="flaticon-phone-call text-thm2"></span>{{ $company->contact_person_phone }}</a></li>
+                                @if($company->contact_person_phone != '')<li class="list-inline-item"><a href="#"><span class="flaticon-phone-call text-thm2"></span> {{ $company->contact_person_phone }} </a></li>@endif
                                 <li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm2"></span>{{ $company->contact_person_email }}</a></li>
                             </ul>
                             <ul class="review_list">
@@ -32,8 +32,39 @@
                 </div>
                 <div class="col-lg-3 col-xl-3">
                     <div class="candidate_personal_overview style2">
-                        <button class="btn btn-block btn-thm mb15"><span class="flaticon-alarm pr10"></span> Follow Us</button>
+                        @auth
+                        @if(Auth::user()->user_type != 'company')
+                        @if($checkFollwer = \App\CompanyFollower::where('candidate', auth::user()->id)->where('company',$company->user_id)->exists())
+                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();
+							document.getElementById('un-follow').submit();"><span class="flaticon-alarm pr10"></span> Unfollow
+                            <form id="un-follow" action="{{ route('unFollowCompany') }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="company" value="{{ $company->user_id }}">
+                            </form>
+                        </button>
                         <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
+                        @else
+                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();
+							document.getElementById('follow-us').submit();"><span class="flaticon-alarm pr10"></span> Follow Us
+                            <form id="follow-us" action="{{ route('followCompany') }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="company" value="{{ $company->user_id }}">
+                            </form>
+                        </button>
+                        <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
+                        @endif
+                        @endif
+                        @endauth
+                        @guest
+                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();
+							document.getElementById('follow-us').submit();"><span class="flaticon-alarm pr10"></span> Follow Us
+                            <form id="follow-us" action="{{ route('followCompany') }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="company" value="{{ $company->user_id }}">
+                            </form>
+                        </button>
+                        <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -102,7 +133,14 @@
                                                 @endif
                                             </ul>
                                         </div>
-                                        <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                        @auth
+                                            @if(Auth::user()->user_type != 'company')
+                                                <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                            @endif
+                                        @endauth
+                                        @guest
+                                                <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                        @endguest
                                     </div>
                                 </div>
                             @endforeach
@@ -229,7 +267,7 @@
                         <div class="icon text-thm"><span class="flaticon-user"></span></div>
                         <div class="details">
                             <p class="color-black22">Followers</p>
-                            <p>15</p>
+                            <p>{{ $companyFollower }}</p>
                         </div>
                     </div>
                     <h4 class="fz20 mb30">Contact Qiwo</h4>

@@ -215,9 +215,9 @@ class JobPostController extends Controller
 
     public function manageJobSearch($search){
         if ($search != 'all'){
-            $jobs = Job::where('company',auth::user()->id)->where('title','LIKE','%'.$search.'%')->get();
+            $jobs = Job::where('company',Auth::user()->id)->where('title','LIKE','%'.$search.'%')->get();
         } else {
-            $jobs = Job::where('company',auth::user()->id)->orderBy('created_at','DESC')->where('is_deleted',0)->paginate('3');
+            $jobs = Job::where('company',Auth::user()->id)->orderBy('created_at','DESC')->where('is_deleted',0)->paginate('3');
         }
         $result = '';
         if (count($jobs) == 0) {
@@ -241,6 +241,44 @@ class JobPostController extends Controller
                                 .(($job->is_published == 1) ? '<span class="badge badge-success h5 text-white">Published</span>' :
                 '<span class="badge badge-danger h5 text-white">Not Published</span>').
                                 '
+                                </td>
+                                <td>
+                                    <ul class="view_edit_delete_list">
+                                        <li class="list-inline-item"><a href="'. route("viewJobPost",$job->id) .'" data-toggle="tooltip" data-placement="bottom" title="View"><span class="flaticon-eye"></span></a></li>
+                                        <li class="list-inline-item"><a href="'. route("editJobPost",$job->id) .'" data-toggle="tooltip" data-placement="bottom" title="Edit"><span class="flaticon-edit"></span></a></li>
+                                        <li class="list-inline-item"><a href="'. route("deleteJobPost",$job->id) .'" onclick="return confirm(\'Are you sure to delete this job post?\');" data-toggle="tooltip" data-placement="bottom" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>
+                                    </ul>
+                                </td>
+                            </tr>';
+        }
+        return $result;
+    }
+
+    public function manageJobSortBy($value){
+        $result = '';
+        if ($value == 'newest'){
+            $jobs = Job::where('company', Auth::user()->id)->orderBy('created_at','DESC')->where('is_deleted',0)->paginate('3');
+        } else if ($value == 'oldest'){
+            $jobs = Job::where('company', Auth::user()->id)->orderBy('created_at','ASC')->where('is_deleted',0)->paginate('3');
+        }
+        foreach ($jobs as $job){
+            $result .= '<tr>
+                            <th scope="row">
+                                    <h4>'.$job->title.'</h4>
+                                    <p><span class="flaticon-location-pin"></span>'.$job->city->name .', '. $job->country->name .'</p>
+                                    <ul>
+                                        <li class="list-inline-item"><span class="flaticon-event"> Created: </span></li>
+                                        <li class="list-inline-item">'. $job->created_at.'</li>
+                                        <li class="list-inline-item"><span class="flaticon-event"> Expiry: </span></li>
+                                        <li class="list-inline-item">'.$job->deadline.'</li>
+                                    </ul>
+                                </th>
+                                <td><span class="color-black22">17</span> Application(s)</td>
+                                <td class="text-thm2">
+                                '
+                .(($job->is_published == 1) ? '<span class="badge badge-success h5 text-white">Published</span>' :
+                    '<span class="badge badge-danger h5 text-white">Not Published</span>').
+                '
                                 </td>
                                 <td>
                                     <ul class="view_edit_delete_list">

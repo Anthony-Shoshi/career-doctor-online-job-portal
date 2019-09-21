@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 //middleware to check Deadline over or not
-Route::group(['middleware'=>'checkDeadline'], function (){
+//Route::group(['middleware'=>'checkDeadline'], function (){
 
     Route::get('/', 'PageController@welcomePage')->name('welcomePage');
 
@@ -125,6 +125,11 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('company/post/job/view/{id}','JobPostController@viewJobPost')->name('viewJobPost');
         Route::get('company/post/job/delete/{id}','JobPostController@deleteJobPost')->name('deleteJobPost');
         Route::get('manage/jobs/search/{search}','JobPostController@manageJobSearch')->name('manageJobSearch');
+        Route::get('manage/jobs/sort/by/{value}','JobPostController@manageJobSortBy')->name('manageJobSortBy');
+        //Followed By
+        Route::get('followed/by','FollowController@followedBy')->name('followedBy');
+        Route::get('search/followers/{search}','FollowController@searchFollowers')->name('searchFollowers');
+        Route::get('followers/sort/by/{value}','FollowController@followersSortBy')->name('followersSortBy');
     });
 
 //Resume
@@ -137,6 +142,12 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/view/resume', 'ResumeController@viewResume')->name('viewResume');
     });
 
-});
+//Company Follow
+    Route::group(['namespace'=>'Company'], function(){
+        Route::post('company/follow','FollowController@followCompany')->name('followCompany');
+        Route::post('company/unFollow','FollowController@unFollowCompany')->name('unFollowCompany');
+    });
 
 });
+
+//});

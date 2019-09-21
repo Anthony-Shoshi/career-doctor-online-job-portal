@@ -47,12 +47,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-xl-3">
-                    <div class="candidate_personal_overview style2">
-                        <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
-                        <button class="btn btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</button>
+                @auth
+                @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
+                    <div class="col-lg-4 col-xl-3">
+                        <div class="candidate_personal_overview style2">
+                            <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                            <button class="btn btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</button>
+                        </div>
                     </div>
-                </div>
+                @endif
+                @endauth
+                @guest
+                    <div class="col-lg-4 col-xl-3">
+                        <div class="candidate_personal_overview style2">
+                            <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                            <button class="btn btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</button>
+                        </div>
+                    </div>
+                @endguest
             </div>
         </div>
     </section>
@@ -125,7 +137,14 @@
                                             @endif
                                         </ul>
                                     </div>
-                                    <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                    @auth
+                                    @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
+                                        <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                    @endif
+                                    @endauth
+                                    @guest
+                                        <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                    @endguest
                                 </div>
                             </div>
                         @endforeach

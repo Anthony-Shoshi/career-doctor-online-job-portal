@@ -631,7 +631,14 @@
                                         @endif
                                     </ul>
                                 </div>
-                                <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                @auth
+                                    @if(Auth::user()->user_type != 'company')
+                                        <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                    @endif
+                                @endauth
+                                @guest
+                                    <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                @endguest
                             </div>
                         </div>
                         @endforeach

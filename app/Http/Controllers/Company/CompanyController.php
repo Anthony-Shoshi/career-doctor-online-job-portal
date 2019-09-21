@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\City;
+use App\CompanyFollower;
 use App\Job;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -101,6 +102,7 @@ class CompanyController extends Controller
         $data['industry'] = \App\JobIndustry::where('id', $company->industry_id)->first();
         $data['country'] = Country::where('id', $company->company_default_country_id)->first();
         $data['city'] = City::where('id', $company->company_default_city_id)->first();
+        $data['companyFollower'] = CompanyFollower::where('company',$company->user_id)->count();
         return view('company.profile.companyProfileView', $data)->with('company', $company)->with('jobsPostedByThisCompany',$jobsPostedByThisCompany);
     }
 

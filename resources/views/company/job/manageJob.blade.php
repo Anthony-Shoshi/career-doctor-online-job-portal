@@ -36,10 +36,9 @@
                     <ul>
                         <li class="list-inline-item">Sort by:</li>
                         <li class="list-inline-item">
-                            <select class="selectpicker show-tick">
-                                <option>Newest</option>
-                                <option>Recent</option>
-                                <option>Old Review</option>
+                            <select class="selectpicker show-tick" id="sort">
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
                             </select>
                         </li>
                     </ul>
@@ -132,6 +131,18 @@
 
                 $('.pagination').parent().css('display','block');
             }
+        });
+
+        //sort by
+        $(document).on('change','#sort',function () {
+           var value = $(this).val();
+            $.ajax({
+                url: '{{ url('manage/jobs/sort/by') }}/' + value,
+                type: 'GET',
+                success: function (data) {
+                    $('#result').html(data);
+                }
+            });
         });
     </script>
 @endsection

@@ -41,7 +41,7 @@
 							<li class="{{Request::is('company/post/job') ? 'active' : ''}}"><a href="{{ route('postJob') }}"><span class="flaticon-resume"></span> Post a New Job</a></li>
 							<li class="{{Request::is('company/manage/job') ? 'active' : ''}}"><a href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a></li>
 							<li><a href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a></li>
-							<li><a href="page-employer-packages.html"><span class="flaticon-favorites"></span> Packages</a></li>
+							<li class="{{Request::is('followed/by') ? 'active' : ''}}"><a href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a></li>
 							<li><a href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a></li>
 							<li class="{{Request::is('company/changePassword') ? 'active' : ''}}"><a href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="{{ route('logout') }}" onclick="event.preventDefault();

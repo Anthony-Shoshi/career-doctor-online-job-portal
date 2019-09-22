@@ -1,4 +1,11 @@
 @extends('candidate.layouts.master')
+@section('myCss')
+    <style>
+        ul {
+            margin-left: 30px;
+        }
+    </style>
+@endsection
 @section('content')
     <!-- Candidate Personal Info-->
     @php
@@ -47,24 +54,43 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 col-xl-3">
+                    <div class="candidate_personal_overview style2">
                 @auth
                 @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
-                    <div class="col-lg-4 col-xl-3">
-                        <div class="candidate_personal_overview style2">
+                        @if($checkShortList = \App\ShortListedJob::where('candidate', auth::user()->id)->where('job',$job->id)->exists())
                             <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
-                            <button class="btn btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</button>
-                        </div>
-                    </div>
+                            <button class="btn btn-block btn-gray" onclick="event.preventDefault();
+                                        document.getElementById('deListMain').submit();"><span class="flaticon-favorites pr10"></span> Delist
+                                <form action="{{ route('deListJob') }}" id="deListMain" method="POST" style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="job" value="{{ $job->id }}">
+                                </form>
+                            </button>
+                        @else
+                            <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                            <button class="btn btn-block btn-gray" onclick="event.preventDefault();
+                                        document.getElementById('shortListMain').submit();"><span class="flaticon-favorites pr10"></span> Shortlist
+                                <form action="{{ route('shortListJob') }}" id="shortListMain" method="POST" style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="job" value="{{ $job->id }}">
+                                </form>
+                            </button>
+                        @endif
                 @endif
                 @endauth
                 @guest
-                    <div class="col-lg-4 col-xl-3">
-                        <div class="candidate_personal_overview style2">
-                            <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
-                            <button class="btn btn-block btn-gray"><span class="flaticon-favorites pr10"></span> Shortlist</button>
-                        </div>
-                    </div>
+                        <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                        <button class="btn btn-block btn-gray" onclick="event.preventDefault();
+                                        document.getElementById('shortListMain').submit();"><span class="flaticon-favorites pr10"></span> Shortlist
+                            <form action="{{ route('shortListJob') }}" id="shortListMain" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="job" value="{{ $job->id }}">
+                            </form>
+                        </button>
                 @endguest
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -139,11 +165,33 @@
                                     </div>
                                     @auth
                                     @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
-                                        <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                        @if($checkShortList = \App\ShortListedJob::where('candidate', auth::user()->id)->where('job',$recommendedJob->id)->exists())
+                                            <a data-toggle="tooltip" data-placement="bottom" title="Delist" class="favorit" onclick="event.preventDefault();
+                                            document.getElementById('deListSub').submit();"><span class="flaticon-favorites"></span>
+                                                <form action="{{ route('deListJob') }}" id="deListSub" method="POST" style="display: none;">
+                                                    @csrf
+                                                    <input type="hidden" name="job" value="{{ $recommendedJob->id }}">
+                                                </form>
+                                            </a>
+                                        @else
+                                            <a data-toggle="tooltip" data-placement="bottom" title="Shortlist" class="favorit" onclick="event.preventDefault();
+                                            document.getElementById('shortListSub').submit();"><span class="flaticon-favorites"></span>
+                                                <form action="{{ route('shortListJob') }}" id="shortListSub" method="POST" style="display: none;">
+                                                    @csrf
+                                                    <input type="hidden" name="job" value="{{ $recommendedJob->id }}">
+                                                </form>
+                                            </a>
+                                        @endif
                                     @endif
                                     @endauth
                                     @guest
-                                        <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                        <a data-toggle="tooltip" data-placement="bottom" title="Shortlist" class="favorit" onclick="event.preventDefault();
+                                        document.getElementById('shortListSub').submit();"><span class="flaticon-favorites"></span>
+                                            <form action="{{ route('shortListJob') }}" id="shortListSub" method="POST" style="display: none;">
+                                                @csrf
+                                                <input type="hidden" name="job" value="{{ $job->id }}">
+                                            </form>
+                                        </a>
                                     @endguest
                                 </div>
                             </div>

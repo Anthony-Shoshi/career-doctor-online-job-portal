@@ -40,6 +40,7 @@
                             </tr>
                             </thead>
                             <tbody id="result">
+                            @if($companyFollowers->count() > 0)
                                 @foreach($companyFollowers as $companyFollower)
                                     <tr>
                                         <th scope="row">
@@ -65,6 +66,13 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;">
+                                            No Followers!
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                         <div style="margin-left: 40%;">

@@ -104,7 +104,7 @@
 									<a class="dropdown-item {{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}" href="{{route('createResume')}}"><span class="flaticon-resume"></span> @if($candidate) Edit Resume @else Create Resume @endif</a>
 									<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 									<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
-									<a class="dropdown-item" href="page-candidates-favourite-jobs.html"><span class="flaticon-favorites"></span> Favourite Jobs</a>
+									<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
 									<a class="dropdown-item" href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a>
 									<a class="dropdown-item" href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a>
 									<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
@@ -202,7 +202,7 @@
 								<a class="dropdown-item {{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}" href="{{route('createResume')}}"><span class="flaticon-resume"></span> @if($candidate) Edit Resume @else Create Resume @endif</a>
 								<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 								<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
-								<a class="dropdown-item" href="page-candidates-favourite-jobs.html"><span class="flaticon-favorites"></span> Favourite Jobs</a>
+								<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
 								<a class="dropdown-item" href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a>
 								<a class="dropdown-item" href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a>
 								<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>

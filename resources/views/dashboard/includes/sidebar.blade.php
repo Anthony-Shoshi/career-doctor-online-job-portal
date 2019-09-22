@@ -22,7 +22,7 @@
 							<li class="{{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}"><a href="{{route('createResume')}}"><span class="flaticon-resume"></span>@if($candidate) Edit Resume @else Create Resume @endif</a></li>
 							<li><a href="#"><span class="flaticon-paper-plane"></span> Applied Jobs</a></li>
 							<li><a href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a></li>
-							<li><a href="page-candidates-favourite-jobs.html"><span class="flaticon-favorites"></span> Favourite Jobs</a></li>
+							<li class="{{Request::is('shortListed/job') ? 'active' : ''}}"><a href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a></li>
 							<li><a href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a></li>
 							<li><a href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a></li>
 							<li><a href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a></li>

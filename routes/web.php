@@ -105,6 +105,10 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
         Route::get('/candidate/changePassword', 'ChangePasswordController@changePassword')->name('candidateChangePassword');
         Route::post('/candidate/updatePassword', 'ChangePasswordController@updatePassword')->name('candidateUpdatePassword');
+        //Shortlisted Job
+        Route::get('shortListed/job','ShortListController@viewShortListedJob')->name('viewShortListedJob');
+        Route::get('shortListed/job/search/{search}','ShortListController@shortListedJobSearch')->name('shortListedJobSearch');
+        Route::get('shortListed/job/sort/by/{value}','ShortListController@shortListedJobSortBy')->name('shortListedJobSortBy');
     });
 
 //Company
@@ -146,6 +150,12 @@ Route::group(['middleware'=>'auth'], function() {
     Route::group(['namespace'=>'Company'], function(){
         Route::post('company/follow','FollowController@followCompany')->name('followCompany');
         Route::post('company/unFollow','FollowController@unFollowCompany')->name('unFollowCompany');
+    });
+
+//Shortlist Job
+    Route::group(['namespace'=>'Candidate'], function(){
+        Route::post('shortlist/job', 'ShortListController@shortListJob')->name('shortListJob');
+        Route::post('delist/job', 'ShortListController@deListJob')->name('deListJob');
     });
 
 });

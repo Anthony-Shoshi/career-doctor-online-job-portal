@@ -11,6 +11,8 @@ use App\JobQualification;
 use App\JobType;
 use App\Rules\ApplyMethod;
 use App\Rules\IsNegotiable;
+use App\ViewJob;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -293,13 +295,27 @@ class JobPostController extends Controller
     }
 
     public function singleJobView($id){
+
+        $ip = \Request::ip();
+        $now = Carbon::today();
+        $viewJobs = ViewJob::where('from_ip',$ip)->where('job',$id)->whereDate('created_at', $now)->exists();
+
+        if (!$viewJobs){
+            $viewJob = new ViewJob();
+            $viewJob->from_ip = $ip;
+            $viewJob->job = $id;
+            $viewJob->save();
+        }
+
         $job = Job::where('is_published','1')->findOrFail($id);
         $where = array();
         $where['job_industry'] = $job->job_industry;
         $where['job_category'] = $job->job_category;
         $where['is_published'] = 1;
         $recommendedJobs = Job::where($where)->where('id', '!=', $job->id)->inRandomOrder()->limit(3)->get();
-        return view('candidate.job.singleJobView')->with('job',$job)->with('recommendedJobs',$recommendedJobs);
+        $perDayViewer = ViewJob::where('job',$id)->whereDate('created_at', $now)->count();
+        $totalViewer = ViewJob::where('job',$id)->count();
+        return view('candidate.job.singleJobView')->with('job',$job)->with('recommendedJobs',$recommendedJobs)->with('perDayViewer',$perDayViewer)->with('totalViewer',$totalViewer);
     }
 
     public function jobListView(){

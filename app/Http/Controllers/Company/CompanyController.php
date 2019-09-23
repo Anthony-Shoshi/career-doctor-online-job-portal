@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Company;
 use App\City;
 use App\CompanyFollower;
 use App\Job;
+use App\ViewCompany;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Country;
@@ -95,6 +97,18 @@ class CompanyController extends Controller
     }
 
     public function companyProfileView($id){
+
+        $ip = \Request::ip();
+        $now = Carbon::today();
+        $viewcompanies = ViewCompany::where('from_ip',$ip)->where('company',$id)->whereDate('created_at', $now)->exists();
+
+        if (!$viewcompanies){
+            $viewcompany = new ViewCompany();
+            $viewcompany->from_ip = $ip;
+            $viewcompany->company = $id;
+            $viewcompany->save();
+        }
+
         $data = array();
         $jobsPostedByThisCompany = Job::where('company', $id)->orderBy('created_at','DESC')->where('is_published', 1)->limit(3)->get();
         $company = CompanyGeneralInfo::where('user_id',$id)->first();
@@ -103,6 +117,8 @@ class CompanyController extends Controller
         $data['country'] = Country::where('id', $company->company_default_country_id)->first();
         $data['city'] = City::where('id', $company->company_default_city_id)->first();
         $data['companyFollower'] = CompanyFollower::where('company',$company->user_id)->count();
+        $data['perDayViewer'] = ViewCompany::where('company',$id)->whereDate('created_at', $now)->count();
+        $data['totalViewer'] = ViewCompany::where('company',$id)->count();
         return view('company.profile.companyProfileView', $data)->with('company', $company)->with('jobsPostedByThisCompany',$jobsPostedByThisCompany);
     }
 

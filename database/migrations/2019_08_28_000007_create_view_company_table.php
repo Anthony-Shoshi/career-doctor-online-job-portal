@@ -10,7 +10,7 @@ class CreateViewCompanyTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'view_company';
+    public $tableName = 'view_companies';
 
     /**
      * Run the migrations.

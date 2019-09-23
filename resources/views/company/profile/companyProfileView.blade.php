@@ -236,8 +236,13 @@
                     <div class="candidate_working_widget style2 bgc-fa">
                         <div class="icon text-thm"><span class="flaticon-eye"></span></div>
                         <div class="details">
-                            <p class="color-black22">Viewed</p>
-                            <p>164</p>
+                            <p class="color-black22">Today Views</p>
+                            <p>{{ $perDayViewer }}</p>
+                        </div>
+                        <div class="icon text-thm"><span class="flaticon-zoom-in"></span></div>
+                        <div class="details">
+                            <p class="color-black22">Total Views</p>
+                            <p>{{ $totalViewer }}</p>
                         </div>
                         <div class="icon text-thm"><span class="flaticon-label"></span></div>
                         <div class="details">

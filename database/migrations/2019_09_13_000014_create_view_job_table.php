@@ -10,7 +10,7 @@ class CreateViewJobTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'view_job';
+    public $tableName = 'view_jobs';
 
     /**
      * Run the migrations.

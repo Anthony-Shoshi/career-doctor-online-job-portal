@@ -248,7 +248,7 @@
 			<div class="row">
 				<div class="col-sm-6 col-lg-4">
 					<a href="#" class="job_loc_img_box">
-						<div class="thumb"><img class="img-fluid" src="images/service/9.jpg" alt="9.jpg"></div>
+						<div class="thumb"><img class="img-fluid" src="{{ asset('candidate_company/assets/images/service/9.jpg') }}" alt="9.jpg"></div>
 						<div class="details">
 							<h4>London</h4>
 							<h5>152,141</h5>
@@ -257,7 +257,7 @@
 				</div>
 				<div class="col-sm-6 col-lg-4">
 					<a href="#" class="job_loc_img_box">
-						<div class="thumb"><img class="img-fluid" src="images/service/10.jpg" alt="10.jpg"></div>
+						<div class="thumb"><img class="img-fluid" src="{{ asset('candidate_company/assets/images/service/10.jpg') }}" alt="10.jpg"></div>
 						<div class="details">
 							<h4>Manchester</h4>
 							<h5>586,478</h5>
@@ -266,7 +266,7 @@
 				</div>
 				<div class="col-sm-6 col-lg-4">
 					<a href="#" class="job_loc_img_box">
-						<div class="thumb"><img class="img-fluid" src="images/service/11.jpg" alt="11.jpg"></div>
+						<div class="thumb"><img class="img-fluid" src="{{ asset('candidate_company/assets/images/service/11.jpg') }}" alt="11.jpg"></div>
 						<div class="details">
 							<h4>Liverpool</h4>
 							<h5>15,258</h5>
@@ -275,7 +275,7 @@
 				</div>
 				<div class="col-sm-6 col-lg-4">
 					<a href="#" class="job_loc_img_box">
-						<div class="thumb"><img class="img-fluid" src="images/service/12.jpg" alt="12.jpg"></div>
+						<div class="thumb"><img class="img-fluid" src="{{ asset('candidate_company/assets/images/service/12.jpg') }}" alt="12.jpg"></div>
 						<div class="details">
 							<h4>Istanbul</h4>
 							<h5>152,141</h5>
@@ -284,7 +284,7 @@
 				</div>
 				<div class="col-sm-6 col-lg-4">
 					<a href="#" class="job_loc_img_box">
-						<div class="thumb"><img class="img-fluid" src="images/service/13.jpg" alt="13.jpg"></div>
+						<div class="thumb"><img class="img-fluid" src="{{ asset('candidate_company/assets/images/service/13.jpg') }}" alt="13.jpg"></div>
 						<div class="details">
 							<h4>New York</h4>
 							<h5>586,478</h5>
@@ -293,7 +293,7 @@
 				</div>
 				<div class="col-sm-6 col-lg-4">
 					<a href="#" class="job_loc_img_box">
-						<div class="thumb"><img class="img-fluid" src="images/service/14.jpg" alt="14.jpg"></div>
+						<div class="thumb"><img class="img-fluid" src="{{ asset('candidate_company/assets/images/service/14.jpg') }}" alt="14.jpg"></div>
 						<div class="details">
 							<h4>Los Angeles</h4>
 							<h5>15,258</h5>

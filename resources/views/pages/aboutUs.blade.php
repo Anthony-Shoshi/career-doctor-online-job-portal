@@ -25,12 +25,12 @@
 						<p class="color-black22 mt30">Every single one of our jobs has some kind of flexibility option - such as telecommuting a part-time schedule or a flexible or flextime schedule.</p>
 						<p>Track your results on the local or global market , depending on your needs. You can track everything in the most popular search engines - Google, Bing, Yahoo and Yandex. Improve your search performance and increase traffic with our turn-key.</p>
 						<p class="mt30">Positionly is the only solution on the market that provides a simple and transparent way to monitor.the effectiveness.</p>
-						<a class="btn btn-thm mt15" href="#">Search Jobs <span class="fa fa-long-arrow-right pl10"></span></a>
+						<a class="btn btn-thm mt15" href="{{ route('jobListView') }}" target="_blank">Search Jobs <span class="fa fa-long-arrow-right pl10"></span></a>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="about_thumb mt50">
-						<img class="img-fluid" src="{{asset('candidate_company/assets/images/team/1.jpg')}}" alt="1.png">
+						<img class="img-fluid" src="{{asset('candidate_company/assets/images/about/1.png')}}" alt="1.png">
 					</div>
 				</div>
 			</div>

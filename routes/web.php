@@ -28,7 +28,7 @@ Route::get('/registerCompany', 'Company\SignInController@registerCompany')->name
 Route::get('/getCities/{id}', 'Company\SignInController@getCities');
 Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
 Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
-Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin');
+Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin')->middleware('checkAdmin');
 Route::get('/single/job/view/{id}', 'Company\JobPostController@singleJobView')->name('singleJobView');
 Route::get('/list/job/view', 'Company\JobPostController@jobListView')->name('jobListView');
 Route::get('/company/profile/view/{id}', 'Company\CompanyController@companyProfileView')->name('companyProfileView');
@@ -40,7 +40,7 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
  
 // Admin
-    Route::group(['namespace' => 'Admin'], function () {
+    Route::group(['namespace' => 'Admin', 'middleware' => 'checkAdmin'], function () {
         //Route::get('/backoffice', 'AdminController@index')->name('adminHome');
         //Route::get('/backoffice', 'SignInController@adminLogin')->name('adminLogin');
         //Category
@@ -99,7 +99,7 @@ Route::group(['middleware'=>'auth'], function() {
     });
 
 //Candidate
-    Route::group(['namespace' => 'Candidate'], function () {
+    Route::group(['namespace' => 'Candidate', 'middleware' => 'checkCandidate'], function () {
         Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
         Route::get('/callback', 'SocialAuthGoogleController@callback');
         Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
@@ -113,7 +113,7 @@ Route::group(['middleware'=>'auth'], function() {
     });
 
 //Company
-    Route::group(['namespace' => 'Company'], function () {
+    Route::group(['namespace' => 'Company', 'middleware' => 'checkCompany'], function () {
         //Profile
         Route::get('/company/profile', 'CompanyController@companyProfile')->name('companyProfile');
         Route::post('/company/profile/update', 'CompanyController@updateCompanyProfile')->name('updateCompanyProfile');
@@ -138,7 +138,7 @@ Route::group(['middleware'=>'auth'], function() {
     });
 
 //Resume
-    Route::group(['namespace' => 'Resume'], function () {
+    Route::group(['namespace' => 'Resume', 'middleware' => 'checkCandidate'], function () {
         Route::get('/create/resume', 'ResumeController@createResume')->name('createResume');
         Route::POST('/candidate/resume/save', 'ResumeController@saveCandidateResume')->name('saveCandidateResume');
         Route::get('/edit/resume', 'ResumeController@editResume')->name('editResume');
@@ -148,7 +148,7 @@ Route::group(['middleware'=>'auth'], function() {
     });
 
 //Cover Letter
-    Route::group(['namespace' => 'CoverLetter'], function (){
+    Route::group(['namespace' => 'CoverLetter', 'middleware' => 'checkCandidate'], function (){
        Route::get('create/coverletter','CoverLetterController@createCoverLetter')->name('createCoverLetter');
        Route::get('create/new/coverletter','CoverLetterController@createNewCoverLetter')->name('createNewCoverLetter');
        Route::post('save/coverletter','CoverLetterController@saveCoverLetter')->name('saveCoverLetter');
@@ -158,13 +158,13 @@ Route::group(['middleware'=>'auth'], function() {
     });
 
 //Company Follow
-    Route::group(['namespace'=>'Company'], function(){
+    Route::group(['namespace'=>'Company', 'middleware' => 'checkCandidate'], function(){
         Route::get('company/follow/{company}','FollowController@followCompany')->name('followCompany');
         Route::get('company/unFollow/{company}','FollowController@unFollowCompany')->name('unFollowCompany');
     });
 
 //Shortlist Job
-    Route::group(['namespace'=>'Candidate'], function(){
+    Route::group(['namespace'=>'Candidate', 'middleware' => 'checkCandidate'], function(){
         Route::post('shortlist/job', 'ShortListController@shortListJob')->name('shortListJob');
         Route::post('delist/job', 'ShortListController@deListJob')->name('deListJob');
     });

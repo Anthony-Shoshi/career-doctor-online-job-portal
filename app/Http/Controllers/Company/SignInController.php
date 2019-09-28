@@ -50,6 +50,9 @@ class SignInController extends Controller
                 'contact_person_email' => ['required', 'string', 'email', 'max:255'],
                 'contact_person_position' => 'required',
                 'contact_person_phone' => 'nullable|numeric',
+                'team_size' => 'required',
+                'website' => 'nullable|url',
+                'established' => 'required|numeric',
             ],
             [
                 'industry_id.required' => 'The industry type field is required.',
@@ -57,6 +60,8 @@ class SignInController extends Controller
                 'company_default_country_id.required' => 'The company country field is required.',
                 'company_default_city_id.required' => 'The company city field is required.',
                 'company_default_postcode.required' => 'The company postal code field is required.',
+                'team_size.required' => 'The tean size field is required.',
+                'established.required' => 'The established field is required.',
             ]
         );
 
@@ -80,16 +85,17 @@ class SignInController extends Controller
         $companyGeneralInfo->company_default_country_id = $request->company_default_country_id;
         $companyGeneralInfo->company_default_city_id = $request->company_default_city_id;
         $companyGeneralInfo->company_default_postcode = $request->company_default_postcode;
-        if ($request->file('company_banner')) {
-            $companyBannerImage = $request->file('company_banner');
-            $imageOrigirnalName = $companyBannerImage->getClientOriginalName();
-            $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
+        if ($request->hasFile('company_banner')){
+            $image = $request->file('company_banner');
+            $imageName = rand(time(), 1000) . '.' . $image->getClientOriginalExtension();
             $uploadPath = 'upload/company/banner/';
-            $companyBannerImage->move($uploadPath, $imageName);
-            $imageUrl = $uploadPath . $imageName;
-            $companyGeneralInfo->company_banner = $imageUrl;
+            \Image::make($image)->resize(150,130)->save(public_path('upload/company/banner/') . $imageName);
+            $companyGeneralInfo->company_banner = $uploadPath . $imageName;
         }
         $companyGeneralInfo->company_description = $request->company_description;
+        $companyGeneralInfo->website = $request->website;
+        $companyGeneralInfo->team_size = $request->team_size;
+        $companyGeneralInfo->established = $request->established;
         $companyGeneralInfo->contact_person_name = $request->contact_person_name;
         $companyGeneralInfo->contact_person_email = $request->contact_person_email;
         $companyGeneralInfo->contact_person_position = $request->contact_person_position;

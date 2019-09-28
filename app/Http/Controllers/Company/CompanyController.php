@@ -117,6 +117,7 @@ class CompanyController extends Controller
         $data['country'] = Country::where('id', $company->company_default_country_id)->first();
         $data['city'] = City::where('id', $company->company_default_city_id)->first();
         $data['companyFollower'] = CompanyFollower::where('company',$company->user_id)->count();
+        $data['companyImage'] = User::where('id',$company->user_id)->first()->image;
         $data['perDayViewer'] = ViewCompany::where('company',$id)->whereDate('created_at', $now)->count();
         $data['totalViewer'] = ViewCompany::where('company',$id)->count();
         return view('company.profile.companyProfileView', $data)->with('company', $company)->with('jobsPostedByThisCompany',$jobsPostedByThisCompany);

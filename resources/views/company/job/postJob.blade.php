@@ -2,7 +2,7 @@
 @section('content')
 @section('myCss')
     <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/summernote-bs4.css') }}">
+
     <style>
         @media (max-width: 768px) {
             .custom-switch {
@@ -262,7 +262,7 @@
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="my_profile_select_box form-group">
-                        <label for="formGroupExampleInput1">Gender</label><br>
+                        <label for="formGroupExampleInput1">Gender<span class="required"> *</span></label><br>
                         <select class="form-control @error('gender') is-invalid @enderror selectpicker" name="gender">
                             <option value="">Select Gender</option>
                             <option value="MALE" {{ (old("gender") == 'MALE' ? "selected":"") }}>Male</option>
@@ -390,31 +390,6 @@
         </form>
     </div>
 @section('myJs')
-    <script src="{{ asset('js/summernote-bs4.js') }}"></script>
-    <script>
-        $('#summernote').summernote({
-            height: 200,
-            popover: {
-                image: [],
-                link: [],
-                air: []
-            },
-            fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['view', ['fullscreen', 'codeview']],
-                ['help', ['help']]
-            ],
-            dialogsInBody: true
-        });
-    </script>
     <script>
         $(document).on('change','#country',function () {
             var countryId = $(this).val();

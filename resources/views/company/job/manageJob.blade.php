@@ -96,10 +96,11 @@
                             @endif
                             </tbody>
                         </table>
-                        <div style="margin-left: 40%;">
-                            {!! $jobs->links() !!}
-                        </div>
                     </div>
+                </div>
+                <br>
+                <div style="margin-left: 34%;">
+                    {!! $jobs->links() !!}
                 </div>
             </div>
         </div>

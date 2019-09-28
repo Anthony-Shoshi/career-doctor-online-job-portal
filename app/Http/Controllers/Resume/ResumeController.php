@@ -9,6 +9,7 @@ use App\City;
 use App\Country;
 use App\JobIndustry;
 use App\JobSkill;
+use App\JobSkillsTemp;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -202,16 +203,6 @@ class ResumeController extends Controller
             }
         }
 
-//        $skills = explode(',', $request->skill_name[$i]);
-//        foreach ($skills as $skill){
-//            if (! JobSkill::where('skill_name', ucwords($skill))->exists() && $skill != ''){
-//                $skills = new JobSkill();
-//                $skills->skill_name = ucwords($skill);
-//                $skills->skill_code = rand(1,90);
-//                $skills->save();
-//            }
-//        }
-
         // candidate experience
         if (count($request->position) != 0) {
             for ($i = 0; $i < count($request->position); $i++){
@@ -229,7 +220,20 @@ class ResumeController extends Controller
                     $candidateExperience->created_by = auth::user()->id;
                     $candidateExperience->updated_by = auth::user()->id;
                     $candidateExperience->save();
+
                     //Job skills
+                    $skills = explode(',', $request->skill_name[$i]);
+                    foreach ($skills as $skill){
+                        if (! JobSkill::where('skill_name', ucwords($skill))->exists() && $skill != ''){
+                            $jobSkillsTemp = new JobSkillsTemp();
+                            $jobSkillsTemp->user = auth::user()->id;
+                            $jobSkillsTemp->skill_name = ucwords($skill);
+                            $jobSkillsTemp->status = 'PENDING';
+                            $jobSkillsTemp->created_by = auth::user()->id;
+                            $jobSkillsTemp->updated_by = auth::user()->id;
+                            $jobSkillsTemp->save();
+                        }
+                    }
                 }
             }
         }
@@ -374,7 +378,12 @@ class ResumeController extends Controller
     }
 
     public function viewResume(){
-        return view('resume.viewResume');
+        $candidateGeneralInfo = CandidateGeneralInfo::where('user_id', Auth::user()->id)->first();
+        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
+        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
+        $data['city'] = City::where('id', $candidateGeneralInfo->current_city_id)->first();
+        $data['country'] = Country::where('id', $candidateGeneralInfo->current_country_id)->first();
+        return view('resume.viewResume', $data)->with('candidateGeneralInfo', $candidateGeneralInfo);
     }
 
 }

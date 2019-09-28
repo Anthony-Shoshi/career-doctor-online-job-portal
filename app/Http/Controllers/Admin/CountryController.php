@@ -37,7 +37,7 @@ class CountryController extends Controller
     }
 
     public function countryList(){
-        $countries = Country::all();
+        $countries = Country::where('row_delete', 0)->get();
         return view('admin.country.countryList')->with('countries',$countries);
     }
 
@@ -73,7 +73,8 @@ class CountryController extends Controller
 
     public function deleteCountry($id){
         $country = Country::findOrFail($id);
-        $country->delete();
+        $country->row_delete = 1;
+        $country->save();
         return redirect('/countryList')->with('delete','Country deleted successfully!');
     }
 }

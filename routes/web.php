@@ -103,6 +103,7 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
         Route::get('/callback', 'SocialAuthGoogleController@callback');
         Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
+        //Change Password
         Route::get('/candidate/changePassword', 'ChangePasswordController@changePassword')->name('candidateChangePassword');
         Route::post('/candidate/updatePassword', 'ChangePasswordController@updatePassword')->name('candidateUpdatePassword');
         //Shortlisted Job
@@ -146,10 +147,20 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/view/resume', 'ResumeController@viewResume')->name('viewResume');
     });
 
+//Cover Letter
+    Route::group(['namespace' => 'CoverLetter'], function (){
+       Route::get('create/coverletter','CoverLetterController@createCoverLetter')->name('createCoverLetter');
+       Route::get('create/new/coverletter','CoverLetterController@createNewCoverLetter')->name('createNewCoverLetter');
+       Route::post('save/coverletter','CoverLetterController@saveCoverLetter')->name('saveCoverLetter');
+       Route::get('edit/coverletter/{id}','CoverLetterController@editCoverLetter')->name('editCoverLetter');
+       Route::post('update/coverletter','CoverLetterController@updateCoverLetter')->name('updateCoverLetter');
+       Route::get('delete/coverletter/{id}','CoverLetterController@deleteCoverLetter')->name('deleteCoverLetter');
+    });
+
 //Company Follow
     Route::group(['namespace'=>'Company'], function(){
-        Route::post('company/follow','FollowController@followCompany')->name('followCompany');
-        Route::post('company/unFollow','FollowController@unFollowCompany')->name('unFollowCompany');
+        Route::get('company/follow/{company}','FollowController@followCompany')->name('followCompany');
+        Route::get('company/unFollow/{company}','FollowController@unFollowCompany')->name('unFollowCompany');
     });
 
 //Shortlist Job

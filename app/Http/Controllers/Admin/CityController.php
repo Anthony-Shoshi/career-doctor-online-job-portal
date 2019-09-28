@@ -41,7 +41,7 @@ class CityController extends Controller
     public function cityList($id){
         $country = Country::where('id',$id)->first();
         $countryName = $country->name;
-        $cities = City::where('country_id',$id)->get();
+        $cities = City::where('country_id',$id)->where('is_deleted',0)->get();
         return view('admin.city.cityList')->with('cities',$cities)->with('countryName',$countryName);
     }
 
@@ -73,7 +73,8 @@ class CityController extends Controller
     public function deleteCity($id)
     {
         $city = City::findOrFail($id);
-        $city->delete();
+        $city->is_deleted = 1;
+        $city->save();
         return redirect()->back()->with('delete','City deleted successfully!');
     }
 

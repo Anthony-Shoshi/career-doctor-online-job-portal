@@ -35,7 +35,7 @@ class JobQualificationController extends Controller
     }
 
     public function jobQualificationList(){
-        $jobQualifications = JobQualification::all();
+        $jobQualifications = JobQualification::where('is_deleted', 0)->get();
         return view('admin.jobQualification.jobQualificationList')->with('jobQualifications', $jobQualifications);
     }
 
@@ -67,7 +67,8 @@ class JobQualificationController extends Controller
 
     public function deleteJobQualification($id){
         $jobQualification = JobQualification::findOrFail($id);
-        $jobQualification->delete();
+        $jobQualification->is_deleted = 1;
+        $jobQualification->save();
         return redirect('/jobQualificationList')->with('delete', 'Qualification deleted successfully!');
     }
 }

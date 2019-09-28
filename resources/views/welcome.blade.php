@@ -209,13 +209,22 @@
 								$country = \App\Country::where('id',$job->country_id)->first();
 								$currency = \App\Currency::where('id',$job->currency)->first();
 								$company = \App\CompanyGeneralInfo::where('user_id',$job->company)->first();
+								$companyImage = \App\User::where('id',$job->company)->first()->image;
 							@endphp
 							<h5 class="job_chedule text-thm mt0">{{ $jobTpe->title }}</h5>
 							<div class="thumb fn-smd">
-								<img class="img-fluid" src="{{ asset($company->company_banner) }}" alt="1.jpg" height ="100px" width="120px">
+								<img class="img-fluid" src="{{ asset($companyImage) }}" alt="1.jpg" height ="120px" width="120px">
 							</div>
 							<h4>{{ $job->title }}</h4>
 							<p>Posted : {{ date_format(new DateTime($job->created_at),'d M, Y') }} by <a class="text-thm" target="_blank" href="{{route('companyProfileView',[$job->company])}}">{{ $company->company_name }}</a></p>
+							<p>
+							@if($job->is_visa_sponsor == '1')
+								<span class="fa fa-dot-circle-o"></span> Visa Sponsored
+							@endif
+							@if($job->is_relocation == 1)
+								<span class="fa fa-dot-circle-o"></span> Relocation
+							@endif
+							</p>
 							<ul class="featurej_post">
 								<li class="list-inline-item"><span class="flaticon-location-pin"></span> {{ $city->name }}, {{ $country->name }}</li>
 								@if($job->is_negotiable == 1)

@@ -47,6 +47,7 @@ class JobPostController extends Controller
             'currency' => [new IsNegotiable($request->is_negotiable, $request->currency)],
             'deadline' => 'required',
             'job_qualification' => 'required',
+            'gender' => 'required',
             'country_id' => 'required',
             'city_id' => 'required',
             'submission_type_value' => [new ApplyMethod($request->submission_type, $request->submission_type_value)],
@@ -66,6 +67,7 @@ class JobPostController extends Controller
                 'max_salary.required' => 'The maximum salary field is required.',
                 'currency.required' => 'The currency field is required.',
                 'deadline.required' => 'The application deadline date field is required.',
+                'gender.required' => 'The gender field is required.',
                 'country_id.required' => 'The country field is required.',
                 'city_id.required' => 'The city field is required.',
                 'submission_type_value.required' => 'The apply method value field is required'

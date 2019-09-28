@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/responsive.css') }}">
+<link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
 @endsection
 
 @section('content')
@@ -113,25 +114,60 @@
 									</div>
 									</div>
 									<div class="form-row">
-									<div class="form-group col-md-4">
-									<select name="industry_id" id="industry_id" class="form-control @error('industry_id') is-invalid @enderror">
-											<option value=" " selected>Select Industry Type</option>
-											@foreach($jobIndustries as $jobIndustry)
-											<option value={{$jobIndustry->id}}{{ old('industry_id') == $jobIndustry->id ? ' selected' : ''}}>{{$jobIndustry->industry_name}}</option>
-											@endforeach
-										</select>
-										@error('industry_id')
+										<div class="form-group col-md-6">
+											<select name="industry_id" id="industry_id" class="form-control @error('industry_id') is-invalid @enderror">
+												<option value=" " selected>Select Industry Type</option>
+												@foreach($jobIndustries as $jobIndustry)
+													<option value={{$jobIndustry->id}}{{ old('industry_id') == $jobIndustry->id ? ' selected' : ''}}>{{$jobIndustry->industry_name}}</option>
+												@endforeach
+											</select>
+											@error('industry_id')
 											<span class="invalid-feedback" role="alert">
 												<strong>{{ $message }}</strong>
 											</span>
-										@enderror
-									</div>
-									<div class="form-group col-md-4">
+											@enderror
+										</div>
+									<div class="form-group col-md-6">
 										<input type="file" class="form-control" name="company_banner">
 									</div>
-									<div class="form-group col-md-4">
-										<textarea name="company_description" class="form-control" id="company_description" cols="30" rows="10" placeholder="Enter Company Description">{{ old('company_description') }}</textarea>
 									</div>
+									<div class="form-row">
+										<div class="form-group col-md-3">
+											<select name="team_size" class="form-control @error('team_size') is-invalid @enderror">
+												<option value="" selected>Select Team Size</option>
+												<option value="1 - 10"{{ old('team_size') == "1 - 10" ? ' selected' : ''}}>1 - 10</option>
+												<option value="10 - 50"{{ old('team_size') == "10 - 50" ? ' selected' : ''}}>10 - 50</option>
+												<option value="50 - 100"{{ old('team_size') == "50 - 100" ? ' selected' : ''}}>50 - 100</option>
+												<option value="100 - 200"{{ old('team_size') == "100 - 200" ? ' selected' : ''}}>100 - 200</option>
+												<option value="200 +"{{ old('team_size') == "200 +" ? ' selected' : ''}}>200 +</option>
+											</select>
+											@error('team_size')
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+											@enderror
+										</div>
+										<div class="form-group col-md-3">
+											<input type="text" id="passingYear" class="form-control yearPicker @error('established') is-invalid @enderror" value="{{ old('established') }}" name="established" placeholder="Enter Established Year">
+											@error('established')
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+											@enderror
+										</div>
+										<div class="form-group col-md-6">
+											<input type="text" name="website" id="website" tabindex="2" class="form-control @error('website') is-invalid @enderror" placeholder="Enter Company Website" autocomplete="website" value="{{old('website')}}">
+											@error('website')
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+											@enderror
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-md-12">
+											<textarea name="company_description" class="form-control" id="company_description" cols="30" rows="10" placeholder="Enter Company Description">{{ old('company_description') }}</textarea>
+										</div>
 									</div>
 									<h4>Contact Information</h4>
 									<hr>
@@ -214,6 +250,18 @@ new Vue({
 		}
 		else {
 			$('#company_default_city_id').html('<option value="">Select City</option>');
+		}
+	});
+</script>
+<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+<script>
+	$('body').on('focus',".yearPicker", function(){
+		if( $(this).hasClass('hasDatepicker') === false )  {
+			$(this).datepicker({
+				minViewMode: 2,
+				format: 'yyyy',
+				endDate: new Date()
+			});
 		}
 	});
 </script>

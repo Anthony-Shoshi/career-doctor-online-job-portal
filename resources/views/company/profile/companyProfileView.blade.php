@@ -7,7 +7,7 @@
                 <div class="col-lg-9 col-xl-9">
                     <div class="candidate_personal_info style3">
                         <div class="thumb">
-                            <img class="img-fluid" src="{{ asset($company->company_banner) }}" alt="Company Banner">
+                            <img class="img-fluid" src="{{ asset($companyImage) }}" alt="Company Banner">
                             <div class="cpi_av_rating"><span>4.5</span></div>
                         </div>
                         <div class="details">
@@ -16,7 +16,7 @@
                                 {{ $industry->industry_name }}
                             </p>
                             <ul class="address_list">
-                                <li class="list-inline-item"><a href="#"><span class="flaticon-link text-thm2"></span> www.themeforest.com</a></li>
+                                @if($company->website != '')<li class="list-inline-item"><a href="{{ $company->website }}" target="_blank"><span class="flaticon-link text-thm2"></span> {{ $company->website }} </a></li>@endif
                                 @if($company->contact_person_phone != '')<li class="list-inline-item"><a href="#"><span class="flaticon-phone-call text-thm2"></span> {{ $company->contact_person_phone }} </a></li>@endif
                                 <li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm2"></span>{{ $company->contact_person_email }}</a></li>
                             </ul>
@@ -35,34 +35,26 @@
                         @auth
                         @if(Auth::user()->user_type != 'company')
                         @if($checkFollwer = \App\CompanyFollower::where('candidate', auth::user()->id)->where('company',$company->user_id)->exists())
-                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();
-							document.getElementById('un-follow').submit();"><span class="flaticon-alarm pr10"></span> Unfollow
-                            <form id="un-follow" action="{{ route('unFollowCompany') }}" method="POST" style="display: none;">
-                                @csrf
-                                <input type="hidden" name="company" value="{{ $company->user_id }}">
-                            </form>
-                        </button>
+                        <button class="btn btn-block btn-thm mb15 submit">Unfollow</button>
+                        <input type="hidden" id="company" value="{{$company->user_id}}">
                         <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
                         @else
-                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();
-							document.getElementById('follow-us').submit();"><span class="flaticon-alarm pr10"></span> Follow Us
-                            <form id="follow-us" action="{{ route('followCompany') }}" method="POST" style="display: none;">
-                                @csrf
-                                <input type="hidden" name="company" value="{{ $company->user_id }}">
-                            </form>
-                        </button>
+                        <button class="btn btn-block btn-thm mb15 submit"> Follow Us</button>
+                        <input type="hidden" id="company" value="{{$company->user_id}}">
                         <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
                         @endif
                         @endif
                         @endauth
                         @guest
-                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();
-							document.getElementById('follow-us').submit();"><span class="flaticon-alarm pr10"></span> Follow Us
-                            <form id="follow-us" action="{{ route('followCompany') }}" method="POST" style="display: none;">
-                                @csrf
-                                <input type="hidden" name="company" value="{{ $company->user_id }}">
-                            </form>
-                        </button>
+{{--                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();--}}
+{{--							document.getElementById('follow-us').submit();"><span class="flaticon-alarm pr10"></span> Follow Us--}}
+{{--                            <form id="follow-us" action="{{ route('followCompany') }}" method="POST" style="display: none;">--}}
+{{--                                @csrf--}}
+{{--                                <input type="hidden" name="company" value="{{ $company->user_id }}">--}}
+{{--                            </form>--}}
+{{--                        </button>--}}
+                        <button class="btn btn-block btn-thm mb15 submit"> Follow Us</button>
+                        <input type="hidden" id="company" value="{{$company->user_id}}">
                         <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
                         @endguest
                     </div>
@@ -114,16 +106,25 @@
                                     $country = \App\Country::where('id',$jobPostedByThisCompany->country_id)->first();
                                     $currency = \App\Currency::where('id',$jobPostedByThisCompany->currency)->first();
                                     $company = \App\CompanyGeneralInfo::where('user_id',$jobPostedByThisCompany->company)->first();
+                                    $companyImage = \App\User::where('id',$jobPostedByThisCompany->company)->first()->image;
                                 @endphp
                                 <div class="col-lg-12">
                                     <div class="fj_post style2">
                                         <div class="details">
                                             <h5 class="job_chedule text-thm mt0">{{ $jobTpe->title }}</h5>
                                             <div class="thumb fn-smd">
-                                                <a href="{{ route('singleJobView',[$jobPostedByThisCompany->id]) }}" target="_blank"><img class="img-fluid" src="{{ asset($company->company_banner) }}" alt="1.jpg"></a>
+                                                <a href="{{ route('singleJobView',[$jobPostedByThisCompany->id]) }}" target="_blank"><img class="img-fluid" src="{{ asset($companyImage) }}" alt="1.jpg"></a>
                                             </div>
                                             <a href="{{ route('singleJobView',[$jobPostedByThisCompany->id]) }}" target="_blank"><h4>{{ $jobPostedByThisCompany->title }}</h4></a>
                                             <p>Posted : {{ date_format(new DateTime($jobPostedByThisCompany->created_at),'d M, Y') }} by <a class="text-thm" target="_blank" href="{{ route('companyProfileView',[$jobPostedByThisCompany->company]) }}">{{ $company->company_name }}</a></p>
+                                            <p>
+                                                @if($jobPostedByThisCompany->is_visa_sponsor == '1')
+                                                    <span class="fa fa-dot-circle-o"></span> Visa Sponsored
+                                                @endif
+                                                @if($jobPostedByThisCompany->is_relocation == 1)
+                                                    <span class="fa fa-dot-circle-o"></span> Relocation
+                                                @endif
+                                            </p>
                                             <ul class="featurej_post">
                                                 <li class="list-inline-item"><span class="flaticon-location-pin"></span> {{ $city->name }}, {{ $country->name }}</li>
                                                 @if($jobPostedByThisCompany->is_negotiable == 1)
@@ -135,11 +136,33 @@
                                         </div>
                                         @auth
                                             @if(Auth::user()->user_type != 'company')
-                                                <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                                @if($checkShortList = \App\ShortListedJob::where('candidate', auth::user()->id)->where('job',$jobPostedByThisCompany->id)->exists())
+                                                    <a data-toggle="tooltip" data-placement="bottom" title="Remove" class="favorit" onclick="event.preventDefault();
+                                                        document.getElementById('deListSub').submit();"><span class="flaticon-favorites"></span>
+                                                        <form action="{{ route('deListJob') }}" id="deListSub" method="POST" style="display: none;">
+                                                            @csrf
+                                                            <input type="hidden" name="job" value="{{ $jobPostedByThisCompany->id }}">
+                                                        </form>
+                                                    </a>
+                                                @else
+                                                    <a data-toggle="tooltip" data-placement="bottom" title="Favourite" class="favorit" onclick="event.preventDefault();
+                                                        document.getElementById('shortListSub').submit();"><span class="flaticon-favorites"></span>
+                                                        <form action="{{ route('shortListJob') }}" id="shortListSub" method="POST" style="display: none;">
+                                                            @csrf
+                                                            <input type="hidden" name="job" value="{{ $jobPostedByThisCompany->id }}">
+                                                        </form>
+                                                    </a>
+                                                @endif
                                             @endif
                                         @endauth
                                         @guest
-                                                <a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+                                            <a data-toggle="tooltip" data-placement="bottom" title="Favourite" class="favorit" onclick="event.preventDefault();
+                                                document.getElementById('shortListSub').submit();"><span class="flaticon-favorites"></span>
+                                                <form action="{{ route('shortListJob') }}" id="shortListSub" method="POST" style="display: none;">
+                                                    @csrf
+                                                    <input type="hidden" name="job" value="{{ $jobPostedByThisCompany->id }}">
+                                                </form>
+                                            </a>
                                         @endguest
                                     </div>
                                 </div>
@@ -262,12 +285,12 @@
                         <div class="icon text-thm"><span class="flaticon-timeline"></span></div>
                         <div class="details">
                             <p class="color-black22">Since</p>
-                            <p>2002</p>
+                            <p>{{ $company->established }}</p>
                         </div>
                         <div class="icon text-thm"><span class="flaticon-team"></span></div>
                         <div class="details">
                             <p class="color-black22">Team Size</p>
-                            <p>15</p>
+                            <p>{{ $company->team_size }}</p>
                         </div>
                         <div class="icon text-thm"><span class="flaticon-user"></span></div>
                         <div class="details">
@@ -297,4 +320,35 @@
             </div>
         </div>
     </section>
+@endsection
+@section('myJs')
+    <script>
+        $(document).on('click', '.submit', function () {
+            var company = $('#company').val();
+            var dis = $(this);
+            if (dis.text() != 'Unfollow'){
+                $.ajax({
+                    url: '{{ url('company/follow') }}/' + company,
+                    type: 'GET',
+                    success: function (data) {
+                        dis.text("Unfollow");
+                    },
+                    error: function(xhr, status, error) {
+                        window.location.href = '{{ url('/login') }}';
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '{{ url('company/unFollow') }}/' + company,
+                    type: 'GET',
+                    success: function (data) {
+                        dis.text("Follow");
+                    },
+                    error: function(xhr, status, error) {
+                        window.location.href = '{{ url('/login') }}';
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

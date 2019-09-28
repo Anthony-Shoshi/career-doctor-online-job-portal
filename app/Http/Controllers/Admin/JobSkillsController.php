@@ -63,12 +63,13 @@ class JobSkillsController extends Controller
 
     public function deleteJobSkill($id){
         $jobSkill = JobSkill::findOrFail($id);
-        $jobSkill->delete();
+        $jobSkill->is_deleted = 1;
+        $jobSkill->save();
         return redirect()->back()->with('delete', 'Job Skill deleted successfully!');
     }
 
     public function jobSkillsList(){
-        $jobSkills = JobSkill::all();
+        $jobSkills = JobSkill::where('is_deleted', 0)->get();
         return view('admin.jobSkills.jobSkillsList')->with('jobSkills',$jobSkills);
     }
 

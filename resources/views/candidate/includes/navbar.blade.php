@@ -22,17 +22,17 @@
 					</li>
 					@guest
 		            <li>
-		                <a href="#"><span class="title">Find A Job</span></a>
+		                <a href="{{ route('jobListView') }}" target="_blank"><span class="title">Find A Job</span></a>
 		            </li>
 					@else
 					@if(auth::user()->user_type == 'candidate')
 					<li class="last">
-		                <a href="#"><span class="title">Find A Job</span></a>
+		                <a href="{{ route('jobListView') }}" target="_blank"><span class="title">Find A Job</span></a>
 					</li>
 					@endif
 					@if(auth::user()->user_type == 'company')
 					<li class="last">
-		                <a href="{{ route('postJob') }}"><span class="title">Post a Job</span></a>
+		                <a href="{{ route('postJob') }}" target="_blank"><span class="title">Post a Job</span></a>
 					</li>
 					@endif
 					@endguest

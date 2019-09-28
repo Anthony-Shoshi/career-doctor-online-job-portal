@@ -23,7 +23,7 @@
 					</li>
 					@if(auth::user()->user_type == 'candidate')
                     <li>
-		                <a href="#"><span class="title">Find a Job</span></a>
+		                <a href="{{ route('jobListView') }}" target="_blank"><span class="title">Find a Job</span></a>
 					</li>
 					@endif
 					@if(auth::user()->user_type == 'company')

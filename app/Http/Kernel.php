@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckAdmin;
+use App\Http\Middleware\CheckCandidate;
+use App\Http\Middleware\CheckCompany;
 use App\Http\Middleware\CheckDeadlineOverOrNot;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -62,6 +65,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkDeadline' => CheckDeadlineOverOrNot::class,
+        'checkAdmin' => CheckAdmin::class,
+        'checkCompany' => CheckCompany::class,
+        'checkCandidate' => CheckCandidate::class,
     ];
 
     /**

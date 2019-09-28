@@ -38,7 +38,7 @@ class CategoryController extends Controller
 
     public function categoryList()
     {
-        $jobCategories = JobCategory::all();
+        $jobCategories = JobCategory::where('is_deleted',0)->get();
         return view('admin.category.categoryList')->with('jobCategories', $jobCategories);
     }
 
@@ -73,7 +73,8 @@ class CategoryController extends Controller
     public function deleteCategory($id)
     {
         $jobCategory = JobCategory::findOrFail($id);
-        $jobCategory->delete();
+        $jobCategory->is_deleted = 1;
+        $jobCategory->save();
         return redirect('/categoryList')->with('delete', 'Category deleted successfully!');
     }
 }

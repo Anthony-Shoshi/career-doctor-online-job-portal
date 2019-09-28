@@ -18,6 +18,8 @@
 <!-- Favicon -->
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" />
+{{--	summer note--}}
+<link rel="stylesheet" href="{{ asset('css/summernote-bs4.css') }}">
 @yield('myCss')
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -67,12 +69,39 @@
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/timepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/chart.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/chart.custome.js') }}"></script>
+<script type="text/javascript" src="{{asset('candidate_company/assets/js/tagsinput.js')}}"></script>
 {{--vue js--}}
 <script src={{asset('js/vue.js')}}></script>
 <!-- Custom script for all pages --> 
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/script.js') }}"></script>
 <!-- toastr -->
 <script src="{{asset('js/toastr.js')}}"></script>
+{{--summer note--}}
+<script src="{{ asset('js/summernote-bs4.js') }}"></script>
+<script>
+	$('#summernote').summernote({
+		height: 200,
+		popover: {
+			image: [],
+			link: [],
+			air: []
+		},
+		fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36', '48' , '64', '82', '150'],
+		toolbar: [
+			['style', ['style']],
+			['font', ['bold', 'italic', 'underline', 'clear']],
+			['fontname', ['fontname']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['height', ['height']],
+			['table', ['table']],
+			['view', ['fullscreen', 'codeview']],
+			['help', ['help']]
+		],
+		dialogsInBody: true
+	});
+</script>
 <script>
     @if(Session::has('success'))
       toastr.success("{{ Session::get('success') }}");

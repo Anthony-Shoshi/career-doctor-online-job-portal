@@ -102,6 +102,7 @@
 									<a class="dropdown-item {{Request::is('view/resume') ? 'active' : ''}}" href="{{route('viewResume')}}"><span class="flaticon-resume"></span> View Resume</a>
 									@endif
 									<a class="dropdown-item {{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}" href="{{route('createResume')}}"><span class="flaticon-resume"></span> @if($candidate) Edit Resume @else Create Resume @endif</a>
+									<a class="dropdown-item {{Request::is('create/coverletter') || Request::is('create/new/coverletter') ? 'active' : ''}}" href="{{route('createCoverLetter')}}"><span class="flaticon-resume"></span> Create Cover Letter </a>
 									<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 									<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
 									<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
@@ -200,6 +201,7 @@
 									<a class="dropdown-item {{Request::is('view/resume') ? 'active' : ''}}" href="{{route('viewResume')}}"><span class="flaticon-resume"></span> View Resume</a>
 								@endif
 								<a class="dropdown-item {{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}" href="{{route('createResume')}}"><span class="flaticon-resume"></span> @if($candidate) Edit Resume @else Create Resume @endif</a>
+								<a class="dropdown-item {{Request::is('create/coverletter') || Request::is('create/new/coverletter') ? 'active' : ''}}" href="{{route('createCoverLetter')}}"><span class="flaticon-resume"></span> Create Cover Letter </a>
 								<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 								<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
 								<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>

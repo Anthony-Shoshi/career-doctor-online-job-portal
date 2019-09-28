@@ -20,6 +20,7 @@
 							<li class="{{Request::is('view/resume') ? 'active' : ''}}"><a href="{{route('viewResume')}}"><span class="flaticon-eye"></span> View Resume</a></li>
 							@endif
 							<li class="{{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}"><a href="{{route('createResume')}}"><span class="flaticon-resume"></span>@if($candidate) Edit Resume @else Create Resume @endif</a></li>
+							<li class="{{Request::is('create/coverletter') || Request::is('create/new/coverletter') ? 'active' : ''}}"><a href="{{route('createCoverLetter')}}"><span class="flaticon-resume"></span> Create Cover Letter</a></li>
 							<li><a href="#"><span class="flaticon-paper-plane"></span> Applied Jobs</a></li>
 							<li><a href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a></li>
 							<li class="{{Request::is('shortListed/job') ? 'active' : ''}}"><a href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a></li>

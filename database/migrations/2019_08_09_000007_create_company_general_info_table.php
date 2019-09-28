@@ -47,6 +47,9 @@ class CreateCompanyGeneralInfoTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->text('company_banner')->nullable()->default(null);
+            $table->string('team_size');
+            $table->string('website')->nullable()->default(null);
+            $table->string('established');
             $table->text('company_description')->nullable()->default(null);
             $table->string('contact_person_name');
             $table->string('contact_person_email', 100);

@@ -38,7 +38,7 @@ class IndustryController extends Controller
 
     public function industryList()
     {
-        $jobIndustries = JobIndustry::all();
+        $jobIndustries = JobIndustry::where('is_deleted',0)->get();
         return view('admin.industry.industryList')->with('jobIndustries', $jobIndustries);
     }
 
@@ -73,7 +73,8 @@ class IndustryController extends Controller
     public function deleteIndustry($id)
     {
         $jobIndustry = JobIndustry::findOrFail($id);
-        $jobIndustry->delete();
+        $jobIndustry->is_deleted = 1;
+        $jobIndustry->save();
         return redirect('/industryList')->with('delete', 'Industry deleted successfully!');
     }
 }

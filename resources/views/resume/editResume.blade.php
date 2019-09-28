@@ -26,20 +26,20 @@
                 <div class="stepwizard-row setup-panel">
                     <div class="stepwizard-step col-xs-3">
                         <a href="#step-1" type="button" class="btn btn-success my-btn">1</a>
-                        <p><small>Profile</small></p>
+                        <p><small>General Information</small></p>
                     </div>
                     <div class="stepwizard-step col-xs-3">
-                        <a href="#step-2" type="button" class="btn btn-default my-btn disabled">2</a>
+                        <a href="#step-2" type="button" class="btn btn-default my-btn disabled">3</a>
+                        <p><small>Experience</small></p>
+                    </div>
+                    <div class="stepwizard-step col-xs-3">
+                        <a href="#step-3" type="button" class="btn btn-default my-btn disabled">2</a>
                         <p><small>Education</small></p>
                     </div>
                     <div class="stepwizard-step col-xs-3">
-                        <a href="#step-3" type="button" class="btn btn-default my-btn disabled">3</a>
-                        <p><small>Experience</small></p>
+                        <a href="#step-4" type="button" class="btn btn-default my-btn disabled">4</a>
+                        <p><small>Extracurricular</small></p>
                     </div>
-                    {{--                <div class="stepwizard-step col-xs-3">--}}
-                    {{--                    <a href="#step-4" type="button" class="btn btn-default my-btn disabled">4</a>--}}
-                    {{--                    <p><small>Others</small></p>--}}
-                    {{--                </div>--}}
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                 @csrf
                 <div class="panel panel-primary setup-content" id="step-1">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Profile</h3>
+                        <h3 class="panel-title">General Information</h3>
                     </div>
                     <div class="panel-body">
                         <div class="form-row">
@@ -139,6 +139,90 @@
 
                 <div class="panel panel-primary setup-content" id="step-2">
                     <div class="panel-heading">
+                        <h3 class="panel-title">Experience</h3>
+                    </div>
+                    <div class="panel-body">
+                        @php
+                            $ex = 1;
+                        @endphp
+                        @foreach($candidateExperiences as $candidateExperience)
+                            @php
+                                $cities = \App\City::where('country_id',$candidateExperience->country)->orderBy('name','asc')->get();
+                            @endphp
+                            <input type="hidden" name="experience_id[]" value="{{ $candidateExperience->id }}">
+                            <div class="experienceFieldGroup">
+                                <h4>Experience <span id="experienceNumber">{{ $ex }}</span> @if( $ex !=1 )<button class="btn btn-danger btn-sm float-right" data-id="{{ $candidateExperience->id }}" type="button" id="experienceRemove"><i class="fa fa-minus"></i></button>@endif</h4>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Position <span class="required">*</span></label>
+                                        <input type="text" class="form-control" value="{{ $candidateExperience->position }}" name="position[]" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Company Name <span class="required">*</span></label>
+                                        <input type="text" class="form-control" value="{{ $candidateExperience->company_name }}" name="company_name[]" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Country <span class="required">*</span></label>
+                                        <select class="form-control" name="country[]" id="country" required>
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country->id }}"{{ ($candidateExperience->country == $country->id) ? ' selected' : '' }}>{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>City <span class="required">*</span></label>
+                                        <select class="form-control" name="city[]" id="city" required>
+                                            @foreach($cities as $city)
+                                                <option value="{{ $city->id }}"{{ ($candidateExperience->city == $city->id) ? ' selected' : '' }}>{{ $city->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <label>Start Date <span class="required">*</span></label>
+                                        <input type="date" class="form-control startDateId" value="{{ $candidateExperience->start_date }}" name="start_date[]" required>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <label>End Date <span class="required">*</span></label>
+                                        <input type="date" class="form-control" id="endDate" value="{{ $candidateExperience->end_date }}" name="end_date[]"{{ $candidateExperience->is_current == 0 ? ' enabled' : ' disabled' }} required>
+                                        <input type="hidden" class="form-control" id="hiddenEndDate" value="" name="end_date[]"{{ $candidateExperience->is_current == 1 ? ' enabled' : ' disabled' }}>
+                                    </div>
+                                    <div class="form-check col-md-2" id="customCheckbox" style="padding-top: 25px;padding-left: 20px;">
+                                        <input type="checkbox" name="is_current[]" class="myCheckBoxInput" id="isCurrentExperience" value="1"{{ $candidateExperience->is_current == 1 ? ' checked' : '' }}>
+                                        <input type="hidden" name="is_current[]" id="isCurrentHiddenValue" value="0"{{ $candidateExperience->is_current == 1 ? ' disabled' : '' }}>
+                                        <label class="myCheckBoxLabel">Current</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <div class="my_resume_skill">
+                                            <label>Skills <span class="required">*</span></label>
+                                            <input type="text" id="skill_name" name="skill_name[]" value="{{ $candidateExperience->skill_name }}" data-role="tagsinput" placeholder="Add Skills" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Experience Summery</label>
+                                        <textarea type="text" class="form-control" name="experience_summary[]">{{ $candidateExperience->experience_summary }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                                $ex++;
+                            @endphp
+                        @endforeach
+                        <button type="button" class="btn btn-success btn-sm float-left" id="experienceAddMore"><i class="fa fa-plus"></i></button>
+                        <br>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary setup-content" id="step-3">
+                    <div class="panel-heading">
                         <h3 class="panel-title">Education</h3>
                     </div>
                     <div class="panel-body">
@@ -200,105 +284,23 @@
                     </div>
                 </div>
 
-                <div class="panel panel-primary setup-content" id="step-3">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Experience</h3>
-                    </div>
-                    <div class="panel-body">
-                        @php
-                            $ex = 1;
-                        @endphp
-                        @foreach($candidateExperiences as $candidateExperience)
-                        @php
-                            $cities = \App\City::where('country_id',$candidateExperience->country)->orderBy('name','asc')->get();
-                        @endphp
-                            <input type="hidden" name="experience_id[]" value="{{ $candidateExperience->id }}">
-                        <div class="experienceFieldGroup">
-                            <h4>Experience <span id="experienceNumber">{{ $ex }}</span> @if( $ex !=1 )<button class="btn btn-danger btn-sm float-right" data-id="{{ $candidateExperience->id }}" type="button" id="experienceRemove"><i class="fa fa-minus"></i></button>@endif</h4>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Position <span class="required">*</span></label>
-                                    <input type="text" class="form-control" value="{{ $candidateExperience->position }}" name="position[]" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Company Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control" value="{{ $candidateExperience->company_name }}" name="company_name[]" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Country <span class="required">*</span></label>
-                                    <select class="form-control" name="country[]" id="country" required>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->id }}"{{ ($candidateExperience->country == $country->id) ? ' selected' : '' }}>{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>City <span class="required">*</span></label>
-                                    <select class="form-control" name="city[]" id="city" required>
-                                        @foreach($cities as $city)
-                                        <option value="{{ $city->id }}"{{ ($candidateExperience->city == $city->id) ? ' selected' : '' }}>{{ $city->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-5">
-                                    <label>Start Date <span class="required">*</span></label>
-                                    <input type="date" class="form-control startDateId" value="{{ $candidateExperience->start_date }}" name="start_date[]" required>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label>End Date <span class="required">*</span></label>
-                                    <input type="date" class="form-control" id="endDate" value="{{ $candidateExperience->end_date }}" name="end_date[]"{{ $candidateExperience->is_current == 0 ? ' enabled' : ' disabled' }} required>
-                                    <input type="hidden" class="form-control" id="hiddenEndDate" value="" name="end_date[]"{{ $candidateExperience->is_current == 1 ? ' enabled' : ' disabled' }}>
-                                </div>
-                                <div class="form-check col-md-2" id="customCheckbox" style="padding-top: 25px;padding-left: 20px;">
-                                    <input type="checkbox" name="is_current[]" class="myCheckBoxInput" id="isCurrentExperience" value="1"{{ $candidateExperience->is_current == 1 ? ' checked' : '' }}>
-                                    <input type="hidden" name="is_current[]" id="isCurrentHiddenValue" value="0"{{ $candidateExperience->is_current == 1 ? ' disabled' : '' }}>
-                                    <label class="myCheckBoxLabel">Current</label>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <div class="my_resume_skill">
-                                        <label>Skills <span class="required">*</span></label>
-                                        <input type="text" id="skill_name" name="skill_name[]" value="{{ $candidateExperience->skill_name }}" data-role="tagsinput" placeholder="Add Skills" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Experience Summery</label>
-                                    <textarea type="text" class="form-control" name="experience_summary[]">{{ $candidateExperience->experience_summary }}</textarea>
-                                </div>
-                            </div>
+                <div class="panel panel-primary setup-content" id="step-4">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Extracurricular</h3>
                         </div>
-                            @php
-                                $ex++;
-                            @endphp
-                        @endforeach
-                        <button type="button" class="btn btn-success btn-sm float-left" id="experienceAddMore"><i class="fa fa-plus"></i></button>
-                        <br>
-                        <button class="btn btn-primary nextBtn pull-right" type="submit">Update</button>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label">Company Name</label>
+                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Company Address</label>
+                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                            </div>
+                            <button class="btn btn-primary nextBtn pull-right" type="submit">Update</button>
+                        </div>
                     </div>
 
-                {{--            <div class="panel panel-primary setup-content" id="step-4">--}}
-                {{--                <div class="panel-heading">--}}
-                {{--                    <h3 class="panel-title">Others</h3>--}}
-                {{--                </div>--}}
-                {{--                <div class="panel-body">--}}
-                {{--                    <div class="form-group">--}}
-                {{--                        <label class="control-label">Company Name</label>--}}
-                {{--                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />--}}
-                {{--                    </div>--}}
-                {{--                    <div class="form-group">--}}
-                {{--                        <label class="control-label">Company Address</label>--}}
-                {{--                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />--}}
-                {{--                    </div>--}}
-                {{--                    <button class="btn btn-success pull-right" type="submit">Finish!</button>--}}
-                {{--                </div>--}}
-                {{--            </div>--}}
             </form>
             {{--        Education--}}
             <div class="education_field_group educationRepeat" style="display: none;">
@@ -541,7 +543,6 @@
     </script>
     <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('js/typeahead.bundle.js')}}"></script>
-    <script type="text/javascript" src="{{asset('candidate_company/assets/js/tagsinput.js')}}"></script>
     <script type="text/javascript">
         $('body').on('focus',".yearPicker", function(){
             if( $(this).hasClass('hasDatepicker') === false )  {

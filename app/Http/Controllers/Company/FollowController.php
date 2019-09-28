@@ -10,28 +10,28 @@ use Auth;
 
 class FollowController extends Controller
 {
-    public function followCompany(Request $request){
+    public function followCompany($company){
 
-        if ($request->company != ''){
+        if ($company != ''){
             $companyFollower = new CompanyFollower();
             $companyFollower->candidate = Auth::user()->id;
-            $companyFollower->company = $request->company;
+            $companyFollower->company = $company;
             $companyFollower->created_by = Auth::user()->id;
             $companyFollower->updated_by = Auth::user()->id;
 
             $companyFollower->save();
 
-            return redirect()->back();
+            return 'success';
         }
     }
 
-    public function unFollowCompany(Request $request){
-        if ($request->company != ''){
+    public function unFollowCompany($company){
+        if ($company != ''){
 
-            $companyFollower = CompanyFollower::where('candidate', Auth::user()->id)->where('company',$request->company)->first();
+            $companyFollower = CompanyFollower::where('candidate', Auth::user()->id)->where('company', $company)->first();
             $companyFollower->delete();
 
-            return redirect()->back();
+            return 'success';
         }
     }
 

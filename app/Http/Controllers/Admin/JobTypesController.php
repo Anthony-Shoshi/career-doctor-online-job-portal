@@ -34,7 +34,7 @@ class JobTypesController extends Controller
     }
 
     public function jobTypeList(){
-        $jobTypes = JobType::all();
+        $jobTypes = JobType::where('is_deleted', 0)->get();
         return view('admin.jobTypes.JobTypeList')->with('jobTypes',$jobTypes);
     }
 
@@ -64,7 +64,8 @@ class JobTypesController extends Controller
 
     public function deleteJobType($id){
         $jobType = JobType::findOrFail($id);
-        $jobType->delete();
+        $jobType->is_deleted = 1;
+        $jobType->save();
         return redirect()->back()->with('delete','Job type deleted successfully!');
     }
 

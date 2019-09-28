@@ -24,22 +24,23 @@
         <div class="container">
             <div class="stepwizard">
                 <div class="stepwizard-row setup-panel">
-                    <div class="stepwizard-step col-xs-3">
+                    <div class="stepwizard-step col-xs-2">
                         <a href="#step-1" type="button" class="btn btn-success my-btn">1</a>
-                        <p><small>Profile</small></p>
+                        <p><small>General Information</small></p>
                     </div>
-                    <div class="stepwizard-step col-xs-3">
-                        <a href="#step-2" type="button" class="btn btn-default my-btn disabled">2</a>
-                        <p><small>Education</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-3">
-                        <a href="#step-3" type="button" class="btn btn-default my-btn disabled">3</a>
+                    <div class="stepwizard-step col-xs-2">
+                        <a href="#step-2" type="button" class="btn btn-success my-btn disabled">2</a>
                         <p><small>Experience</small></p>
                     </div>
-                    {{--                <div class="stepwizard-step col-xs-3">--}}
-                    {{--                    <a href="#step-4" type="button" class="btn btn-default my-btn disabled">4</a>--}}
-                    {{--                    <p><small>Others</small></p>--}}
-                    {{--                </div>--}}
+                    <div class="stepwizard-step col-xs-2">
+                        <a href="#step-3" type="button" class="btn btn-success my-btn disabled">3</a>
+                        <p><small>Education</small></p>
+                    </div>
+                    <div class="stepwizard-step col-xs-2">
+                        <a href="#step-4" type="button" class="btn btn-success my-btn disabled">4</a>
+                        <p><small>Extracurricular</small></p>
+                    </div>
+
                 </div>
             </div>
 
@@ -47,7 +48,7 @@
                 @csrf
                 <div class="panel panel-primary setup-content" id="step-1">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Profile</h3>
+                        <h3 class="panel-title">General Information</h3>
                     </div>
                     <div class="panel-body">
                         <div class="form-row">
@@ -65,22 +66,6 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Current Position</label>
-                                <input type="text" class="form-control" value="{{old('current_position')}}" name="current_position">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Current Employer</label>
-                                <input type="text" class="form-control" value="{{old('current_employer')}}" name="current_employer">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label>Short Description</label>
-                                <textarea class="form-control" name="short_description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
                                 <label>Contact Email <span class="required">*</span></label>
                                 <input type="email" class="form-control" value="{{old('contact_email')}}" name="contact_email" required>
                             </div>
@@ -91,8 +76,8 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Current Address <span class="required">*</span></label>
-                                <textarea class="form-control" name="current_address" required></textarea>
+                                <label>Short Description</label>
+                                <textarea class="form-control" name="short_description"></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -114,6 +99,12 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Current Address <span class="required">*</span></label>
+                                <textarea class="form-control" name="current_address" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label>Industry <span class="required">*</span></label>
                                 <select name="industry_id" id="fullname" class="form-control @error('industry_id') is-invalid @enderror" required>
@@ -132,12 +123,92 @@
                                 <input type="text" class="form-control" value="{{old('current_status')}}" name="current_status" required>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Current Position</label>
+                                <input type="text" class="form-control" value="{{old('current_position')}}" name="current_position">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Current Employer</label>
+                                <input type="text" class="form-control" value="{{old('current_employer')}}" name="current_employer">
+                            </div>
+                        </div>
                         <br>
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                     </div>
                 </div>
 
                 <div class="panel panel-primary setup-content" id="step-2">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Experience</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="experienceFieldGroup">
+                            <h4>Experience 1</h4>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Position <span class="required">*</span></label>
+                                    <input type="text" class="form-control" value="{{old('position')}}" name="position[]" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Company Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" value="{{old('company_name')}}" name="company_name[]" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Country <span class="required">*</span></label>
+                                    <select class="form-control" name="country[]" id="country" required>
+                                        <option value="">Select Country</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>City <span class="required">*</span></label>
+                                    <select class="form-control" name="city[]" id="city" required>
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label>Start Date <span class="required">*</span></label>
+                                    <input type="date" class="form-control startDateId" value="{{old('start_date')}}" name="start_date[]" required>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label>End Date <span class="required">*</span></label>
+                                    <input type="date" class="form-control" id="endDate" value="{{old('end_date')}}" name="end_date[]" required>
+                                </div>
+                                <div class="form-check col-md-2" id="customCheckbox" style="padding-top: 25px;padding-left: 20px;">
+                                    <input type="checkbox" name="is_current[]" class="myCheckBoxInput" id="isCurrentExperience" value="1">
+                                    <input type="hidden" name="is_current[]" id="isCurrentHiddenValue" value="0">
+                                    <label class="myCheckBoxLabel">Current</label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <div class="my_resume_skill">
+                                        <label>Skills <span class="required">*</span></label>
+                                        <input type="text" id="skill_name" name="skill_name[]" data-role="tagsinput" placeholder="Add Skills">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Experience Summery</label>
+                                    <textarea type="text" class="form-control" name="experience_summary[]"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm float-left" id="experienceAddMore"><i class="fa fa-plus"></i></button>
+                        <br>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary setup-content" id="step-3">
                     <div class="panel-heading">
                         <h3 class="panel-title">Education</h3>
                     </div>
@@ -191,91 +262,22 @@
                     </div>
                 </div>
 
-                <div class="panel panel-primary setup-content" id="step-3">
+                <div class="panel panel-primary setup-content" id="step-4">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Experience</h3>
+                        <h3 class="panel-title">Extracurricular</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="experienceFieldGroup">
-                            <h4>Experience 1</h4>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Position <span class="required">*</span></label>
-                                    <input type="text" class="form-control" value="{{old('position')}}" name="position[]" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Company Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control" value="{{old('company_name')}}" name="company_name[]" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label>Country <span class="required">*</span></label>
-                                    <select class="form-control" name="country[]" id="country" required>
-                                        <option value="">Select Country</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{$country->id}}">{{$country->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>City <span class="required">*</span></label>
-                                    <select class="form-control" name="city[]" id="city" required>
-                                        <option value="">Select City</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-5">
-                                    <label>Start Date <span class="required">*</span></label>
-                                    <input type="date" class="form-control startDateId" value="{{old('start_date')}}" name="start_date[]" required>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label>End Date <span class="required">*</span></label>
-                                    <input type="date" class="form-control" id="endDate" value="{{old('end_date')}}" name="end_date[]" required>
-                                </div>
-                                <div class="form-check col-md-2" id="customCheckbox" style="padding-top: 25px;padding-left: 20px;">
-                                    <input type="checkbox" name="is_current[]" class="myCheckBoxInput" id="isCurrentExperience" value="1">
-                                    <input type="hidden" name="is_current[]" id="isCurrentHiddenValue" value="0">
-                                    <label class="myCheckBoxLabel">Current</label>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <div class="my_resume_skill">
-                                    <label>Skills <span class="required">*</span></label>
-                                    <input type="text" id="skill_name" name="skill_name[]" data-role="tagsinput" placeholder="Add Skills">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label>Experience Summery</label>
-                                    <textarea type="text" class="form-control" name="experience_summary[]"></textarea>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label class="control-label">Company Name</label>
+                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
                         </div>
-                        <button type="button" class="btn btn-success btn-sm float-left" id="experienceAddMore"><i class="fa fa-plus"></i></button>
-                        <br>
-                        <button class="btn btn-primary nextBtn pull-right" type="submit">Submit</button>
+                        <div class="form-group">
+                            <label class="control-label">Company Address</label>
+                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                        </div>
+                        <button class="btn btn-primary nextBtn pull-right" type="submit">Save</button>
                     </div>
-
-                {{--            <div class="panel panel-primary setup-content" id="step-4">--}}
-                {{--                <div class="panel-heading">--}}
-                {{--                    <h3 class="panel-title">Others</h3>--}}
-                {{--                </div>--}}
-                {{--                <div class="panel-body">--}}
-                {{--                    <div class="form-group">--}}
-                {{--                        <label class="control-label">Company Name</label>--}}
-                {{--                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />--}}
-                {{--                    </div>--}}
-                {{--                    <div class="form-group">--}}
-                {{--                        <label class="control-label">Company Address</label>--}}
-                {{--                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />--}}
-                {{--                    </div>--}}
-                {{--                    <button class="btn btn-success pull-right" type="submit">Finish!</button>--}}
-                {{--                </div>--}}
-                {{--            </div>--}}
+                </div>
             </form>
             {{--        Education--}}
             <div class="education_field_group educationRepeat" style="display: none;">
@@ -476,7 +478,6 @@
     </script>
     <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('js/typeahead.bundle.js')}}"></script>
-    <script type="text/javascript" src="{{asset('candidate_company/assets/js/tagsinput.js')}}"></script>
     <script type="text/javascript">
         $('body').on('focus',".yearPicker", function(){
             if( $(this).hasClass('hasDatepicker') === false )  {

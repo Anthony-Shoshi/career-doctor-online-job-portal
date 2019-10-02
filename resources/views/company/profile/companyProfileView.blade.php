@@ -1,4 +1,7 @@
 @extends('candidate.layouts.master')
+@section('myCss')
+    <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}">
+@endsection
 @section('content')
     <!-- Candidate Personal Info-->
     <section class="bgc-fa mt70 pt40 mt50">
@@ -8,7 +11,7 @@
                     <div class="candidate_personal_info style3">
                         <div class="thumb">
                             <img class="img-fluid" src="{{ asset($companyImage) }}" alt="Company Banner">
-                            <div class="cpi_av_rating"><span>4.5</span></div>
+                            <div class="cpi_av_rating"><span>{{ $avgRating }}</span></div>
                         </div>
                         <div class="details">
                             <h3>{{ $company->company_name }}</h3>
@@ -21,11 +24,37 @@
                                 <li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm2"></span>{{ $company->contact_person_email }}</a></li>
                             </ul>
                             <ul class="review_list">
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                @if( $avgRating == 1 || $avgRating < 1.5)
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                @elseif( $avgRating == 2 || $avgRating < 2.5)
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                @elseif( $avgRating == 3 || $avgRating < 3.5)
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                @elseif( $avgRating == 4 || $avgRating < 4.5)
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                @elseif( $avgRating == 5 || $avgRating >= 4.5)
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -46,13 +75,6 @@
                         @endif
                         @endauth
                         @guest
-{{--                        <button class="btn btn-block btn-thm mb15" onclick="event.preventDefault();--}}
-{{--							document.getElementById('follow-us').submit();"><span class="flaticon-alarm pr10"></span> Follow Us--}}
-{{--                            <form id="follow-us" action="{{ route('followCompany') }}" method="POST" style="display: none;">--}}
-{{--                                @csrf--}}
-{{--                                <input type="hidden" name="company" value="{{ $company->user_id }}">--}}
-{{--                            </form>--}}
-{{--                        </button>--}}
                         <button class="btn btn-block btn-thm mb15 submit"> Follow Us</button>
                         <input type="hidden" id="company" value="{{$company->user_id}}">
                         <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
@@ -176,78 +198,240 @@
                                     </div>
                                 </div>
                             @endif
+                            @php
+                                $candidateRating = \App\CompanyRating::where('company_id', $company->user_id)->where('is_deleted', 0)->count();
+                            @endphp
                         <div class="col-lg-12">
-                            <div class="candidate_review_posted style2">
+                            <div class="candidate_review_posted style2 result">
                                 <h4 class="title mb30">Company Review</h4>
-                                <div class="details">
-                                    <img class="img-fluid rounded-circle float-left" src="images/team/1.jpg" alt="1.jpg">
-                                    <h4>Best Company
+                                @if($candidateRating != 0)
+                                @php
+                                    $limit = 3;
+                                @endphp
+                                @auth
+                                @if($companyRating)
+                                        @php
+                                            $limit = 2;
+                                        @endphp
+                                    <div class="details ratingBox">
+                                        <img class="img-fluid rounded-circle float-left" src="{{ asset($companyRating->image) }}" alt="1.jpg">
+                                        <h4>{{ $companyRating->review_title }}
+                                            <ul class="review float-right">
+                                                <li class="list-inline-item"><a class="av_review" href="#">{{ $companyRating->rating }}</a></li>
+                                                @if( $companyRating->rating == 1)
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                @elseif( $companyRating->rating == 2)
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                @elseif( $companyRating->rating == 3)
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                @elseif( $companyRating->rating == 4)
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                @else
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                @endif
+                                            </ul>
+                                        </h4>
+                                        <ul class="meta">
+                                            <li class="list-inline-item"><a class="text-thm2" href="#">{{ $companyRating->name }}</a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-event"></span> {{ date_format(new DateTime($companyRating->rating_created), 'M d, Y') }}</a></li>
+                                        </ul>
+                                        <p>{{ $companyRating->review_content }}</p>
+                                        @auth
+                                            @if($companyRating->candidate_id == Auth::user()->id)
+                                                <ul class="rating-edit-delete" style="display: none;">
+                                                    <li class="list-inline-item" id="editButton"><a href="javascript:void(0);">edit</a></li>
+                                                </ul>
+                                            @endif
+                                        @endauth
+                                    </div>
+                                @endif
+                                @endauth
+                                @php
+                                    $i = 0;
+                                @endphp
+                                @foreach($companyRatings as $key => $data)
+                                    @auth
+                                        @php
+                                            if ($key == Auth::user()->id){
+                                                continue;
+                                            }
+                                        @endphp
+                                        @endauth
+                                    <div class="details ratingBox">
+                                    <img class="img-fluid rounded-circle float-left" src="{{ asset($data->image) }}" alt="1.jpg">
+                                    <h4>{{ $data->review_title }}
                                         <ul class="review float-right">
-                                            <li class="list-inline-item"><a class="av_review" href="#">4.5</a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                            <li class="list-inline-item"><a class="av_review" href="#">{{ $data->rating }}</a></li>
+                                            @if( $data->rating == 1)
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                            @elseif( $data->rating == 2)
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                            @elseif( $data->rating == 3)
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                            @elseif( $data->rating == 4)
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+                                            @else
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                            @endif
                                         </ul>
                                     </h4>
                                     <ul class="meta">
-                                        <li class="list-inline-item"><a class="text-thm2" href="#">Ali Tufan</a></li>
-                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"></span> 2 days ago</a></li>
+                                        <li class="list-inline-item"><a class="text-thm2" href="#">{{ $data->name }}</a></li>
+                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"></span> {{ date_format(new DateTime($data->rating_created), 'M d, Y') }}</a></li>
                                     </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel augue eget quam fermentum sodales. Aliquam vel congue sapien, quis mollis quam.</p>
+                                    <p>{{ $data->review_content }}</p>
+                                    @auth
+                                        @if($data->candidate_id == Auth::user()->id)
+                                            <ul class="rating-edit-delete" style="display: none;">
+                                                <li class="list-inline-item" id="editButton"><a href="javascript:void(0);">edit</a></li>
+                                            </ul>
+                                        @endif
+                                    @endauth
                                 </div>
-                                <div class="details pt0">
-                                    <img class="img-fluid rounded-circle float-left" src="images/team/2.jpg" alt="2.jpg">
-                                    <h4>Aldus PageMaker including versions
-                                        <ul class="review float-right">
-                                            <li class="list-inline-item"><a class="av_review" href="#">4.5</a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            <li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
-                                        </ul>
-                                    </h4>
-                                    <ul class="meta">
-                                        <li class="list-inline-item"><a class="text-thm2" href="#">Dominikus Yuri</a></li>
-                                        <li class="list-inline-item"><a href="#"><span class="flaticon-event"></span> 23 August 2018</a></li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel augue eget quam fermentum sodales. Aliquam vel congue sapien, quis mollis quam.</p>
-                                </div>
+                                    @php
+                                        if(++$i >= $limit) break;
+                                    @endphp
+                                @endforeach
+                                <a class="mt25 allReview" href="javascript:void(0);">View all Reviews<span class="flaticon-right-arrow pl10"></span></a>
                             </div>
+                            <div id="updateForm">
+
+                            </div>
+                            @else
+                                <div class="col-lg-12">
+                                    <div class="job_shareing">
+                                        <div class="candidate_social_widget bgc-fa">
+                                            <div style="text-align: center">No Rating!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
+                        @auth
+                        @php
+                            $candidateRating = \App\CompanyRating::where('candidate_id', Auth::user()->id)->where('company_id', $company->user_id)->where('is_deleted', 0)->first();
+                        @endphp
+                        @if(!$candidateRating)
                         <div class="col-lg-12">
                             <h4 class="title" style="font-size: 20px;">Leave Your Review</h4>
                             <div class="candidate_leave_review text-center">
                                 <div class="detials">
-                                    <form id="review-form" class="ulockd-mrgn630" action="#" method="post">
-                                        <h4>What is it like to work at Martha</h4>
+                                    <form id="review-form" class="ulockd-mrgn630 rating" action="{{ route('submitRating') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="company_id" value="{{ $company->user_id }}">
+                                        <h4>What is it like to work at {{ $company->company_name }}</h4>
                                         <div class="star-rating">
-                                            <input type="radio" name="ratings[1]" id="Overall_5" value="5" class="radio">
+                                            <input type="radio" name="rating" id="Overall_5" value="5" class="radio">
                                             <label for="Overall_5"></label>
-                                            <input type="radio" name="ratings[1]" id="Overall_4" value="4" class="radio">
+                                            <input type="radio" name="rating" id="Overall_4" value="4" class="radio">
                                             <label for="Overall_4"></label>
-                                            <input type="radio" name="ratings[1]" id="Overall_3" value="3" class="radio">
+                                            <input type="radio" name="rating" id="Overall_3" value="3" class="radio">
                                             <label for="Overall_3"></label>
-                                            <input type="radio" name="ratings[1]" id="Overall_2" value="2" class="radio">
+                                            <input type="radio" name="rating" id="Overall_2" value="2" class="radio">
                                             <label for="Overall_2"></label>
-                                            <input type="radio" name="ratings[1]" id="Overall_1" value="1" class="radio">
+                                            <input type="radio" name="rating" id="Overall_1" value="1" class="radio" checked>
                                             <label for="Overall_1"></label>
                                         </div>
                                         <div class="form-group text-left">
-                                            <label class="title" for="name2">Review Title</label>
-                                            <input class="form-control" type="text" name="name2" id="name2" value="">
+                                            <label class="title">Review Title</label>
+                                            <input class="form-control" type="text" name="review_title" value="{{ old('review_title') }}" required>
                                         </div>
                                         <div class="form-group text-left">
-                                            <label class="control-label title" for="review">Review Content</label>
-                                            <textarea class="form-control" rows="5" name="review" id="review"></textarea>
-                                            <a href="#" class="btn btn-lg btn-thm">Submit Review <span class="flaticon-right-arrow"></span></a>
+                                            <label class="control-label title">Review Content</label>
+                                            <textarea class="form-control" rows="5" name="review_content" required>{{ old('review_content') }}</textarea>
+                                            <button type="submit" class="btn btn-lg btn-thm" style="margin-top: 15px;">Submit Review <span class="flaticon-right-arrow"></span></button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+                        @endif
+                        @endauth
+                        @guest
+                                <div class="col-lg-12">
+                                    <h4 class="title" style="font-size: 20px;">Leave Your Review</h4>
+                                    <div class="candidate_leave_review text-center">
+                                        <div class="detials">
+                                            <form id="review-form" class="ulockd-mrgn630 rating" action="{{ route('submitRating') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="company_id" value="{{ $company->user_id }}">
+                                                <h4>What is it like to work at {{ $company->company_name }}</h4>
+                                                <div class="star-rating">
+                                                    <input type="radio" name="rating" id="Overall_5" value="5" class="radio">
+                                                    <label for="Overall_5"></label>
+                                                    <input type="radio" name="rating" id="Overall_4" value="4" class="radio">
+                                                    <label for="Overall_4"></label>
+                                                    <input type="radio" name="rating" id="Overall_3" value="3" class="radio">
+                                                    <label for="Overall_3"></label>
+                                                    <input type="radio" name="rating" id="Overall_2" value="2" class="radio">
+                                                    <label for="Overall_2"></label>
+                                                    <input type="radio" name="rating" id="Overall_1" value="1" class="radio">
+                                                    <label for="Overall_1"></label>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <label class="title">Review Title</label>
+                                                    <input class="form-control @error('review_title') is-invalid @enderror" type="text" name="review_title" value="{{ old('review_title') }}">
+                                                    @error('review_title')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <label class="control-label title">Review Content</label>
+                                                    <textarea class="form-control @error('review_content') is-invalid @enderror" rows="5" name="review_content">{{ old('review_content') }}</textarea>
+                                                    @error('review_content')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                    <button type="submit" class="btn btn-lg btn-thm" style="margin-top: 15px;">Submit Review <span class="flaticon-right-arrow"></span></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        @endguest
                     </div>
                 </div>
                 <div class="col-xl-4">
@@ -350,5 +534,45 @@
                 });
             }
         });
+
+        // $(document).hover(function () {
+        //    $('.rating-edit-delete').css('display', 'block');
+        // }, function () {
+        //     $('.rating-edit-delete').css('display', 'none');
+        // }, '.ratingBox');
+
+        $(document).on({
+            mouseenter: function () {
+                $('.rating-edit-delete').css('display', 'block');
+            },
+            mouseleave: function () {
+                $('.rating-edit-delete').css('display', 'none');
+            }
+        }, ".ratingBox");
+
+        $('.allReview').on('click',function () {
+            var company_id = $('#company').val();
+            $.ajax({
+                url: '{{ url('all/review') }}/' + company_id,
+                type: 'GET',
+                success: function (data) {
+                    $('.result').html(data);
+                }
+            });
+        });
+
+        $(document).on('click', '#editButton', function () {
+            var company_id = $('#company').val();
+            $.ajax({
+                url: '{{ url('edit/rating') }}/' + company_id,
+                type: 'GET',
+                success: function (data) {
+                    $(window).scrollTop($('#updateForm').offset().top-35);
+                    $('#updateForm').html(data);
+                    $('.rating-edit-delete li').css('display', 'none');
+                }
+            });
+        });
+
     </script>
 @endsection

@@ -28,11 +28,12 @@ Route::get('/registerCompany', 'Company\SignInController@registerCompany')->name
 Route::get('/getCities/{id}', 'Company\SignInController@getCities');
 Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
 Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
-Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin')->middleware('checkAdmin');
+Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin');
 Route::get('/single/job/view/{id}', 'Company\JobPostController@singleJobView')->name('singleJobView');
 Route::get('/list/job/view', 'Company\JobPostController@jobListView')->name('jobListView');
 Route::get('/company/profile/view/{id}', 'Company\CompanyController@companyProfileView')->name('companyProfileView');
 Route::get('/company/job/list/view/{id}', 'Company\JobPostController@jobListOfThisCompany')->name('jobListOfThisCompany');
+Route::get('/all/review/{company_id}', 'Candidate\RatingController@allReview')->name('allReview');
 
 //Auth middleware route list
 Route::group(['middleware'=>'auth'], function() {
@@ -169,6 +170,21 @@ Route::group(['middleware'=>'auth'], function() {
         Route::post('delist/job', 'ShortListController@deListJob')->name('deListJob');
     });
 
+//Company Rating
+    Route::group(['namespace' => 'Candidate', 'middleware' => 'checkCandidate'], function() {
+        Route::post('submit/rating','RatingController@submitRating')->name('submitRating');
+        Route::get('edit/rating/{company_id}','RatingController@editRating')->name('editRating');
+        Route::post('update/rating','RatingController@updateRating')->name('updateRating');
+    });
+        Route::get('/review/list','Candidate\RatingController@reviewList')->name('reviewList')->middleware('checkAdmin');
+        Route::get('delete/rating/{id}','Candidate\RatingController@deleteRating')->name('deleteRating')->middleware('checkAdmin');
+
+//Apply Job Internal System
+    Route::group(['namespace' => 'Candidate'], function() {
+       Route::get('apply/job/{id}','JobApplyController@applyJob')->name('applyJob');
+       Route::get('get/cover/letter','JobApplyController@getCoverLetter')->name('getCoverLetter');
+       Route::post('save/apply/job','JobApplyController@saveApplyJob')->name('saveApplyJob');
+    });
 });
 
 //});

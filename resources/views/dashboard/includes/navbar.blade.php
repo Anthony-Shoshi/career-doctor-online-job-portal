@@ -44,8 +44,36 @@
 		        <ul class="header_user_notif pull-right dn-smd">
 	                <li class="user_notif">
 						<div class="dropdown">
-						    <a href="page-candidates-job-alert.html" data-toggle="dropdown"><span class="flaticon-alarm color-white fz20"></span><span>8</span></a>
-						    <div class="dropdown-menu">
+							@php
+								$newApplications = \App\Message::select('*', 'messages.id AS id')
+															  ->join('users', 'users.id', 'messages.user_from')
+															  ->join('message_threads', 'message_threads.id', 'messages.thread')
+															  ->where('messages.user_to', Auth::user()->id)
+															  ->where('is_seen', 0)
+															  ->get();
+								$newApplicationsCount = $newApplications->count();
+							@endphp
+							@if(auth::user()->user_type == 'company')
+								<a href="page-candidates-job-alert.html" data-toggle="dropdown"><span class="flaticon-alarm color-white fz20"></span><span>{{ $newApplicationsCount }}</span></a>
+								<div class="dropdown-menu">
+									<div class="so_heading">
+										<p>Notifications</p>
+									</div>
+									<div class="so_content" data-simplebar="init">
+										<ul>
+											@foreach($newApplications as $newApplication)
+											<li>
+												<a href="#"><h5>{{ $newApplication->name }}</h5></a>
+												<a href="#"><p>{{ $newApplication->subject }}</p></a>
+											</li>
+											@endforeach
+										</ul>
+									</div>
+								</div>
+							@endif
+							@if(auth::user()->user_type == 'candidate')
+							<a href="page-candidates-job-alert.html" data-toggle="dropdown"><span class="flaticon-alarm color-white fz20"></span><span>8</span></a>
+							<div class="dropdown-menu">
 								<div class="so_heading">
 									<p>Notifications</p>
 								</div>
@@ -55,33 +83,10 @@
 											<h5>Candidate suggestion</h5>
 											<p>You might be interested based on your profile.</p>
 										</li>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
-										</li>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
-										</li>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
-										</li>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
-										</li>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
-										</li>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
-										</li>
 									</ul>
 								</div>
 						    </div>
+							@endif
 						</div>
 	                </li>
 	                <li class="user_setting">

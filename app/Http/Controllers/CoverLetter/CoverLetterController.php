@@ -10,7 +10,7 @@ use Auth;
 class CoverLetterController extends Controller
 {
     public function createCoverLetter(){
-        $coverLetters = CandidateCoverLetter::orderBy('created_at','DESC')->where('is_deleted',0)->paginate('6');
+        $coverLetters = CandidateCoverLetter::orderBy('created_at','DESC')->where('user', Auth::user()->id)->where('is_deleted',0)->paginate('6');
         return view('coverLetter.createCoverLetter')->with('coverLetters',$coverLetters);
     }
 

@@ -157,7 +157,7 @@
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/progressbar.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/slider.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/timepicker.js') }}"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyABqK-5ngi3F1hrEsk7-mCcBPsjHM5_Gj0"></script>
+{{--<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyABqK-5ngi3F1hrEsk7-mCcBPsjHM5_Gj0"></script>--}}
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/googlemaps1.js') }}"></script>
 <!-- Custom script for all pages --> 
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/script.js') }}"></script>

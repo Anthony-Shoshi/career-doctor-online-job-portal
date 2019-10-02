@@ -38,7 +38,6 @@ class CreateMessagesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->integer('candidate_cover_letter')->default('0');
             $table->text('message');
             $table->tinyInteger('is_seen')->default('0');
             $table->dateTime('seen_at')->nullable()->default(null);

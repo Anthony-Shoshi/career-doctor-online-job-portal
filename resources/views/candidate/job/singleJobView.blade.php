@@ -5,6 +5,7 @@
             margin-left: 30px;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}">
 @endsection
 @section('content')
     <!-- Candidate Personal Info-->
@@ -60,7 +61,13 @@
                 @auth
                 @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
                         @if($checkShortList = \App\ShortListedJob::where('candidate', auth::user()->id)->where('job',$job->id)->exists())
-                            <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                            @if( $job->submission_type == 'EMAIL' )
+                                <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? 'mailto:'.$job->submission_type_value : route('login') }}"><span class="flaticon-open-envelope-with-letter"></span> Apply Now </a>
+                            @elseif( $job->submission_type == 'LINK' )
+                                <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
+                            @else
+                                <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                            @endif
                             <button class="btn btn-block btn-gray" onclick="event.preventDefault();
                                         document.getElementById('deListMain').submit();"><span class="flaticon-favorites pr10"></span> Delist
                                 <form action="{{ route('deListJob') }}" id="deListMain" method="POST" style="display: none;">
@@ -69,7 +76,13 @@
                                 </form>
                             </button>
                         @else
-                            <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                            @if( $job->submission_type == 'EMAIL' )
+                                <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? 'mailto:'.$job->submission_type_value : route('login') }}"><span class="flaticon-open-envelope-with-letter"></span> Apply Now </a>
+                            @elseif( $job->submission_type == 'LINK' )
+                                <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
+                            @else
+                                <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                            @endif
                             <button class="btn btn-block btn-gray" onclick="event.preventDefault();
                                         document.getElementById('shortListMain').submit();"><span class="flaticon-favorites pr10"></span> Shortlist
                                 <form action="{{ route('shortListJob') }}" id="shortListMain" method="POST" style="display: none;">
@@ -81,7 +94,13 @@
                 @endif
                 @endauth
                 @guest
-                        <button class="btn btn-block btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
+                    @if( $job->submission_type == 'EMAIL' )
+                        <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? 'mailto:'.$job->submission_type_value : route('login') }}"><span class="flaticon-open-envelope-with-letter"></span> Apply Now </a>
+                    @elseif( $job->submission_type == 'LINK' )
+                        <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
+                    @else
+                        <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                    @endif
                         <button class="btn btn-block btn-gray" onclick="event.preventDefault();
                                         document.getElementById('shortListMain').submit();"><span class="flaticon-favorites pr10"></span> Favourite
                             <form action="{{ route('shortListJob') }}" id="shortListMain" method="POST" style="display: none;">
@@ -115,8 +134,28 @@
                                     {!! $job->submission_instruction !!}
                                 @endif
                                 <hr>
-                                <button class="btn btn-lg btn-thm mb15">Apply Now <span class="flaticon-right-arrow pl10"></span></button>
-                                <button class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</button>
+                                @auth
+                                @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
+                                @if( $job->submission_type == 'EMAIL' )
+                                    <a class="btn btn-lg btn-thm mb15" href="{{ (Auth::check()) ? 'mailto:'.$job->submission_type_value : route('login') }}"><span class="flaticon-open-envelope-with-letter"></span> Apply Now </a>
+                                @elseif( $job->submission_type == 'LINK' )
+                                    <a class="btn btn-lg btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
+                                @else
+                                    <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @endif
+                                <a class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</a>
+                                @endif
+                                @endauth
+                                @guest
+                                    @if( $job->submission_type == 'EMAIL' )
+                                        <a class="btn btn-lg btn-thm mb15" href="{{ (Auth::check()) ? 'mailto:'.$job->submission_type_value : route('login') }}"><span class="flaticon-open-envelope-with-letter"></span> Apply Now </a>
+                                    @elseif( $job->submission_type == 'LINK' )
+                                        <a class="btn btn-lg btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
+                                    @else
+                                        <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                    @endif
+                                    <a class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</a>
+                                @endguest
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -286,7 +325,7 @@
                             <div class="icon text-thm"><span class="flaticon-open-envelope-with-letter"></span></div>
                             <div class="details custom-details">
                                 <p class="color-black22">Submit Here</p>
-                                <p>{{ ucwords(strtolower($job->submission_type_value)) }}</p>
+                                <p>{{ $job->submission_type_value }}</p>
                             </div>
                         @endif
                         <div class="icon text-thm"><span class="flaticon-application"></span></div>

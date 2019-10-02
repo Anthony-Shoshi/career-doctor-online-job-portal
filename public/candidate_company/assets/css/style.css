@@ -5101,7 +5101,7 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
   color: #febe42;
 }
 .candidate_personal_info .details .review_list li:last-child a i{
-  color: #cbcbcb;
+  color: #febe42;
 }
 .candidate_personal_overview .timer_list{
   margin-bottom: 0;
@@ -7556,7 +7556,7 @@ a.text-thm:hover {
 }
 .btn-thm {
   background-color: #79b530;
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 16px;
   padding: 7px 30px;
   -webkit-transition: all 0.3s ease;
@@ -7569,7 +7569,7 @@ a.text-thm:hover {
 .btn-thm:hover, .btn-thm:active, .btn-thm:focus {
   background-color: transparent;
   border-color: #79b530;
-  color: #79b530; }
+  color: #79b530 !important; }
 
 .btn-thm2 {
   background-color: #00d664;
@@ -7646,9 +7646,9 @@ a.text-thm:hover {
 .btn-gray {
   background-color: #b4b4b4;
   border-color: #b4b4b4;
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 16px;
-  border-radius: 0px;
+  border-radius: 4px;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -7656,7 +7656,7 @@ a.text-thm:hover {
 .btn-gray:hover, .btn-gray:active, .btn-gray:focus {
   background-color: transparent;
   border-color: #767676;
-  color: #767676;
+  color: #767676 !important;
 }
 .btn-green {
   background-color: #28B928;

@@ -200,6 +200,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview {{Request::is('review/list') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('review/list') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-globe"></i>
+              <p>
+                Review Manage
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('reviewList')}}" class="nav-link {{Request::is('review/list') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Review List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

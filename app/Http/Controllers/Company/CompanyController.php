@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\City;
 use App\CompanyFollower;
+use App\CompanyRating;
 use App\Job;
 use App\ViewCompany;
 use Carbon\Carbon;
@@ -110,17 +111,40 @@ class CompanyController extends Controller
         }
 
         $data = array();
-        $jobsPostedByThisCompany = Job::where('company', $id)->orderBy('created_at','DESC')->where('is_published', 1)->limit(3)->get();
-        $company = CompanyGeneralInfo::where('user_id',$id)->first();
+        $data['jobsPostedByThisCompany'] = Job::where('company', $id)->orderBy('created_at','DESC')->where('is_published', 1)->limit(3)->get();
+        $data['company'] = CompanyGeneralInfo::where('user_id',$id)->first();
         $data['jobsPosted'] = Job::where('company', $id)->count();
-        $data['industry'] = \App\JobIndustry::where('id', $company->industry_id)->first();
-        $data['country'] = Country::where('id', $company->company_default_country_id)->first();
-        $data['city'] = City::where('id', $company->company_default_city_id)->first();
-        $data['companyFollower'] = CompanyFollower::where('company',$company->user_id)->count();
-        $data['companyImage'] = User::where('id',$company->user_id)->first()->image;
+        $data['industry'] = \App\JobIndustry::where('id', $data['company']->industry_id)->first();
+        $data['country'] = Country::where('id', $data['company']->company_default_country_id)->first();
+        $data['city'] = City::where('id', $data['company']->company_default_city_id)->first();
+        $data['companyFollower'] = CompanyFollower::where('company',$data['company']->user_id)->count();
+        $data['companyImage'] = User::where('id',$data['company']->user_id)->first()->image;
         $data['perDayViewer'] = ViewCompany::where('company',$id)->whereDate('created_at', $now)->count();
         $data['totalViewer'] = ViewCompany::where('company',$id)->count();
-        return view('company.profile.companyProfileView', $data)->with('company', $company)->with('jobsPostedByThisCompany',$jobsPostedByThisCompany);
+        $data['companyRating'] = array();
+        $data['companyRatings'] = array();
+        $companyRatings = CompanyRating::select('*', 'company_ratings.id AS id', 'company_ratings.created_at AS rating_created')
+            ->join('users', 'users.id', 'company_ratings.candidate_id')
+            ->orderBy('company_ratings.created_at', 'DESC')
+            ->where('company_id', $id)
+            ->where('company_ratings.is_deleted', 0)
+            ->get();
+
+        foreach ($companyRatings as $companyRating){
+            $data['companyRatings'][$companyRating->candidate_id] = $companyRating;
+        }
+        if (Auth::check()) {
+            if (isset($data['companyRatings'][Auth::user()->id])){
+                $data['companyRating'] = $data['companyRatings'][Auth::user()->id];
+            }
+        }
+        $totalRaters = CompanyRating::where('company_id', $id)->where('company_ratings.is_deleted', 0)->count();
+        $totalRating = CompanyRating::where('company_id', $id)->where('company_ratings.is_deleted', 0)->sum('rating');
+        $data['avgRating'] = 0;
+        if ($totalRaters > 0) {
+            $data['avgRating'] = round($totalRating / $totalRaters, 1);
+        }
+        return view('company.profile.companyProfileView', $data);
     }
 
 }

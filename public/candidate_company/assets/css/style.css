@@ -4603,11 +4603,12 @@ header.header-nav.menu_style_home_six .sign_up_btn .btn{
 .message_container .inbox_chatting_box {
   position: relative;
   max-height: 575px !important;
-  height: auto;
+  height: 300px;
   margin-right: 10px;
   max-height: calc(100% - 93px);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+  margin-bottom: 70px;
 }
 .message_container .inbox_chatting_box::-webkit-scrollbar {
   background: transparent;

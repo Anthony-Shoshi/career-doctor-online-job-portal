@@ -32,6 +32,7 @@ class RatingController extends Controller
     public function reviewList() {
         $companyRatings = CompanyRating::select('*', 'company_ratings.id AS id')
                                                 ->join('users', 'users.id', 'company_ratings.candidate_id')
+                                                ->join('company_general_infos', 'company_general_infos.user_id', 'company_ratings.company_id')
                                                 ->where('company_ratings.is_deleted', 0)
                                                 ->orderBy('company_ratings.created_at', 'DESC')
                                                 ->get();

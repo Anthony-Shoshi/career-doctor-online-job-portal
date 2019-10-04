@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//date_default_timezone_set('Asia/Dhaka');
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +112,9 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('shortListed/job','ShortListController@viewShortListedJob')->name('viewShortListedJob');
         Route::get('shortListed/job/search/{search}','ShortListController@shortListedJobSearch')->name('shortListedJobSearch');
         Route::get('shortListed/job/sort/by/{value}','ShortListController@shortListedJobSortBy')->name('shortListedJobSortBy');
+        //Candidate Messages
+        Route::get('candidate/messages/{id?}', 'MessagesController@candidateMessages')->name('candidateMessages');
+        Route::post('send/candidate/messages', 'MessagesController@sendMessageByCandidate')->name('sendMessageByCandidate');
     });
 
 //Company
@@ -136,6 +140,9 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('followed/by','FollowController@followedBy')->name('followedBy');
         Route::get('search/followers/{search}','FollowController@searchFollowers')->name('searchFollowers');
         Route::get('followers/sort/by/{value}','FollowController@followersSortBy')->name('followersSortBy');
+        //Company Messages
+        Route::get('company/messages/{id?}','MessagesController@companyMessages')->name('companyMessages');
+        Route::post('send/company/message','MessagesController@sendMessageByCompany')->name('sendMessageByCompany');
     });
 
 //Resume

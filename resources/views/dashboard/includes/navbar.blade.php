@@ -50,6 +50,7 @@
 															  ->join('message_threads', 'message_threads.id', 'messages.thread')
 															  ->where('messages.user_to', Auth::user()->id)
 															  ->where('is_seen', 0)
+															  ->orderBy('messages.id', 'DESC')
 															  ->get();
 								$newApplicationsCount = $newApplications->count();
 							@endphp
@@ -61,28 +62,53 @@
 									</div>
 									<div class="so_content" data-simplebar="init">
 										<ul>
+											@if($newApplications->count() !=  0)
 											@foreach($newApplications as $newApplication)
-											<li>
-												<a href="#"><h5>{{ $newApplication->name }}</h5></a>
-												<a href="#"><p>{{ $newApplication->subject }}</p></a>
+											<li style="width: 100%;width: 112%;padding-left:10px;margin-left: -20px;" onMouseOver="this.style.backgroundColor='#f3f3f3'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+												<a href="{{ route('companyMessages', $newApplication->thread) }}"><h5>{{ $newApplication->name }}</h5></a>
+												<a href="{{ route('companyMessages', $newApplication->thread) }}"><p>{!! Str::words($newApplication->message, 10, ' ...') !!}</p></a>
 											</li>
 											@endforeach
+											@else
+												<li>
+													No New Notification !
+												</li>
+											@endif
 										</ul>
 									</div>
 								</div>
 							@endif
 							@if(auth::user()->user_type == 'candidate')
-							<a href="page-candidates-job-alert.html" data-toggle="dropdown"><span class="flaticon-alarm color-white fz20"></span><span>8</span></a>
+								@php
+									$newMessages = \App\Message::select('*', 'messages.id AS id')
+									->join('users', 'users.id', 'messages.user_from')
+									->join('message_threads', 'message_threads.id', 'messages.thread')
+									->where('messages.user_to', Auth::user()->id)
+									->where('is_seen', 0)
+									->orderBy('messages.id', 'DESC')
+									->get();
+
+									$newMessagesCount = $newMessages->count();
+								@endphp
+							<a href="page-candidates-job-alert.html" data-toggle="dropdown"><span class="flaticon-alarm color-white fz20"></span><span>{{ $newMessagesCount }}</span></a>
 							<div class="dropdown-menu">
 								<div class="so_heading">
 									<p>Notifications</p>
 								</div>
 								<div class="so_content" data-simplebar="init">
 									<ul>
-										<li>
-											<h5>Candidate suggestion</h5>
-											<p>You might be interested based on your profile.</p>
+										@if($newApplications->count() !=  0)
+										@foreach($newMessages as $newMessage)
+										<li style="width: 100%;width: 112%;padding-left:10px;margin-left: -20px;" onMouseOver="this.style.backgroundColor='#f3f3f3'" onMouseOut="this.style.backgroundColor='#FFFFFF'">
+											<a href="{{ route('candidateMessages', $newMessage->thread) }}"><h5>{{ $newMessage->name }}</h5></a>
+											<a href="{{ route('candidateMessages', $newMessage->thread) }}"><p>{!! Str::words($newMessage->message, 10, ' ...') !!}</p></a>
 										</li>
+										@endforeach
+										@else
+											<li>
+												No New Notification !
+											</li>
+										@endif
 									</ul>
 								</div>
 						    </div>
@@ -111,7 +137,7 @@
 									<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 									<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
 									<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
-									<a class="dropdown-item" href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a>
+										<a class="dropdown-item {{Request::is('candidate/messages') ? 'active' : ''}}" href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a>
 									<a class="dropdown-item" href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a>
 									<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
 									<a class="dropdown-item {{Request::is('candidate/changePassword') ? 'active' : ''}}" href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
@@ -123,7 +149,7 @@
 									<a class="dropdown-item {{Request::is('company/manage/job') ? 'active' : ''}}" href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a>
 									<a class="dropdown-item" href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
 									<a class="dropdown-item {{Request::is('followed/by') ? 'active' : ''}}" href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a>
-									<a class="dropdown-item" href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a>
+									<a class="dropdown-item {{Request::is('company/messages') ? 'active' : ''}}" href="{{ route('companyMessages') }}"><span class="flaticon-chat"></span> Messages</a>
 									<a class="dropdown-item {{Request::is('company/changePassword') ? 'active' : ''}}" href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 									@endif
 									<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -210,7 +236,7 @@
 								<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 								<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
 								<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
-								<a class="dropdown-item" href="page-candidates-message.html"><span class="flaticon-chat"></span> Messages</a>
+									<a class="dropdown-item {{Request::is('candidate/messages') ? 'active' : ''}}" href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a>
 								<a class="dropdown-item" href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a>
 								<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
 								<a class="dropdown-item {{Request::is('candidate/changePassword') ? 'active' : ''}}" href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
@@ -222,7 +248,7 @@
 								<a class="dropdown-item {{Request::is('company/manage/job') ? 'active' : ''}}" href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a>
 								<a class="dropdown-item" href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
 								<a class="dropdown-item {{Request::is('followed/by') ? 'active' : ''}}" href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a>
-								<a class="dropdown-item" href="page-employer-transactions.html"><span class="flaticon-chat"></span> Transactions</a>
+								<a class="dropdown-item {{Request::is('company/messages') ? 'active' : ''}}" href="{{ route('companyMessages') }}"><span class="flaticon-chat"></span> Messages</a>
 								<a class="dropdown-item {{Request::is('company/changePassword') ? 'active' : ''}}" href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 								@endif
 								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

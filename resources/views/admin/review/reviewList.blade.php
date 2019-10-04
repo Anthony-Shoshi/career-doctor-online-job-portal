@@ -40,7 +40,7 @@
                     @foreach($companyRatings as $companyRating)
                         <tr>
                             <td>{{$companyRating->name}}</td>
-                            <td>{{$companyRating->id}}</td>
+                            <td>{{$companyRating->company_name}}</td>
                             <td>{{$companyRating->rating}} star</td>
                             <td>{{$companyRating->review_title}}</td>
                             <td>{{$companyRating->review_content}}</td>

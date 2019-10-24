@@ -38,7 +38,7 @@
                     </div>
                     <div class="stepwizard-step col-xs-2">
                         <a href="#step-4" type="button" class="btn btn-success my-btn disabled">4</a>
-                        <p><small>Extracurricular</small></p>
+                        <p><small>Extra-curricular</small></p>
                     </div>
 
                 </div>
@@ -75,9 +75,24 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Gender <span class="required">*</span></label>
+                                <select class="form-control" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                    <option value="OTHER">Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Date of Birth <span class="required">*</span></label>
+                                <input type="date" class="form-control" value="{{ old('date_of_birth') }}" name="date_of_birth" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label>Short Description</label>
-                                <textarea class="form-control" name="short_description"></textarea>
+                                <textarea class="form-control" name="short_description">{{ old('short_description') }}</textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -120,13 +135,19 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Status <span class="required">*</span></label>
-                                <input type="text" class="form-control" value="{{old('current_status')}}" name="current_status" required>
+                                <select name="current_status" id="fullname" class="form-control @error('current_status') is-invalid @enderror" required>
+                                    <option value="">Select Current Status</option>
+                                    <option value="1">Actively looking rigth now</option>
+                                    <option value="2">Open, but not actively looking</option>
+                                    <option value="3">Not interested in jobs</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Current Position</label>
                                 <input type="text" class="form-control" value="{{old('current_position')}}" name="current_position">
+                                <i class="fa fa-check-circle" style="color:green;"></i> <span style="color: green;">This field will helps employers find you more frequently.</span>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Current Employer</label>
@@ -220,8 +241,9 @@
                                     <label>Degree <span class="required">*</span></label>
                                     <select class="form-control" name="degree[]" required>
                                         <option value="">Select Degree</option>
-                                        <option>SSC</option>
-                                        <option>HSC</option>
+                                        @foreach($educationDegrees as $educationDegree)
+                                            <option value="{{$educationDegree->id}}">{{$educationDegree->degree_name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -264,18 +286,42 @@
 
                 <div class="panel panel-primary setup-content" id="step-4">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Extracurricular</h3>
+                        <h3 class="panel-title">Extra-curricular</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label">Company Name</label>
-                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                        <div class="extraCurriCularFieldGroup">
+                        <h4>Extra-curricular 1</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label> Title <span class="required">*</span></label>
+                                <input type="text" class="form-control" value="{{ old('title') }}" name="title[]" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Company Address</label>
-                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Description</label>
+                                <textarea type="text" class="form-control" name="description[]"></textarea>
+                            </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Type <span class="required">*</span></label>
+                                <select class="form-control" name="type[]" required>
+                                    <option value="">Select Type</option>
+                                    <option value="1">Award</option>
+                                    <option value="2">Course</option>
+                                    <option value="3">Activity</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Date <span class="required">*</span></label>
+                                <input type="date" class="form-control startDateId" value="{{old('date')}}" name="date[]" required>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm float-left" id="extraCurricularAddMore"><i class="fa fa-plus"></i></button>
+                        <br>
                         <button class="btn btn-primary nextBtn pull-right" type="submit">Save</button>
+                    </div>
                     </div>
                 </div>
             </form>
@@ -287,8 +333,9 @@
                         <label>Degree <span class="required">*</span></label>
                         <select class="form-control" name="degree[]">
                             <option value="">Select Degree</option>
-                            <option>SSC</option>
-                            <option>HSC</option>
+                            @foreach($educationDegrees as $educationDegree)
+                                <option value="{{$educationDegree->id}}">{{$educationDegree->degree_name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -383,6 +430,37 @@
                     </div>
                 </div>
             </div>
+            {{--        ExtraCurriCular--}}
+            <div class="extraCurriCularFieldGroup extraRepeat" style="display: none;">
+                <h4>Extra-curricular <span id="extraNumber"></span><button class="btn btn-danger btn-sm float-right" type="button" id="extraRemove"><i class="fa fa-minus"></i></button></h4>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label> Title <span class="required">*</span></label>
+                        <input type="text" class="form-control" value="{{ old('title') }}" name="title[]">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Description</label>
+                        <textarea type="text" class="form-control" name="description[]"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label> Type <span class="required">*</span></label>
+                        <select class="form-control" name="type[]">
+                            <option value="">Select Type</option>
+                            <option value="1">Award</option>
+                            <option value="2">Course</option>
+                            <option value="3">Activity</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label> Date <span class="required">*</span></label>
+                        <input type="date" class="form-control startDateId" value="{{old('date')}}" name="date[]">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @section('myJs')
@@ -456,6 +534,17 @@
             i++;
         });
         $(document).on('click','#educationRemove',function(){
+            $(this).parent().parent().remove();
+        });
+        //extracurricular
+        var i = 2;
+        $('#extraCurricularAddMore').on('click',function(){
+            var form = $('.extraRepeat').clone().removeClass('extraRepeat').css('display', 'block');
+            form.find('#extraNumber').text(i);
+            $("#extraCurricularAddMore").before(form);
+            i++;
+        });
+        $(document).on('click','#extraRemove',function(){
             $(this).parent().parent().remove();
         });
         // Country City

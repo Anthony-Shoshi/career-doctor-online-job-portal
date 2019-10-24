@@ -28,7 +28,7 @@
 									<input class="btn btn-thm" name="image" type='file' id="profileUpload" data-preview="profile" accept=".png, .jpg, .jpeg" />
 									<label for="profileUpload"></label>
 								</div>
-								<label style="color:#221f1f;margin-bottom: 4%;"> Update Profile Image</label>
+								<label style="color:#221f1f;margin-bottom: 4%;"> Update Company Logo</label>
 								<div class="avatar-preview">
 									<div id="profile" style="background-image: url({{asset((auth::user()->image))}});"></div>
 								</div>

@@ -23,12 +23,12 @@
 					</li>
 					@if(auth::user()->user_type == 'candidate')
                     <li>
-		                <a href="{{ route('jobListView') }}" target="_blank"><span class="title">Find a Job</span></a>
+		                <a href="{{ route('jobListView') }}" target="_blank"><span class="title">Find A Job</span></a>
 					</li>
 					@endif
 					@if(auth::user()->user_type == 'company')
                     <li>
-		                <a href="{{ route('postJob') }}"><span class="title">Post a Job</span></a>
+						<a href="{{ route('candidateListView') }}" target="_blank"><span class="title">Find A Candidate</span></a>
 					</li>
 					@endif
                     <li>
@@ -134,11 +134,11 @@
 									@endif
 									<a class="dropdown-item {{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}" href="{{route('createResume')}}"><span class="flaticon-resume"></span> @if($candidate) Edit Resume @else Create Resume @endif</a>
 									<a class="dropdown-item {{Request::is('create/coverletter') || Request::is('create/new/coverletter') ? 'active' : ''}}" href="{{route('createCoverLetter')}}"><span class="flaticon-resume"></span> Create Cover Letter </a>
-									<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
+									<a class="dropdown-item {{Request::is('candidate/applied/jobs') ? 'active' : ''}}" href="{{ route('appliedJobs') }}"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 									<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
 									<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
 										<a class="dropdown-item {{Request::is('candidate/messages') ? 'active' : ''}}" href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a>
-									<a class="dropdown-item" href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a>
+									<a class="dropdown-item {{Request::is('candidate/review/list') ? 'active' : ''}}" href="{{ route('candidateReviewList') }}"><span class="flaticon-rating"></span> Reviews</a>
 									<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
 									<a class="dropdown-item {{Request::is('candidate/changePassword') ? 'active' : ''}}" href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 									@endif
@@ -147,9 +147,11 @@
 									<a class="dropdown-item {{Request::is('company/profile') ? 'active' : ''}}" href="{{route('companyProfile')}}"><span class="flaticon-profile"></span> Company Profile</a>
 									<a class="dropdown-item {{Request::is('company/post/job') ? 'active' : ''}}" href="{{ route('postJob') }}"><span class="flaticon-resume"></span> Post a New Job</a>
 									<a class="dropdown-item {{Request::is('company/manage/job') ? 'active' : ''}}" href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a>
-									<a class="dropdown-item" href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
+									<a class="dropdown-item {{Request::is('company/job/applications') ? 'active' : ''}}" href="{{ route('jobApplication') }}"><span class="flaticon-application"></span> Job Applications</a>
+									<a class="dropdown-item {{Request::is('shortlisted/resumes') ? 'active' : ''}}" href="{{ route('shortListedResumes') }}"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
 									<a class="dropdown-item {{Request::is('followed/by') ? 'active' : ''}}" href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a>
 									<a class="dropdown-item {{Request::is('company/messages') ? 'active' : ''}}" href="{{ route('companyMessages') }}"><span class="flaticon-chat"></span> Messages</a>
+									<a class="dropdown-item {{Request::is('company/review/list') ? 'active' : ''}}" href="{{ route('companyReviewList') }}"><span class="flaticon-rating"></span> Reviews</a>
 									<a class="dropdown-item {{Request::is('company/changePassword') ? 'active' : ''}}" href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 									@endif
 									<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -233,11 +235,11 @@
 								@endif
 								<a class="dropdown-item {{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}" href="{{route('createResume')}}"><span class="flaticon-resume"></span> @if($candidate) Edit Resume @else Create Resume @endif</a>
 								<a class="dropdown-item {{Request::is('create/coverletter') || Request::is('create/new/coverletter') ? 'active' : ''}}" href="{{route('createCoverLetter')}}"><span class="flaticon-resume"></span> Create Cover Letter </a>
-								<a class="dropdown-item" href="page-candidates-applied-jobs.html"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
+								<a class="dropdown-item {{Request::is('candidate/applied/jobs') ? 'active' : ''}}" href="{{ route('appliedJobs') }}"><span class="flaticon-paper-plane"></span> Applied Jobs</a>
 								<a class="dropdown-item" href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a>
 								<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
 									<a class="dropdown-item {{Request::is('candidate/messages') ? 'active' : ''}}" href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a>
-								<a class="dropdown-item" href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a>
+								<a class="dropdown-item {{Request::is('candidate/review/list') ? 'active' : ''}}" href="{{ route('candidateReviewList') }}"><span class="flaticon-rating"></span> Reviews</a>
 								<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
 								<a class="dropdown-item {{Request::is('candidate/changePassword') ? 'active' : ''}}" href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 								@endif
@@ -246,9 +248,11 @@
 								<a class="dropdown-item {{Request::is('company/profile') ? 'active' : ''}}" href="{{route('companyProfile')}}"><span class="flaticon-profile"></span> Company Profile</a>
 								<a class="dropdown-item {{Request::is('company/post/job') ? 'active' : ''}}" href="{{ route('postJob') }}"><span class="flaticon-resume"></span> Post a New Job</a>
 								<a class="dropdown-item {{Request::is('company/manage/job') ? 'active' : ''}}" href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a>
-								<a class="dropdown-item" href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
+								<a class="dropdown-item {{Request::is('company/job/applications') ? 'active' : ''}}" href="{{ route('jobApplication') }}"><span class="flaticon-application"></span> Job Applications</a>
+								<a class="dropdown-item {{Request::is('shortlisted/resumes') ? 'active' : ''}}" href="{{ route('shortListedResumes') }}"><span class="flaticon-analysis"></span> Shortlisted Resumes</a>
 								<a class="dropdown-item {{Request::is('followed/by') ? 'active' : ''}}" href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a>
 								<a class="dropdown-item {{Request::is('company/messages') ? 'active' : ''}}" href="{{ route('companyMessages') }}"><span class="flaticon-chat"></span> Messages</a>
+								<a class="dropdown-item {{Request::is('company/review/list') ? 'active' : ''}}" href="{{ route('companyReviewList') }}"><span class="flaticon-rating"></span> Reviews</a>
 								<a class="dropdown-item {{Request::is('company/changePassword') ? 'active' : ''}}" href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 								@endif
 								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -274,12 +278,12 @@
                     </li>
                     @if(auth::user()->user_type == 'candidate')
                     <li>
-		                <a href="#"><span class="title">Find a Job</span></a>
+		                <a href="{{ route('jobListView') }}"><span class="title">Find a Job</span></a>
 					</li>
 					@endif
 					@if(auth::user()->user_type == 'company')
                     <li>
-		                <a href="{{ route('postJob') }}"><span class="title">Post a Job</span></a>
+		                <a href="{{ route('candidateListView') }}"><span class="title">Find A Candidate</span></a>
 					</li>
 					@endif
                     <li>

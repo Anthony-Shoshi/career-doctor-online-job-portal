@@ -10,7 +10,7 @@ class CreateViewCandidateTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'view_candidate';
+    public $tableName = 'view_candidates';
 
     /**
      * Run the migrations.

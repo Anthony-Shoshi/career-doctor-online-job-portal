@@ -85,7 +85,7 @@
                     <form class="form-inline" method="POST" action="{{ route('sendMessageByCompany') }}">
                         @csrf
                         <input type="hidden" name="thread_id" value="{{ $messageThread->id }}">
-                        <input class="form-control" type="text" name="message" placeholder="Enter text here..." aria-label="Search">
+                        <input class="form-control" type="text" name="message" placeholder="Enter text here..." aria-label="Search" required>
                         <button class="btn" type="submit">Send <span class="flaticon-paper-plane"></span></button>
                     </form>
                 </div>

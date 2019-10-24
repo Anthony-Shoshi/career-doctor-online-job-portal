@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Candidate;
 use App\Country;
 use App\City;
 use App\ShortListedJob;
+use App\ShortListedResume;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -134,6 +135,39 @@ class ShortListController extends Controller
         }
 
         return $result;
+    }
+
+    public function shortListResume(Request $request) {
+        if ($request->candidate != ''){
+            $shortListedResume = new ShortListedResume();
+            $shortListedResume->company = Auth::user()->id;
+            $shortListedResume->candidate = $request->candidate;
+            $shortListedResume->created_by = Auth::user()->id;
+            $shortListedResume->updated_by = Auth::user()->id;
+
+            $shortListedResume->save();
+
+            return redirect()->back();
+        }
+    }
+
+    public function RemoveShortListedResume(Request $request){
+        if ($request->candidate != ''){
+
+            $shortListedResume = ShortListedResume::where('company', Auth::user()->id)->where('candidate',$request->candidate)->first();
+            $shortListedResume->delete();
+
+            return redirect()->back();
+        }
+    }
+
+    public function shortListedResumes() {
+        $shortListedResumes = ShortListedResume::select('*', 'short_listed_resumes.id AS id')
+                                                ->join('candidate_general_infos', 'candidate_general_infos.user_id', 'short_listed_resumes.candidate')
+                                                ->where('short_listed_resumes.company', Auth::user()->id)
+                                                ->orderBy('short_listed_resumes.created_at', 'DESC')
+                                                ->paginate(8);
+        return view('company.candidate.shortListedResumes')->with('shortListedResumes', $shortListedResumes);
     }
 
 }

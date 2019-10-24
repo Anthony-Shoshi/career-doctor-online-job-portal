@@ -59,6 +59,9 @@
                 <div class="col-lg-4 col-xl-3">
                     <div class="candidate_personal_overview style2">
                 @auth
+                    @php
+                        $jobApplicationStatus = \App\CandidateJobApplicationStatus::where('user', Auth::user()->id)->where('job', $job->id)->first();
+                    @endphp
                 @if(\Illuminate\Support\Facades\Auth::user()->user_type != 'company')
                         @if($checkShortList = \App\ShortListedJob::where('candidate', auth::user()->id)->where('job',$job->id)->exists())
                             @if( $job->submission_type == 'EMAIL' )
@@ -66,10 +69,16 @@
                             @elseif( $job->submission_type == 'LINK' )
                                 <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
                             @else
-                                <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @if($jobApplicationStatus)
+                                @if($jobApplicationStatus->status != 'APPLIED')
+                                    <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @endif
+                                @else
+                                    <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @endif
                             @endif
                             <button class="btn btn-block btn-gray" onclick="event.preventDefault();
-                                        document.getElementById('deListMain').submit();"><span class="flaticon-favorites pr10"></span> Delist
+                                        document.getElementById('deListMain').submit();"><span class="flaticon-favorites pr10"></span> Remove
                                 <form action="{{ route('deListJob') }}" id="deListMain" method="POST" style="display: none;">
                                     @csrf
                                     <input type="hidden" name="job" value="{{ $job->id }}">
@@ -81,10 +90,16 @@
                             @elseif( $job->submission_type == 'LINK' )
                                 <a class="btn btn-block btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
                             @else
-                                <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @if($jobApplicationStatus)
+                                @if($jobApplicationStatus->status != 'APPLIED')
+                                    <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @endif
+                                @else
+                                    <a class="btn btn-block btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                @endif
                             @endif
                             <button class="btn btn-block btn-gray" onclick="event.preventDefault();
-                                        document.getElementById('shortListMain').submit();"><span class="flaticon-favorites pr10"></span> Shortlist
+                                        document.getElementById('shortListMain').submit();"><span class="flaticon-favorites pr10"></span> Favourite
                                 <form action="{{ route('shortListJob') }}" id="shortListMain" method="POST" style="display: none;">
                                     @csrf
                                     <input type="hidden" name="job" value="{{ $job->id }}">
@@ -141,7 +156,13 @@
                                 @elseif( $job->submission_type == 'LINK' )
                                     <a class="btn btn-lg btn-thm mb15" href="{{ (Auth::check()) ? $job->submission_type_value : route('login') }}" target="_blank"><span class="fa fa-external-link-square"></span> Apply Now </a>
                                 @else
-                                    <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                    @if($jobApplicationStatus)
+                                    @if($jobApplicationStatus->status != 'APPLIED')
+                                        <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                    @endif
+                                    @else
+                                        <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
+                                    @endif
                                 @endif
                                 <a class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</a>
                                 @endif
@@ -208,7 +229,7 @@
                                             @if($recommendedJob->is_negotiable == 1)
                                                 <li class="list-inline-item"><span class="flaticon-price pl20"></span> Negotiable</li>
                                             @else
-                                                <li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $recommendedJob->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $recommendedJob->max_salary/1000 .'k' }} {{ $currency->code }}</li>
+                                                <li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $recommendedJob->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $recommendedJob->max_salary/1000 .'k' }} {{ $currency->code }} @php $salary_terms = str_replace('_', ' ', $recommendedJob->salary_terms) @endphp {{ ucwords(strtolower($salary_terms)) }}</li>
                                             @endif
                                         </ul>
                                     </div>

@@ -21,9 +21,11 @@ use Illuminate\Support\Facades\Route;
 
     Auth::routes();
 
-//Without auth middleware route list
+//Without auth middleware route listpa
 Route::get('/aboutUs', 'PageController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'PageController@contactUs')->name('contactUs');
+Route::get('/termsAndConditions', 'PageController@termsAndConditions')->name('termsAndConditions');
+Route::get('/privacyAndPolicy', 'PageController@privacyAndPolicy')->name('privacyAndPolicy');
 Route::get('/allBlog', 'PageController@allBlog')->name('allBlog');
 Route::get('/registerCompany', 'Company\SignInController@registerCompany')->name('registerCompany');
 Route::get('/getCities/{id}', 'Company\SignInController@getCities');
@@ -31,10 +33,12 @@ Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
 Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
 Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin');
 Route::get('/single/job/view/{id}', 'Company\JobPostController@singleJobView')->name('singleJobView');
-Route::get('/list/job/view', 'Company\JobPostController@jobListView')->name('jobListView');
+Route::any('/list/job/view', 'Company\JobPostController@jobListView')->name('jobListView');
 Route::get('/company/profile/view/{id}', 'Company\CompanyController@companyProfileView')->name('companyProfileView');
 Route::get('/company/job/list/view/{id}', 'Company\JobPostController@jobListOfThisCompany')->name('jobListOfThisCompany');
 Route::get('/all/review/{company_id}', 'Candidate\RatingController@allReview')->name('allReview');
+//Searches
+Route::get('search/jobs/by/', 'Candidate\SearchJobsController@searchJobsBy')->name('searchJobsBy');
 
 //Auth middleware route list
 Route::group(['middleware'=>'auth'], function() {
@@ -98,6 +102,16 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/editJobQualification/{id}', 'JobQualificationController@editJobQualification')->name('editJobQualification');
         Route::post('/updateJobQualification', 'JobQualificationController@updateJobQualification')->name('updateJobQualification');
         Route::get('/deleteJobQualification/{id}', 'JobQualificationController@deleteJobQualification')->name('deleteJobQualification');
+        //Education Degrees
+        Route::get('/addEducationDegree', 'EducationDegreeController@addEducationDegree')->name('addEducationDegree');
+        Route::post('/saveEducationDegree', 'EducationDegreeController@saveEducationDegree')->name('saveEducationDegree');
+        Route::get('/educationDegreeList', 'EducationDegreeController@educationDegreeList')->name('educationDegreeList');
+        Route::get('/editEducationDegree/{id}', 'EducationDegreeController@editEducationDegree')->name('editEducationDegree');
+        Route::post('/updateEducationDegree', 'EducationDegreeController@updateEducationDegree')->name('updateEducationDegree');
+        Route::get('/deleteEducationDegree/{id}', 'EducationDegreeController@deleteEducationDegree')->name('deleteEducationDegree');
+        //Settings
+        Route::get('/generalSettings', 'SettingsController@generalSettings')->name('generalSettings');
+        Route::post('/update/general/settings', 'SettingsController@updateGeneralSettings')->name('updateGeneralSettings');
     });
 
 //Candidate
@@ -115,6 +129,10 @@ Route::group(['middleware'=>'auth'], function() {
         //Candidate Messages
         Route::get('candidate/messages/{id?}', 'MessagesController@candidateMessages')->name('candidateMessages');
         Route::post('send/candidate/messages', 'MessagesController@sendMessageByCandidate')->name('sendMessageByCandidate');
+        //Applied Jobs
+        Route::get('candidate/applied/jobs', 'JobApplyController@appliedJobs')->name('appliedJobs');
+        Route::get('candidate/withdraw/application/{id}', 'JobApplyController@withdrawApplication')->name('withdrawApplication');
+
     });
 
 //Company
@@ -128,6 +146,9 @@ Route::group(['middleware'=>'auth'], function() {
         //Post Job
         Route::get('company/post/job','JobPostController@postJob')->name('postJob');
         Route::post('company/post/job/save','JobPostController@savePostJob')->name('savePostJob');
+        //Find Candidate
+        Route::any('candidate/list/view','CandidateListController@candidateListView')->name('candidateListView');
+        Route::get('candidate/profile/view/{id}','CandidateListController@candidateProfileView')->name('candidateProfileView');
         //Manage Job
         Route::get('company/manage/job','JobPostController@manageJob')->name('manageJob');
         Route::get('company/edit/job/{id}','JobPostController@editJobPost')->name('editJobPost');
@@ -136,6 +157,12 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('company/post/job/delete/{id}','JobPostController@deleteJobPost')->name('deleteJobPost');
         Route::get('manage/jobs/search/{search}','JobPostController@manageJobSearch')->name('manageJobSearch');
         Route::get('manage/jobs/sort/by/{value}','JobPostController@manageJobSortBy')->name('manageJobSortBy');
+        //Job Applications
+        Route::get('company/job/applications','JobApplicationController@jobApplication')->name('jobApplication');
+        Route::get('view/resume/pdf/{id}','JobApplicationController@viewResumePdf')->name('viewResumePdf');
+        Route::get('download/resume/{id}','JobApplicationController@downloadResume')->name('downloadResume');
+        Route::get('edit/status/{id}','JobApplicationController@editStatus')->name('editStatus');
+        Route::post('update/status','JobApplicationController@updateStatus')->name('updateStatus');
         //Followed By
         Route::get('followed/by','FollowController@followedBy')->name('followedBy');
         Route::get('search/followers/{search}','FollowController@searchFollowers')->name('searchFollowers');
@@ -143,6 +170,7 @@ Route::group(['middleware'=>'auth'], function() {
         //Company Messages
         Route::get('company/messages/{id?}','MessagesController@companyMessages')->name('companyMessages');
         Route::post('send/company/message','MessagesController@sendMessageByCompany')->name('sendMessageByCompany');
+
     });
 
 //Resume
@@ -177,21 +205,47 @@ Route::group(['middleware'=>'auth'], function() {
         Route::post('delist/job', 'ShortListController@deListJob')->name('deListJob');
     });
 
+//Shortlist Resume
+    Route::group(['namespace'=>'Candidate', 'middleware' => 'checkCompany'], function(){
+        Route::post('shortlist/resume', 'ShortListController@shortListResume')->name('shortListResume');
+        Route::post('remove/shortlist/resume', 'ShortListController@RemoveShortListedResume')->name('RemoveShortListedResume');
+        //Shortlisted Resumes
+        Route::get('shortlisted/resumes','ShortListController@shortListedResumes')->name('shortListedResumes');
+    });
+
 //Company Rating
     Route::group(['namespace' => 'Candidate', 'middleware' => 'checkCandidate'], function() {
         Route::post('submit/rating','RatingController@submitRating')->name('submitRating');
         Route::get('edit/rating/{company_id}','RatingController@editRating')->name('editRating');
         Route::post('update/rating','RatingController@updateRating')->name('updateRating');
+        Route::get('candidate/review/list','RatingController@candidateReviewList')->name('candidateReviewList');
+        Route::get('view/candidate/review/{id}','RatingController@viewCandidateReview')->name('viewCandidateReview');
     });
-        Route::get('/review/list','Candidate\RatingController@reviewList')->name('reviewList')->middleware('checkAdmin');
-        Route::get('delete/rating/{id}','Candidate\RatingController@deleteRating')->name('deleteRating')->middleware('checkAdmin');
+
+//Candidate Rating
+    Route::group(['namespace' => 'Candidate', 'middleware' => 'checkCompany'], function() {
+        Route::post('submit/candidate/rating','RatingController@submitCandidateRating')->name('submitCandidateRating');
+        Route::get('/all/candidate/review/{candidate_id}', 'RatingController@allCandidateReview')->name('allCandidateReview');
+        Route::get('edit/candidate/rating/{candidate_id}','RatingController@editCandidateRating')->name('editCandidateRating');
+        Route::post('update/candidate/rating','RatingController@updateCandidateRating')->name('updateCandidateRating');
+        Route::get('company/review/list','RatingController@companyReviewList')->name('companyReviewList');
+        Route::get('view/company/review/{id}','RatingController@viewCompanyReview')->name('viewCompanyReview');
+
+    });
+
+//Rating Manage by Admin
+        Route::get('/companyReviewListForAdmin','Candidate\RatingController@companyReviewListForAdmin')->name('companyReviewListForAdmin')->middleware('checkAdmin');
+        Route::get('/candidateReviewListForAdmin','Candidate\RatingController@candidateReviewListForAdmin')->name('candidateReviewListForAdmin')->middleware('checkAdmin');
+        Route::get('delete/company/review/{id}','Candidate\RatingController@deleteCompanyReview')->name('deleteCompanyReview')->middleware('checkAdmin');
+        Route::get('delete/candidate/review/{id}','Candidate\RatingController@deleteCandidateReview')->name('deleteCandidateReview')->middleware('checkAdmin');
 
 //Apply Job Internal System
-    Route::group(['namespace' => 'Candidate'], function() {
+    Route::group(['namespace' => 'Candidate', 'middleware' => 'checkCandidate'], function() {
        Route::get('apply/job/{id}','JobApplyController@applyJob')->name('applyJob');
        Route::get('get/cover/letter','JobApplyController@getCoverLetter')->name('getCoverLetter');
        Route::post('save/apply/job','JobApplyController@saveApplyJob')->name('saveApplyJob');
     });
+
 });
 
 //});

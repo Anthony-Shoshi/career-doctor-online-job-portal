@@ -56,7 +56,7 @@
 									<div id="app">
 									<div class="form-group form-check">
 										<input type="checkbox" v-model="checked" class="form-check-input" id="exampleCheck2">
-										<label class="form-check-label" for="exampleCheck2">By Registering You Confirm That You Accept <a class="text-thm" href="page-terms-and-policies.html">Terms & Conditions</a> And <a class="text-thm" href="page-terms-and-policies.html">Privacy Policy</a></label>
+										<label class="form-check-label" for="exampleCheck2">By Registering You Confirm That You Accept <a class="text-thm" href="{{ route('termsAndConditions') }}">Terms & Conditions</a> And <a class="text-thm" href="{{ route('privacyAndPolicy') }}">Privacy Policy</a></label>
 									</div>
                                     <button :disabled="!checked" type="submit" class="btn btn-log btn-block btn-dark">Register</button>
                                     <p class="text-center">Already have a <strong>Career Doctor</strong> account? <a class="text-thm" href="{{route('login')}}">Sign In!</a></p>

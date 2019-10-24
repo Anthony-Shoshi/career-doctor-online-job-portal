@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Setting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
     public function generalSettings() {
-        $setting = Setting::all()->first();
-        return view('admin.settings.generalSettings')->with('setting', $setting);
+        return view('admin.settings.generalSettings');
     }
 
     public function updateGeneralSettings(Request $request) {
@@ -20,7 +20,7 @@ class SettingsController extends Controller
             foreach ($request->except('_token') as $key => $value) {
                 if ($key != '' && $value != '') {
                     $data = array();
-                    $data['value'] == is_array($value) ? serialize($value) : $value;
+                    $data['value'] = is_array($value) ? serialize($value) : $value;
                     $data['updated_at'] = Carbon::now();
                     if ($request->hasFile($key)) {
                         $image = $request->file($key);
@@ -28,7 +28,7 @@ class SettingsController extends Controller
                         $path = public_path('/upload/website/');
                         if($key == 'logo'){
                             $name = 'logo.png';
-                            \Image::make($image)->resize(175, 50)->save($path . $name);
+                            \Image::make($image)->resize(155, 60)->save($path . $name);
                         }else{
                             $image->move($path, $name);
                         }

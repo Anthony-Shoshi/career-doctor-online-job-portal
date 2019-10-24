@@ -7,7 +7,7 @@
 			<div class="row home-content">
 				<div class="col-lg-8">
 					<div class="home-text">
-						<h2 class="fz40">Find The Job That Fits Your Life</h2>
+						<h2 class="fz40">{{ get_option('slogan') }}</h2>
 						<p class="color-silver">Each month, more than 7 million jobseekers turn to website in their search for work, making over 160,000 applications every day.</p>
 					</div>
 				</div>

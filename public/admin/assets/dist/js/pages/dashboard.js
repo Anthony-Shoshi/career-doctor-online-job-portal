@@ -142,7 +142,7 @@ $(function () {
     xkey      : 'y',
     ykeys     : ['item1', 'item2'],
     labels    : ['Item 1', 'Item 2'],
-    lineColors: ['#495057', '#007cff'],
+    lineColors: ['rgba(44,12,255,0.71)', '#6aff4d'],
     hideHover : 'auto'
   })
   var line = new Morris.Line({

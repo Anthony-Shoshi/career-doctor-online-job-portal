@@ -3,7 +3,7 @@
 			<div class="row">
 				<div class="col-sm-12 col-lg-2 pb25 pt25">
 					<div class="logo-widget">
-						<img class="img-fluid" src="{{ asset('candidate_company/assets/images/header-logo.png') }}" alt="header-logo.png">
+						<img class="img-fluid" src="{{ get_logo() }}" alt="header-logo.png">
 					</div>
 				</div>
 				@php
@@ -44,11 +44,11 @@
 					<div class="footer_social_widget mt15">
 						<p class="float-left mt10">Follow Us</p>
 						<ul>
-							<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+							<li class="list-inline-item"><a href="{{ get_option('facebook_link') }}"><i class="fa fa-facebook"></i></a></li>
+							<li class="list-inline-item"><a href="{{ get_option('linkedin_link') }}"><i class="fa fa-linkedin"></i></a></li>
+							<li class="list-inline-item"><a href="{{ get_option('twitter_link') }}"><i class="fa fa-twitter"></i></a></li>
+							<li class="list-inline-item"><a href="{{ get_option('instagram_link') }}"><i class="fa fa-instagram"></i></a></li>
+							<li class="list-inline-item"><a href="{{ get_option('pinterest_link') }}"><i class="fa fa-pinterest"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -114,7 +114,7 @@
 			<div class="row">
 				<div class="col-lg-4 pb10 pt10">
 					<div class="copyright-widget tac-smd mt20" style="width: 101%;">
-						<p>Copyright © 2019 Career Doctor All rights reserved.</p>
+						<p>{{ get_option('footer_text') }}</p>
 					</div>
 				</div>
 				<div class="col-lg-8 pb10 pt10">

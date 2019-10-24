@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('myCss')
-    <link rel="stylesheet" href="{{ asset('css/myStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dropify.min.css') }}">
 @endsection
 @section('content')
     <!-- content header -->
@@ -40,7 +40,7 @@
                                 <div class="card card-success">
                                     <div class="card-body">
                                         <label>Website Name</label>
-                                        <input name="website_name" value="" class="form-control form-control @error('website_name') is-invalid @enderror" type="text" placeholder="Website Name">
+                                        <input name="website_name" value="{{ get_option('website_name') }}" class="form-control form-control @error('website_name') is-invalid @enderror" type="text" placeholder="Website Name">
                                         @error('website_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -48,7 +48,7 @@
                                         @enderror
                                         <br>
                                         <label>Slogan</label>
-                                        <input name="slogan" value="" class="form-control form-control @error('slogan') is-invalid @enderror" type="text" placeholder="Slogan">
+                                        <input name="slogan" value="{{ get_option('slogan') }}" class="form-control form-control @error('slogan') is-invalid @enderror" type="text" placeholder="Slogan">
                                         @error('slogan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                                         @enderror
                                         <br>
                                         <label>Footer Text</label>
-                                        <input name="footer_text" value="" class="form-control form-control @error('footer_text') is-invalid @enderror" type="text" placeholder="Footer Text">
+                                        <input name="footer_text" value="{{ get_option('footer_text') }}" class="form-control form-control @error('footer_text') is-invalid @enderror" type="text" placeholder="Footer Text">
                                         @error('footer_text')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -77,19 +77,19 @@
                                 <div class="card card-success">
                                     <div class="card-body">
                                         <label>Facebook Link</label>
-                                        <input name="facebook_link" value="{{old('industry_name')}}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Facebook Link">
+                                        <input name="facebook_link" value="{{ get_option('facebook_link') }}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Facebook Link">
                                         <br>
                                         <label>Linkedin Link</label>
-                                        <input name="linkedin_link" value="{{old('industry_name')}}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Linkedin Link">
+                                        <input name="linkedin_link" value="{{ get_option('linkedin_link') }}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Linkedin Link">
                                         <br>
                                         <label>Tweeter Link</label>
-                                        <input name="tweeter_link" value="{{old('industry_name')}}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Tweeter Link">
+                                        <input name="twitter_link" value="{{ get_option('twitter_link') }}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Tweeter Link">
                                         <br>
                                         <label>Instagram Link</label>
-                                        <input name="instagram_link" value="{{old('industry_name')}}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Instagram Link">
+                                        <input name="instagram_link" value="{{ get_option('instagram_link') }}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Instagram Link">
                                         <br>
                                         <label>Printerest Link</label>
-                                        <input name="priterest_link" value="{{old('industry_name')}}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Printerest Link">
+                                        <input name="pinterest_link" value="{{ get_option('pinterest_link') }}" class="form-control form-control @error('industry_name') is-invalid @enderror" type="text" placeholder="Printerest Link">
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Update</button>
@@ -99,10 +99,14 @@
                         </div>
                         <!-- /.tab-pane -->
                         <div class="tab-pane" id="tab_3">
-                            <form method="post" action="{{ route('updateGeneralSettings') }}" id="#">
+                            <form method="post" action="{{ route('updateGeneralSettings') }}" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group files">
                                     <label>Upload Logo </label>
-                                    <input type="file" name="logo" class="form-control" multiple="">
+                                    <input type="file" class="form-control dropify" name="logo" data-allowed-file-extensions="png jpg jpeg PNG JPG JPEG" data-default-file="{{ get_logo() }}">
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -115,4 +119,10 @@
         </div>
         <!-- /.col -->
     </div>
+@endsection
+@section('myJs')
+    <script src="{{ asset('js/dropify.min.js') }}"></script>
+    <script>
+        $('.dropify').dropify();
+    </script>
 @endsection

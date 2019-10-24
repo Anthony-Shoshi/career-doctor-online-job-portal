@@ -20,7 +20,11 @@ class CreateCandidateEducationTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
-            $table->string('degree');
+            $table->unsignedInteger('degree');
+            $table->foreign('degree')
+                ->references('id')->on('education_degrees')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
             $table->string('degree_title');
             $table->string('institute_name');
             $table->string('location');
@@ -32,6 +36,7 @@ class CreateCandidateEducationTable extends Migration
             $table->tinyInteger('is_deleted')->default('0');
             $table->timestamps();
             $table->index(["user_id"], 'fk_candidate_education_1_idx');
+            $table->index(["degree"], 'fk_candidate_education_2_idx');
 
             $table->unique(["id"], 'id_UNIQUE');
         });

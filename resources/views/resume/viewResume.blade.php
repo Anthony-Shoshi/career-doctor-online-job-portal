@@ -15,7 +15,13 @@
                 <div class="my_resume_eduarea">
                     <h4 class="title">Personal Information </h4>
                     <ul style="list-style: none;">
+                        @php
+                            $dateOfBirth = $candidateGeneralInfo->date_of_birth;
+                            $age = \Carbon\Carbon::parse($dateOfBirth)->age;
+                        @endphp
                         <li><strong>Name:</strong> {{ Auth::user()->name }}</li>
+                        <li><strong>Gender:</strong> {{ ucwords(strtolower($candidateGeneralInfo->gender)) }}</li>
+                        <li><strong>Age:</strong> {{$age }}</li>
                         @if( $candidateGeneralInfo->current_position != '')
                             <li><strong>Position:</strong> {{ $candidateGeneralInfo->current_position }}</li>
                         @endif
@@ -40,10 +46,13 @@
                 <div class="my_resume_eduarea">
                     <h4 class="title">Education</h4>
                     @foreach($candidateEducations as $candidateEducation)
+                    @php
+                        $degree = \App\EducationDegree::where('id', $candidateEducation->degree)->first();
+                    @endphp
                     <div class="content">
                         <div class="circle"></div>
                         <p class="edu_center">{{ $candidateEducation->institute_name }}</p>
-                        <h4 class="edu_stats">{{ $candidateEducation->degree_title }} ({{ $candidateEducation->degree }})
+                        <h4 class="edu_stats">{{ $candidateEducation->degree_title }} ({{ $degree->degree_name }})
                         </h4>
                         <ul style="list-style: none;">
                             <li><strong>Passing Year:</strong> @if($candidateEducation->is_running == 1) Running @else {{ $candidateEducation->passing_year }} @endif</li>
@@ -83,21 +92,19 @@
             </div>
             <div class="col-lg-12">
                 <div class="my_resume_eduarea">
-                    <h4 class="title">Awards</h4>
+                    <h4 class="title">Extra-Curricular Activities</h4>
+                    @foreach($candidateAchievements as $candidateAchievement)
                     <div class="content">
                         <div class="circle"></div>
-                        <p class="edu_center">Jan 2018</p>
-                        <h4 class="edu_stats">Perfect Attendance Programs
+                        <p class="edu_center">{{ date('M d, Y', strtotime($candidateAchievement->date)) }}</p>
+                        <strong>Type:</strong> {{ ucwords(strtolower($candidateAchievement->type)) }}
+                        <h4 class="edu_stats">{{ $candidateAchievement->title }}
                         </h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                        @if( $candidateAchievement->description != '')
+                        <p>{{ $candidateAchievement->description }}</p>
+                        @endif
                     </div>
-                    <div class="content style2">
-                        <div class="circle"></div>
-                        <p class="edu_center">Dec 2019</p>
-                        <h4 class="edu_stats">Top Performer Recognition
-                        </h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

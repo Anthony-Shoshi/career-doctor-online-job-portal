@@ -11,7 +11,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('admin/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{auth::user()->image}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a class="d-block">{{auth::user()->name}}</a>
@@ -127,7 +127,7 @@
           </li>
           <li class="nav-item has-treeview {{Request::is('addJobSkills') ? 'menu-open' : '' || Request::is('jobSkillsList') ? 'menu-open' : '' || Request::is('newJobSkillsList') ? 'menu-open' : ''}}">
             <a href="#" class="nav-link {{Request::is('addJobSkills') ? 'active' : '' || Request::is('jobSkillsList') ? 'active' : '' || Request::is('newJobSkillsList') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-check"></i>
+              <i class="nav-icon fa fa-cogs"></i>
               <p>
                 Job Skills
                 <i class="right fa fa-angle-left"></i>
@@ -156,7 +156,7 @@
           </li>
           <li class="nav-item has-treeview {{Request::is('addJobType') ? 'menu-open' : '' || Request::is('jobTypeList') ? 'menu-open' : ''}}">
             <a href="#" class="nav-link {{Request::is('addJobType') ? 'active' : '' || Request::is('jobTypeList') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-globe"></i>
+              <i class="nav-icon fa fa-list-alt"></i>
               <p>
                 Job Types
                 <i class="right fa fa-angle-left"></i>
@@ -179,7 +179,7 @@
           </li>
           <li class="nav-item has-treeview {{Request::is('addJobQualification') ? 'menu-open' : '' || Request::is('jobQualificationList') ? 'menu-open' : ''}}">
             <a href="#" class="nav-link {{Request::is('addJobQualification') ? 'active' : '' || Request::is('jobQualificationList') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-globe"></i>
+              <i class="nav-icon fa fa-graduation-cap"></i>
               <p>
                 Job Qualification
                 <i class="right fa fa-angle-left"></i>
@@ -200,9 +200,32 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview {{Request::is('review/list') ? 'menu-open' : ''}}">
-            <a href="#" class="nav-link {{Request::is('review/list') ? 'active' : ''}}">
-              <i class="nav-icon fa fa-globe"></i>
+          <li class="nav-item has-treeview {{Request::is('addEducationDegree') ? 'menu-open' : '' || Request::is('educationDegreeList') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('addEducationDegree') ? 'active' : '' || Request::is('educationDegreeList') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-book"></i>
+              <p>
+                Education Degree
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('addEducationDegree')}}" class="nav-link {{Request::is('addEducationDegree') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Add Degree</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('educationDegreeList')}}" class="nav-link {{Request::is('educationDegreeList') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Degree List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('companyReviewListForAdmin') ? 'menu-open' : '' || Request::is('candidateReviewListForAdmin') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('companyReviewListForAdmin') ? 'active' : '' || Request::is('candidateReviewListForAdmin') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-star"></i>
               <p>
                 Review Manage
                 <i class="right fa fa-angle-left"></i>
@@ -210,9 +233,32 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('reviewList')}}" class="nav-link {{Request::is('review/list') ? 'active' : ''}}">
+                <a href="{{route('companyReviewListForAdmin')}}" class="nav-link {{Request::is('companyReviewListForAdmin') ? 'active' : ''}}">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Review List</p>
+                  <p>Company Review List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('candidateReviewListForAdmin')}}" class="nav-link {{Request::is('candidateReviewListForAdmin') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Candidate Review List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('generalSettings') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('generalSettings') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-wrench"></i>
+              <p>
+                Settings
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('generalSettings')}}" class="nav-link {{Request::is('generalSettings') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>General Settings</p>
                 </a>
               </li>
             </ul>

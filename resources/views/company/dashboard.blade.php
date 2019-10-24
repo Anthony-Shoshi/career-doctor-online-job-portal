@@ -8,6 +8,16 @@
 		}
 	</style>
 @endsection
+@php
+	$postedJobs = \App\Job::where('company', Auth::user()->id)->count();
+	$followers = \App\CompanyFollower::where('company', Auth::user()->id)->count();
+	$shortListedResumes = \App\ShortListedResume::where('company', Auth::user()->id)->count();
+	$applications = \App\CandidateJobApplicationStatus::select('*')
+                                                        ->join('jobs', 'jobs.id', 'candidate_job_application_statuses.job')
+                                                        ->where('jobs.company', Auth::user()->id)
+                                                        ->orderBy('candidate_job_application_statuses.created_at', 'DESC')
+                                                        ->count();
+@endphp
 <div class="col-sm-12 col-lg-8 col-xl-9">
 					<div class="row">
 						<div class="col-lg-12">
@@ -17,17 +27,17 @@
 							<div class="ff_one">
 								<div class="icon"><span class="flaticon-paper-plane"></span></div>
 								<div class="detais">
-									<div class="timer">5246</div>
+									<div class="timer">{{ $postedJobs }}</div>
 									<p>Posted Jobs</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
 							<div class="ff_one style2">
-								<div class="icon"><span class="flaticon-favorites"></span></div>
+								<div class="icon"><span class="flaticon-user"></span></div>
 								<div class="detais">
-									<div class="timer">107</div>
-									<p>Reviewed</p>
+									<div class="timer">{{ $followers }}</div>
+									<p>Followers</p>
 								</div>
 							</div>
 						</div>
@@ -35,17 +45,17 @@
 							<div class="ff_one style3">
 								<div class="icon"><span class="flaticon-alarm"></span></div>
 								<div class="detais">
-									<div class="timer">835</div>
+									<div class="timer">{{ $shortListedResumes }}</div>
 									<p>Shortlisted</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
 							<div class="ff_one style4">
-								<div class="icon"><span class="flaticon-tag"></span></div>
+								<div class="icon"><span class="flaticon-open-envelope-with-letter"></span></div>
 								<div class="detais">
-									<div class="timer">279</div>
-									<p>Interviews</p>
+									<div class="timer">{{ $applications }}</div>
+									<p>Applications</p>
 								</div>
 							</div>
 						</div>

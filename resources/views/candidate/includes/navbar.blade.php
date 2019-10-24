@@ -32,7 +32,8 @@
 					@endif
 					@if(auth::user()->user_type == 'company')
 					<li class="last">
-		                <a href="{{ route('postJob') }}" target="_blank"><span class="title">Post a Job</span></a>
+		                <a href="{{ route('candidateListView') }}" target="_blank"><span class="title">Find A Candidate</span></a>
+{{--		                <a href="{{ route('postJob') }}" target="_blank"><span class="title">Post A Job</span></a>--}}
 					</li>
 					@endif
 					@endguest
@@ -78,13 +79,14 @@
 			<ul>
 				<li><a href="{{ url('/') }}">Home</a></li>
 				@guest
-				<li><a href="#">Find a Job</a></li>
+				<li><a href="{{ route('jobListView') }}">Find a Job</a></li>
 				@else
 				@if(auth::user()->user_type == 'candidate')
-				<li><a href="#">Find a Job</a></li>
+				<li><a href="{{ route('jobListView') }}">Find a Job</a></li>
 				@endif
 				@if(auth::user()->user_type == 'company')
-				<li><a href="{{ route('postJob') }}">Post a Job</a></li>
+				<li><a href="{{ route('candidateListView') }}">Find A Candidate</a></li>
+{{--				<li><a href="{{ route('postJob') }}">Post a Job</a></li>--}}
 				@endif
 				@endguest
 				<li><a href="{{route('allBlog')}}">Blog</a></li>

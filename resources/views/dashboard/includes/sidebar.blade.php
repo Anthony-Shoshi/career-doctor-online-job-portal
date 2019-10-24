@@ -21,11 +21,11 @@
 							@endif
 							<li class="{{Request::is('create/resume') || Request::is('edit/resume') ? 'active' : ''}}"><a href="{{route('createResume')}}"><span class="flaticon-resume"></span>@if($candidate) Edit Resume @else Create Resume @endif</a></li>
 							<li class="{{Request::is('create/coverletter') || Request::is('create/new/coverletter') ? 'active' : ''}}"><a href="{{route('createCoverLetter')}}"><span class="flaticon-resume"></span> Create Cover Letter</a></li>
-							<li><a href="#"><span class="flaticon-paper-plane"></span> Applied Jobs</a></li>
+							<li class="{{Request::is('candidate/applied/jobs') ? 'active' : ''}}"><a href="{{ route('appliedJobs') }}"><span class="flaticon-paper-plane"></span> Applied Jobs</a></li>
 							<li><a href="page-candidates-cv-manager.html"><span class="flaticon-analysis"></span> CV Manager</a></li>
 							<li class="{{Request::is('shortListed/job') ? 'active' : ''}}"><a href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a></li>
 							<li class="{{Request::is('candidate/messages') ? 'active' : ''}}"><a href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a></li>
-							<li><a href="page-candidates-review.html"><span class="flaticon-rating"></span> Reviews</a></li>
+							<li class="{{Request::is('candidate/review/list') ? 'active' : ''}}"><a href="{{ route('candidateReviewList') }}"><span class="flaticon-rating"></span> Reviews</a></li>
 							<li><a href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a></li>
 							<li class="{{Request::is('candidate/changePassword') ? 'active' : ''}}"><a href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -41,9 +41,11 @@
 							<li class="{{Request::is('company/profile') ? 'active' : ''}}"><a href="{{route('companyProfile')}}"><span class="flaticon-profile"></span> Company Profile</a></li>
 							<li class="{{Request::is('company/post/job') ? 'active' : ''}}"><a href="{{ route('postJob') }}"><span class="flaticon-resume"></span> Post a New Job</a></li>
 							<li class="{{Request::is('company/manage/job') ? 'active' : ''}}"><a href="{{ route('manageJob') }}"><span class="flaticon-paper-plane"></span> Manage Jobs</a></li>
-							<li><a href="page-employer-resume.html"><span class="flaticon-analysis"></span> Shortlisted Resumes</a></li>
+							<li class="{{Request::is('company/job/applications') ? 'active' : ''}}"><a href="{{ route('jobApplication') }}"><span class="flaticon-application"></span> Job Applications</a></li>
+							<li class="{{Request::is('shortlisted/resumes') ? 'active' : ''}}"><a href="{{ route('shortListedResumes') }}"><span class="flaticon-analysis"></span> Shortlisted Resumes</a></li>
 							<li class="{{Request::is('followed/by') ? 'active' : ''}}"><a href="{{ route('followedBy') }}"><span class="flaticon-alarm"></span> Followed By</a></li>
 							<li class="{{Request::is('company/messages') ? 'active' : ''}}"><a href="{{ route('companyMessages') }}"><span class="flaticon-chat"></span> Messages</a></li>
+							<li class="{{Request::is('company/review/list') ? 'active' : ''}}"><a href="{{ route('companyReviewList') }}"><span class="flaticon-rating"></span> Reviews</a></li>
 							<li class="{{Request::is('company/changePassword') ? 'active' : ''}}"><a href="{{route('companyChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
 								document.getElementById('logout-form').submit();"><span class="flaticon-logout"></span> Logout</a>

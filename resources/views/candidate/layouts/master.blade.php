@@ -16,7 +16,7 @@
 <!-- toastr -->
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <!-- Title -->
-<title>CareerUp - The Most Popular Job Board HTML Template</title>
+<title>Career Doctor</title>
 <!-- Favicon -->
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" />

@@ -8,6 +8,11 @@
 		}
 	</style>
 @endsection
+@php
+	$appliedJobs = \App\CandidateJobApplicationStatus::where('user', Auth::user()->id)->count();
+	$favouriteJobs = \App\ShortListedJob::where('candidate', Auth::user()->id)->count();
+	$reviews = \App\CandidateRating::where('candidate_id', Auth::user()->id)->count();
+@endphp
 <div class="col-lg-8 col-xl-9">
 					<div class="row">
 						<div class="col-lg-12">
@@ -17,7 +22,7 @@
 							<div class="ff_one">
 								<div class="icon"><span class="flaticon-paper-plane"></span></div>
 								<div class="detais">
-									<div class="timer">20</div>
+									<div class="timer">{{ $appliedJobs }}</div>
 									<p>Applied Jobs</p>
 								</div>
 							</div>
@@ -26,7 +31,7 @@
 							<div class="ff_one style2">
 								<div class="icon"><span class="flaticon-favorites"></span></div>
 								<div class="detais">
-									<div class="timer">26</div>
+									<div class="timer">{{ $favouriteJobs }}</div>
 									<p>Favorite Jobs</p>
 								</div>
 							</div>
@@ -42,10 +47,10 @@
 						</div>
 						<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
 							<div class="ff_one style4">
-								<div class="icon"><span class="flaticon-tag"></span></div>
+								<div class="icon"><span class="flaticon-rating"></span></div>
 								<div class="detais">
-									<div class="timer">79</div>
-									<p>Packages</p>
+									<div class="timer">{{ $reviews }}</div>
+									<p>Reviews</p>
 								</div>
 							</div>
 						</div>

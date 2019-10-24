@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Country List</h1>
+                    <h1 class="m-0 text-dark">Degree List</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Country</a></li>
-                        <li class="breadcrumb-item active">Country List</li>
+                        <li class="breadcrumb-item"><a href="#">Education Degree</a></li>
+                        <li class="breadcrumb-item active">Degree List</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,35 +28,30 @@
                 <table id="example1" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Candidate Name</th>
-                        <th>Company Name</th>
-                        <th>Rating (star)</th>
-                        <th>Review Title</th>
-                        <th>Review Content</th>
+                        <th>Degree Name</th>
+                        <th>Degree Code</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($companyRatings as $companyRating)
+                    @foreach($educationDegrees as $educationDegree)
                         <tr>
-                            <td>{{$companyRating->name}}</td>
-                            <td>{{$companyRating->company_name}}</td>
-                            <td>{{$companyRating->rating}} star</td>
-                            <td>{{$companyRating->review_title}}</td>
-                            <td>{{$companyRating->review_content}}</td>
+                            <td>{{$educationDegree->degree_name}}</td>
+                            <td>{{$educationDegree->degree_code}}</td>
+                            <td>{{$educationDegree->degree_description}}</td>
                             <td>
-                                <a href="{{route('deleteRating',[$companyRating->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this review?');"><i class="fa fa-trash"></i></a>
+                                <a href="{{route('editEducationDegree',[$educationDegree->id])}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('deleteEducationDegree',[$educationDegree->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this degree?');"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th>Candidate Name</th>
-                        <th>Company Name</th>
-                        <th>Rating (star)</th>
-                        <th>Review Title</th>
-                        <th>Review Content</th>
+                        <th>Degree Name</th>
+                        <th>Degree Code</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>

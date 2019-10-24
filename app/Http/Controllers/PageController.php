@@ -22,6 +22,14 @@ class PageController extends Controller
         return view('pages.contactUs');
     }
 
+    public function termsAndConditions() {
+        return view('pages.termsAndConditions');
+    }
+
+    public function privacyAndPolicy() {
+        return view('pages.privacyAndPolicy');
+    }
+
     public function allBlog()
     {
         return view();

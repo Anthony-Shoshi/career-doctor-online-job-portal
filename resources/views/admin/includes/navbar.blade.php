@@ -5,7 +5,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{route('home')}}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -85,17 +85,19 @@
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
+      @php
+        $newJobSkills = \App\JobSkillsTemp::where('status', 'PENDING')->count();
+      @endphp
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="fa fa-bell-o"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">{{ $newJobSkills }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">{{ $newJobSkills }} Notifications</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <a href="{{ route('newJobSkillsList') }}" class="dropdown-item">
+            <i class="fa fa-cogs mr-2"></i> {{ $newJobSkills }} new skills added
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
@@ -113,7 +115,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>Logout</a>
+            document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i><div style="margin-top: -25px;margin-left: 15px;">Logout</div></a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 						@csrf
 					</form>

@@ -38,7 +38,7 @@
                     </div>
                     <div class="stepwizard-step col-xs-3">
                         <a href="#step-4" type="button" class="btn btn-default my-btn disabled">4</a>
-                        <p><small>Extracurricular</small></p>
+                        <p><small>Extra-curricular</small></p>
                     </div>
                 </div>
             </div>
@@ -65,23 +65,6 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Current Position</label>
-                                <input type="hidden" name="id" value="{{ $candidateGeneralInfo->id }}">
-                                <input type="text" class="form-control" value="{{ $candidateGeneralInfo->current_position }}" name="current_position">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Current Employer</label>
-                                <input type="text" class="form-control" value="{{ $candidateGeneralInfo->current_employer }}" name="current_employer">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label>Short Description</label>
-                                <textarea class="form-control" name="short_description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
                                 <label>Contact Email <span class="required">*</span></label>
                                 <input type="email" class="form-control" value="{{ $candidateGeneralInfo->contact_email }}" name="contact_email" required>
                             </div>
@@ -91,9 +74,24 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Gender <span class="required">*</span></label>
+                                <select class="form-control" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="MALE"{{ ($candidateGeneralInfo->gender == 'MALE') ? ' selected' : '' }}>Male</option>
+                                    <option value="FEMALE"{{ ($candidateGeneralInfo->gender == 'FEMALE') ? ' selected' : '' }}>Female</option>
+                                    <option value="OTHER"{{ ($candidateGeneralInfo->gender == 'OTHER') ? ' selected' : '' }}>Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Date of Birth <span class="required">*</span></label>
+                                <input type="date" class="form-control" value="{{ $candidateGeneralInfo->date_of_birth }}" name="date_of_birth" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Current Address <span class="required">*</span></label>
-                                <textarea class="form-control" name="current_address" required>{{ $candidateGeneralInfo->current_address }}</textarea>
+                                <label>Short Description</label>
+                                <textarea class="form-control" name="short_description">{{ $candidateGeneralInfo->short_description }}</textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -115,6 +113,12 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Current Address <span class="required">*</span></label>
+                                <textarea class="form-control" name="current_address" required>{{ $candidateGeneralInfo->current_address }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label>Industry <span class="required">*</span></label>
                                 <select name="industry_id" id="fullname" class="form-control @error('industry_id') is-invalid @enderror" required>
@@ -129,7 +133,24 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Status <span class="required">*</span></label>
-                                <input type="text" class="form-control" value="{{ $candidateGeneralInfo->current_status }}" name="current_status" required>
+                                <select name="current_status" id="fullname" class="form-control @error('current_status') is-invalid @enderror" required>
+                                    <option value="">Select Current Status</option>
+                                    <option value="1"{{ ($candidateGeneralInfo->current_status == 1) ? ' selected' : ''}}>Actively looking rigth now</option>
+                                    <option value="2"{{ ($candidateGeneralInfo->current_status == 2) ? ' selected' : ''}}>Open, but not actively looking</option>
+                                    <option value="3"{{ ($candidateGeneralInfo->current_status == 3) ? ' selected' : ''}}>Not interested in jobs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Current Position</label>
+                                <input type="hidden" name="id" value="{{ $candidateGeneralInfo->id }}">
+                                <input type="text" class="form-control" value="{{ $candidateGeneralInfo->current_position }}" name="current_position">
+                                <i class="fa fa-check-circle" style="color:green;"></i> <span style="color: green;">This field will helps employers find you more frequently.</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Current Employer</label>
+                                <input type="text" class="form-control" value="{{ $candidateGeneralInfo->current_employer }}" name="current_employer">
                             </div>
                         </div>
                         <br>
@@ -237,8 +258,9 @@
                                 <div class="form-group col-md-6">
                                     <label>Degree <span class="required">*</span></label>
                                     <select class="form-control" name="degree[]" required>
-                                        <option value="SSC"{{ $candidateEducation->degree == 'SSC' ? ' selected' : '' }}>{{ $candidateEducation->degree }}</option>
-                                        <option value="HSC"{{ $candidateEducation->degree == 'HSC' ? ' selected' : '' }}>HSC</option>
+                                        @foreach($educationDegrees as $educationDegree)
+                                            <option value="{{ $educationDegree->id }}"{{ ($candidateEducation->degree == $educationDegree->id) ? ' selected' : '' }}>{{ $educationDegree->degree_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -285,21 +307,54 @@
                 </div>
 
                 <div class="panel panel-primary setup-content" id="step-4">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Extracurricular</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label class="control-label">Company Name</label>
-                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Extra-curricular</h3>
+                    </div>
+                    <div class="panel-body">
+                        @php
+                            $extra = 1;
+                        @endphp
+                        @foreach($candidateAchievements as $candidateAchievement)
+                        <input type="hidden" name="extracurricular_id[]" value="{{ $candidateAchievement->id }}">
+                        <div class="extraCurriCularFieldGroup">
+                            <h4>Extra-curricular <span id="extraNumber">{{ $extra }}</span> @if( $extra !=1 )<button class="btn btn-danger btn-sm float-right" data-id="{{ $candidateAchievement->id }}" type="button" id="extraRemove"><i class="fa fa-minus"></i></button>@endif</h4>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label> Title <span class="required">*</span></label>
+                                    <input type="text" class="form-control" value="{{ $candidateAchievement->title }}" name="title[]" required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Company Address</label>
-                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address" />
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label>Description</label>
+                                    <textarea type="text" class="form-control" name="description[]">{{ $candidateAchievement->description }}</textarea>
+                                </div>
                             </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Type <span class="required">*</span></label>
+                                    <select class="form-control" name="type[]" required>
+                                        <option value="">Select Type</option>
+                                        <option value="1"{{ ($candidateAchievement->type == 'AWARD') ? ' selected' : '' }}>Award</option>
+                                        <option value="2"{{ ($candidateAchievement->type == 'COURSE') ? ' selected' : '' }}>Course</option>
+                                        <option value="3"{{ ($candidateAchievement->type == 'ACTIVITY') ? ' selected' : '' }}>Activity</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Date <span class="required">*</span></label>
+                                    <input type="date" class="form-control startDateId" value="{{ $candidateAchievement->date }}" name="date[]" required>
+                                </div>
+                            </div>
+                            @php
+                                $extra++;
+                            @endphp
+                            @endforeach
+                            <button type="button" class="btn btn-success btn-sm float-left" id="extraCurricularAddMore"><i class="fa fa-plus"></i></button>
+                            <br>
                             <button class="btn btn-primary nextBtn pull-right" type="submit">Update</button>
                         </div>
                     </div>
+                </div>
 
             </form>
             {{--        Education--}}
@@ -311,8 +366,9 @@
                         <label>Degree <span class="required">*</span></label>
                         <select class="form-control" name="degree[]">
                             <option value="">Select Degree</option>
-                            <option>SSC</option>
-                            <option>HSC</option>
+                            @foreach($educationDegrees as $educationDegree)
+                                <option value="{{$educationDegree->id}}">{{$educationDegree->degree_name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-6">
@@ -400,7 +456,7 @@
                     <div class="form-group col-md-12">
                         <div class="my_resume_skill">
                             <label>Skills</label>
-                            <input type="text" name="skill_name[]" id="tags" placeholder="Add Skills">
+                            <input type="text" name="skill_name[]" id="skill_name" placeholder="Add Skills">
                         </div>
                     </div>
                 </div>
@@ -408,6 +464,38 @@
                     <div class="form-group col-md-12">
                         <label>Experience Summery</label>
                         <textarea type="text" class="form-control" name="experience_summary[]"></textarea>
+                    </div>
+                </div>
+            </div>
+            {{--        ExtraCurriCular--}}
+            <div class="extraCurriCularFieldGroup extraRepeat" style="display: none;">
+                <input type="hidden" name="extracurricular_id[]" value="">
+                <h4>Extra-curricular <span id="extraNumber"></span><button class="btn btn-danger btn-sm float-right" type="button" id="extraRemove"><i class="fa fa-minus"></i></button></h4>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label> Title <span class="required">*</span></label>
+                        <input type="text" class="form-control" value="{{ old('title') }}" name="title[]">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Description</label>
+                        <textarea type="text" class="form-control" name="description[]"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label> Type <span class="required">*</span></label>
+                        <select class="form-control" name="type[]">
+                            <option value="">Select Type</option>
+                            <option value="1">Award</option>
+                            <option value="2">Course</option>
+                            <option value="3">Activity</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label> Date <span class="required">*</span></label>
+                        <input type="date" class="form-control startDateId" value="{{old('date')}}" name="date[]">
                     </div>
                 </div>
             </div>
@@ -513,6 +601,43 @@
                 }
                 $.ajax({
                     url: '{{ url('remove/edu') }}/' + id,
+                    type: 'GET',
+                    success:function(data){
+                        dis.parent().parent().remove();
+                    }
+                })
+            } else {
+                dis.parent().parent().remove();
+            }
+
+        });
+        //extracurricular
+        var extra = '{{ count($candidateAchievements) + 1 }}';
+        $('#extraCurricularAddMore').on('click',function(){
+            var form = $('.extraRepeat').clone().removeClass('extraRepeat').css('display', 'block');
+            form.find('#extraNumber').text(extra);
+            $("#extraCurricularAddMore").before(form);
+            extra++;
+        });
+        // $('#extraCurricularAddMore').on('click',function(){
+        //     var form = $('.extraRepeat').clone().removeClass('extraRepeat').css('display', 'block');
+        //     form.find('#extraNumber').text(i);
+        //     $("#extraCurricularAddMore").before(form);
+        //     i++;
+        // });
+        // $(document).on('click','#extraRemove',function(){
+        //     $(this).parent().parent().remove();
+        // });
+        $(document).on('click','#extraRemove',function(){
+            var dis = $(this);
+            var id = dis.data('id');
+            if (id != ''){
+                var c = confirm("Are you sure you want to permanently remove this record ?");
+                if(!c){
+                    return false;
+                }
+                $.ajax({
+                    url: '{{ url('remove/extra') }}/' + id,
                     type: 'GET',
                     success:function(data){
                         dis.parent().parent().remove();

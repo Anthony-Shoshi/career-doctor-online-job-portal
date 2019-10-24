@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\City;
 use App\Country;
 use App\Currency;
 use App\Job;
@@ -320,9 +321,85 @@ class JobPostController extends Controller
         return view('candidate.job.singleJobView')->with('job',$job)->with('recommendedJobs',$recommendedJobs)->with('perDayViewer',$perDayViewer)->with('totalViewer',$totalViewer);
     }
 
-    public function jobListView(){
-        $jobs = Job::where('is_published','1')->orderBy('created_at','DESC')->paginate('8');
-        return view('candidate.job.jobListView')->with('jobs',$jobs);
+    public function jobListView(Request $request){
+        $data['jobTypes'] = JobType::where('is_deleted', 0)->get();
+        $data['jobIndustries'] = JobIndustry::orderBy('industry_name', 'ASC')->where('is_deleted', 0)->get();
+        $data['jobQualifications'] = JobQualification::orderBy('qualification_name', 'ASC')->where('is_deleted', 0)->get();
+        $data['jobCategories'] = JobCategory::orderBy('category_name', 'ASC')->where('is_deleted', 0)->get();
+        $jobs = Job::where('is_published','1');
+        if ($request->keyword != '') {
+            $jobs = $jobs->where('title', 'LIKE', '%'.$request->keyword.'%');
+        }
+        if ($request->category != '') {
+            $jobs = $jobs->where('job_category', $request->category);
+        }
+        if ($request->location != '') {
+            $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', $request->location);
+        }
+        if ($request->ajax()) {
+            if ($request->keyword != '') {
+                $jobs = $jobs->where('title', 'LIKE', '%'.$request->keyword.'%');
+            }
+            if ($request->location != '') {
+                $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', $request->location);
+            }
+            if ($request->category != '' && $request->category != 'all') {
+                $jobs = $jobs->where('job_category', $request->category);
+            }
+            if ($request->jobType != '') {
+                $jobs = $jobs->where('job_type', $request->jobType);
+            }
+            if ($request->gender != '') {
+                $jobs = $jobs->where('gender', $request->gender);
+            }
+            if($request->industry != '') {
+                $jobs = $jobs->where('job_industry', $request->industry);
+            }
+            if($request->qualification != '') {
+                $jobs = $jobs->where('job_qualification', $request->qualification);
+            }
+            if ($request->datePosted != '' && $request->datePosted != 'all') {
+                if ($request->datePosted == 'last hour') {
+                    $jobs = $jobs->where('created_at', '>', Carbon::now()->subHour(1));
+                }
+                if ($request->datePosted == 'last 24 hour') {
+                    $jobs = $jobs->where('created_at', '>', Carbon::now()->subDay());
+                }
+                if ($request->datePosted == 'last 7 days') {
+                    $jobs = $jobs->where('created_at', '>', Carbon::now()->subDays(7));
+                }
+                if ($request->datePosted == 'last 14 days') {
+                    $jobs = $jobs->where('created_at', '>', Carbon::now()->subDays(14));
+                }
+                if ($request->datePosted == 'last 30 days') {
+                    $jobs = $jobs->where('created_at', '>', Carbon::today()->subMonth());
+                }
+            }
+            if ($request->experience != '') {
+                if ($request->experience == 'less than 1year') {
+                    $jobs = $jobs->where('min_exp_year', 0);
+                }
+                if ($request->experience == '1year to 2year') {
+                    $jobs = $jobs->where('min_exp_year', 1)->where('max_exp_year', 2);
+                }
+                if ($request->experience == '2year to 3year') {
+                    $jobs = $jobs->where('min_exp_year', 2)->where('max_exp_year', 3);
+                }
+                if ($request->experience == '3year to 4year') {
+                    $jobs = $jobs->where('min_exp_year', 3)->where('max_exp_year', 4);
+                }
+                if ($request->experience == '4year to 5year') {
+                    $jobs = $jobs->where('min_exp_year', 4)->where('max_exp_year', 5);
+                }
+                if ($request->experience == 'more than 5year') {
+                    $jobs = $jobs->where('max_exp_year', '>=', 5);
+                }
+            }
+            $jobs = $jobs->orderBy('created_at','DESC')->paginate('8');
+            return view('searches.searchByJobTypes', $data)->with('jobs',$jobs);
+        }
+        $jobs = $jobs->orderBy('jobs.created_at','DESC')->paginate('8');
+        return view('candidate.job.jobListView', $data)->with('jobs',$jobs);
     }
 
     public function jobListOfThisCompany($id){

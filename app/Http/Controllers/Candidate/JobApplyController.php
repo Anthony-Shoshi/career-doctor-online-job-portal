@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Candidate;
 
 use App\CandidateCoverLetter;
+use App\CandidateJobApplicationStatus;
 use App\Job;
 use App\Message;
 use App\MessageThread;
@@ -23,13 +24,8 @@ class JobApplyController extends Controller
 
     public function applyJob($id) {
         $job = Job::where('id', $id)->first();
-        $messageThread = MessageThread::where('user_from', Auth::user()->id)->where('user_to', $job->company)->first();
-        if ($messageThread) {
-            return redirect()->back()->with('delete', 'You have already applied for this job!');
-        } else {
             $coverLetters = CandidateCoverLetter::where('user', Auth::user()->id)->where('status', 'PUBLISHED')->get();
             return view('candidate.job.applyJob')->with('job', $job)->with('coverLetters', $coverLetters);
-        }
     }
 
     public function saveApplyJob(Request $request) {
@@ -52,6 +48,15 @@ class JobApplyController extends Controller
 
         $messageThread->save();
 
+        $jobApplicationStatus = new CandidateJobApplicationStatus();
+        $jobApplicationStatus->user = Auth::user()->id;
+        $jobApplicationStatus->job = $request->job_id;
+        $jobApplicationStatus->message_thread = $messageThread->id;
+        $jobApplicationStatus->created_by = Auth::user()->id;
+        $jobApplicationStatus->updated_by = Auth::user()->id;
+
+        $jobApplicationStatus->save();
+
         $message = new Message();
         $message->thread = $messageThread->id;
         $message->user_from = Auth::user()->id;
@@ -64,5 +69,22 @@ class JobApplyController extends Controller
 
         return redirect('/dashboard')->with('success', 'Job applied successfully!');
 
+    }
+
+    public function appliedJobs() {
+        $candidate = Auth::user()->id;
+        $appliedJobs = CandidateJobApplicationStatus::select('*', 'candidate_job_application_statuses.id AS id')
+            ->join('jobs', 'jobs.id', 'candidate_job_application_statuses.job')
+            ->where('user', $candidate)
+            ->orderBy('candidate_job_application_statuses.created_at', 'DESC')
+            ->paginate(8);
+        return view('candidate.job.appliedJobs')->with('appliedJobs', $appliedJobs);
+    }
+
+    public function withdrawApplication($id) {
+        $candidateApplication = CandidateJobApplicationStatus::findOrFail($id);
+        $candidateApplication->status = 'WITHDRAWN';
+        $candidateApplication->save();
+        return back()->with('delete', 'Application withdrawn successfully!');
     }
 }

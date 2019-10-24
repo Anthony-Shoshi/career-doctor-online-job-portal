@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <!-- Title -->
-<title>CareerUp - The Most Popular Job Board HTML Template</title>
+<title>Career Doctor</title>
 <!-- Favicon -->
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" />
@@ -45,7 +45,27 @@
 		</div>
 	</section>
 
-	
+{{--	model--}}
+	<div id="main_modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+					<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">x</span>
+					</button>
+				</div>
+				<div class="alert alert-danger" style="display:none; margin: 15px;"></div>
+				<div class="alert alert-success" style="display:none; margin: 15px;"></div>
+				<div class="modal-body" style="overflow:hidden;"></div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
 </div>
 <!-- Wrapper End -->
@@ -120,6 +140,28 @@
 // @foreach ($errors->all() as $error)
 // Command: toastr["error"]("{{ $error }}");
 // @endforeach
+</script>
+<script>
+	//Ajax Modal Function
+	$(document).on("click",".ajax-modal",function(){
+		var link = $(this).attr("href");
+		var title = $(this).data("title");
+		$.ajax({
+			url: link,
+			beforeSend: function(){
+				$("#preloader").css("display","block");
+			},success: function(data){
+				$("#preloader").css("display","none");
+
+				$('#main_modal .modal-title').html(title);
+				$('#main_modal .modal-body').html(data);
+				$('#main_modal .alert-success').css("display","none");
+				$('#main_modal .alert-danger').css("display","none");
+				$('#main_modal').modal('show');
+			}
+		});
+		return false;
+	});
 </script>
 @yield('myJs')
 </body>

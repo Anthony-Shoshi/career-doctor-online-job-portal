@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Resume;
 
+use App\CandidateAchievement;
 use App\CandidateEducation;
 use App\CandidateExperience;
 use App\CandidateGeneralInfo;
 use App\City;
 use App\Country;
+use App\EducationDegree;
 use App\JobIndustry;
 use App\JobSkill;
 use App\JobSkillsTemp;
@@ -21,134 +23,13 @@ class ResumeController extends Controller
     public function createResume(){
         $candidate = CandidateGeneralInfo::where('user_id', Auth::user()->id)->exists();
         if(!$candidate){
-            $jobIndustries = JobIndustry::orderBy('industry_name', 'asc')->get();
+            $jobIndustries = JobIndustry::orderBy('industry_name', 'asc')->where('is_deleted', 0)->get();
             $countries = Country::all();
-            return view('resume.createResume')->with('countries', $countries)->with('jobIndustries', $jobIndustries);
+            $educationDegrees = EducationDegree::orderBy('degree_name', 'asc')->where('is_deleted', 0)->get();
+            return view('resume.createResume')->with('countries', $countries)->with('jobIndustries', $jobIndustries)->with('educationDegrees', $educationDegrees);
         }else{
             return redirect('/edit/resume');
         }
-    }
-
-    public function saveCandidateProfile(Request $request)
-    {
-        $request->validate(
-            [
-                'industry_id' => 'required',
-                'contact_email' => 'required',
-                'contact_phone' => 'required',
-                'current_address' => 'required',
-                'current_city_id' => 'required',
-                'current_postcode' => 'required',
-                'current_country_id' => 'required',
-                'current_status' => 'required',
-            ],
-            [
-                'industry_id.required' => 'The skill field is required',
-                'contact_email.required' => 'The contact email field is required!',
-                'contact_phone.required' => 'The contact phone number field is required!',
-                'current_address.required' => 'The contact address field is required!',
-                'current_city_id.required' => 'The current city field is required!',
-                'current_postcode.required' => 'The current postal code field is required!',
-                'current_country_id.required' => 'The current country field is required!',
-                'current_status.required' => 'The current status field is required!'
-
-            ]
-        );
-
-        $candidateGeneralInfo = new CandidateGeneralInfo();
-        $candidateGeneralInfo->user_id = auth::user()->id;
-        $candidateGeneralInfo->industry_id = $request->industry_id;
-        $candidateGeneralInfo->current_position = $request->current_position;
-        $candidateGeneralInfo->current_employer = $request->current_employer;
-        $candidateGeneralInfo->short_description = $request->short_description;
-        $candidateGeneralInfo->contact_email = $request->contact_email;
-        $candidateGeneralInfo->contact_phone = $request->contact_phone;
-        $candidateGeneralInfo->current_address = $request->current_address;
-        $candidateGeneralInfo->current_city_id = $request->current_city_id;
-        $candidateGeneralInfo->current_postcode = $request->current_postcode;
-        $candidateGeneralInfo->current_country_id = $request->current_country_id;
-        $candidateGeneralInfo->current_status = $request->current_status;
-
-        $candidateGeneralInfo->save();
-
-        // candidate image save in User table
-        $userImage = User::findOrFail(auth::user()->id);
-        if ($request->file('image')) {
-            $candidateImage = $request->file('image');
-            $imageOrigirnalName = $candidateImage->getClientOriginalName();
-            $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
-            $uploadPath = 'upload/candidate/profile/';
-            $candidateImage->move($uploadPath, $imageName);
-            $imageUrl = $uploadPath . $imageName;
-            $userImage->image = $imageUrl;
-        } else {
-            $userImage->image = 'upload/candidate/profile/default.jpg';
-        }
-
-        $userImage->save();
-
-        return redirect()->back()->with('success', 'Profile Saved Successfully!');
-
-    }
-
-    public function updateCandidateProfile(Request $request)
-    {
-        $request->validate(
-            [
-                'industry_id' => 'required',
-                'contact_email' => 'required',
-                'contact_phone' => 'required',
-                'current_address' => 'required',
-                'current_city_id' => 'required',
-                'current_postcode' => 'required',
-                'current_country_id' => 'required',
-                'current_status' => 'required',
-            ],
-            [
-                'industry_id.required' => 'The skill field is required!',
-                'contact_email.required' => 'The contact email field is required!',
-                'contact_phone.required' => 'The contact phone number field is required!',
-                'current_address.required' => 'The contact address field is required!',
-                'current_city_id.required' => 'The current city field is required!',
-                'current_postcode.required' => 'The current postal code field is required!',
-                'current_country_id.required' => 'The current country field is required!',
-                'current_status.required' => 'The current status field is required!'
-
-            ]
-        );
-
-
-        $candidateGeneralInfo = CandidateGeneralInfo::findOrFail($request->id);
-        $candidateGeneralInfo->user_id = auth::user()->id;
-        $candidateGeneralInfo->industry_id = $request->industry_id;
-        $candidateGeneralInfo->current_position = $request->current_position;
-        $candidateGeneralInfo->current_employer = $request->current_employer;
-        $candidateGeneralInfo->short_description = $request->short_description;
-        $candidateGeneralInfo->contact_email = $request->contact_email;
-        $candidateGeneralInfo->contact_phone = $request->contact_phone;
-        $candidateGeneralInfo->current_address = $request->current_address;
-        $candidateGeneralInfo->current_city_id = $request->current_city_id;
-        $candidateGeneralInfo->current_postcode = $request->current_postcode;
-        $candidateGeneralInfo->current_country_id = $request->current_country_id;
-        $candidateGeneralInfo->current_status = $request->current_status;
-
-        $candidateGeneralInfo->save();
-
-        // candidate image save in User table
-        $userImage = User::findOrFail(auth::user()->id);
-        if ($request->file('image')) {
-            $candidateImage = $request->file('image');
-            $imageOrigirnalName = $candidateImage->getClientOriginalName();
-            $imageName = rand(time(), 1000) . '_' . $imageOrigirnalName;
-            $uploadPath = 'upload/candidate/profile/';
-            $candidateImage->move($uploadPath, $imageName);
-            $imageUrl = $uploadPath . $imageName;
-            $userImage->image = $imageUrl;
-        }
-
-        $userImage->save();
-
-        return redirect()->back()->with('success', 'Profile Updated Successfully!');
     }
 
     public function saveCandidateResume(Request $request)
@@ -162,6 +43,8 @@ class ResumeController extends Controller
         $candidateGeneralInfo->short_description = $request->short_description;
         $candidateGeneralInfo->contact_email = $request->contact_email;
         $candidateGeneralInfo->contact_phone = $request->contact_phone;
+        $candidateGeneralInfo->gender = $request->gender;
+        $candidateGeneralInfo->date_of_birth = $request->date_of_birth;
         $candidateGeneralInfo->current_address = $request->current_address;
         $candidateGeneralInfo->current_city_id = $request->current_city_id;
         $candidateGeneralInfo->current_postcode = $request->current_postcode;
@@ -238,6 +121,23 @@ class ResumeController extends Controller
             }
         }
 
+        // candidate extracurricular
+        if (count($request->title) != 0) {
+            for ($i = 0; $i < count($request->title); $i++) {
+                if ($request->title[$i] != '' && $request->type[$i] != '' && $request->date[$i] != '') {
+                    $candidateAchievement = new CandidateAchievement();
+                    $candidateAchievement->user = auth::user()->id;
+                    $candidateAchievement->type = $request->type[$i];
+                    $candidateAchievement->title = $request->title[$i];
+                    $candidateAchievement->date = $request->date[$i];
+                    $candidateAchievement->description = $request->description[$i];
+                    $candidateAchievement->created_by = auth::user()->id;
+                    $candidateAchievement->updated_by = auth::user()->id;
+                    $candidateAchievement->save();
+                }
+            }
+        }
+
         return redirect('/dashboard')->with('success', 'Resume created Successfully!');
 
     }
@@ -247,8 +147,10 @@ class ResumeController extends Controller
         $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', Auth::user()->id)->first();
         $data['candidateEducations'] = CandidateEducation::where('user_id', Auth::user()->id)->get();
         $data['candidateExperiences'] = CandidateExperience::where('user_id', Auth::user()->id)->get();
-        $data['jobIndustries'] = JobIndustry::orderBy('industry_name', 'asc')->get();
-        $data['countries'] = Country::all();
+        $data['candidateAchievements'] = CandidateAchievement::where('user', Auth::user()->id)->get();
+        $data['jobIndustries'] = JobIndustry::orderBy('industry_name', 'asc')->where('is_deleted', 0)->get();
+        $data['educationDegrees'] = EducationDegree::orderBy('degree_name', 'asc')->where('is_deleted', 0)->get();
+        $data['countries'] = Country::where('row_delete', 0)->get();
         $data['cities'] = City::where('country_id',$data['candidateGeneralInfo']->current_country_id)->orderBy('name','asc')->get();
         return view('resume.editResume',$data);
     }
@@ -263,6 +165,8 @@ class ResumeController extends Controller
         $candidateGeneralInfo->short_description = $request->short_description;
         $candidateGeneralInfo->contact_email = $request->contact_email;
         $candidateGeneralInfo->contact_phone = $request->contact_phone;
+        $candidateGeneralInfo->gender = $request->gender;
+        $candidateGeneralInfo->date_of_birth = $request->date_of_birth;
         $candidateGeneralInfo->current_address = $request->current_address;
         $candidateGeneralInfo->current_city_id = $request->current_city_id;
         $candidateGeneralInfo->current_postcode = $request->current_postcode;
@@ -270,7 +174,7 @@ class ResumeController extends Controller
         $candidateGeneralInfo->current_status = $request->current_status;
         $candidateGeneralInfo->created_by = auth::user()->id;
         $candidateGeneralInfo->updated_by = auth::user()->id;
-        //$candidateGeneralInfo->save();
+        $candidateGeneralInfo->save();
 
         // candidate image save in User table
         $user = User::findOrFail(auth::user()->id);
@@ -358,6 +262,35 @@ class ResumeController extends Controller
             }
         }
 
+        // candidate extracurricular
+        if (count($request->title) != 0) {
+            for ($i = 0; $i < count($request->title); $i++) {
+                if ($request->title[$i] != '' && $request->type[$i] != '' && $request->date[$i] != '') {
+                    if ($request->extracurricular_id[$i] != ''){
+                        $candidateAchievement = CandidateAchievement::findOrFail($request->extracurricular_id[$i]);
+                        $candidateAchievement->user = auth::user()->id;
+                        $candidateAchievement->type = $request->type[$i];
+                        $candidateAchievement->title = $request->title[$i];
+                        $candidateAchievement->date = $request->date[$i];
+                        $candidateAchievement->description = $request->description[$i];
+                        $candidateAchievement->created_by = auth::user()->id;
+                        $candidateAchievement->updated_by = auth::user()->id;
+                        $candidateAchievement->save();
+                    } else {
+                        $candidateAchievement = new CandidateAchievement();
+                        $candidateAchievement->user = auth::user()->id;
+                        $candidateAchievement->type = $request->type[$i];
+                        $candidateAchievement->title = $request->title[$i];
+                        $candidateAchievement->date = $request->date[$i];
+                        $candidateAchievement->description = $request->description[$i];
+                        $candidateAchievement->created_by = auth::user()->id;
+                        $candidateAchievement->updated_by = auth::user()->id;
+                        $candidateAchievement->save();
+                    }
+                }
+            }
+        }
+
         return redirect('/dashboard')->with('success', 'Resume updated Successfully!');
     }
 
@@ -365,6 +298,9 @@ class ResumeController extends Controller
         if ($type == 'edu'){
             $candidateEducation = CandidateEducation::findOrFail($id);
             $candidateEducation->delete();
+        } else if($type == 'extra'){
+            $candidateAchievement = CandidateAchievement::findOrFail($id);
+            $candidateAchievement->delete();
         } else {
             $candidateExperience = CandidateExperience::findOrFail($id);
             $candidateExperience->delete();
@@ -381,6 +317,7 @@ class ResumeController extends Controller
         $candidateGeneralInfo = CandidateGeneralInfo::where('user_id', Auth::user()->id)->first();
         $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
         $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
+        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user', Auth::user()->id)->get();
         $data['city'] = City::where('id', $candidateGeneralInfo->current_city_id)->first();
         $data['country'] = Country::where('id', $candidateGeneralInfo->current_country_id)->first();
         return view('resume.viewResume', $data)->with('candidateGeneralInfo', $candidateGeneralInfo);

@@ -38,6 +38,8 @@ class CreateCandidateGeneralInfoTable extends Migration
             $table->text('short_description')->nullable()->default(null);
             $table->string('contact_email', 100);
             $table->string('contact_phone', 45);
+            $table->enum('gender', ['MALE', 'FEMALE', 'OTHER']);
+            $table->date('date_of_birth');
             $table->string('current_address', 100);
             $table->unsignedMediumInteger('current_city_id');
             $table->foreign('current_city_id')

@@ -13,17 +13,18 @@
 				</div>
 				<div class="col-lg-12">
 					<div class="home-job-search-box mt20 mb20">
-						<form class="form-inline">
+						<form class="form-inline" target="_blank" method="POST" action="{{ route('jobListView') }}">
+							@csrf
 							<div class="search_option_one">
 							    <div class="form-group">
 							    	<label for="exampleInputName"><span class="flaticon-search"></span></label>
-							    	<input type="text" class="form-control h70" id="exampleInputName" placeholder="Job Title or Keywords">
+							    	<input type="text" name="keyword" class="form-control h70" id="exampleInputName" placeholder="Job Title or Keywords">
 							    </div>
 							</div>
 							<div class="search_option_two">
 							    <div class="form-group">
 							    	<label for="exampleInputEmail"><span class="flaticon-location-pin"></span></label>
-							    	<input type="text" class="form-control h70" id="exampleInputEmail" placeholder="Location">
+							    	<input type="text" name="location" class="form-control h70" id="exampleInputEmail" placeholder="Location">
 							    </div>
 							</div>
 							<div class="search_option_button">
@@ -48,94 +49,25 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg1" style="background-image: url(images/service/1.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-pen"></span></div>
-							<div class="details">
-								<h5>Design, Art & Multimedia</h5>
-								<p>22 Open Positions</p>
+				@php
+					$jobCategories = \App\JobCategory::all()->random(8);
+				@endphp
+				@foreach($jobCategories as $jobCategory)
+					@php
+						$countOpenJobs = \App\Job::where('job_category', $jobCategory->id)->where('is_published', 1)->count();
+					@endphp
+					<div class="col-sm-6 col-lg-3">
+						<a href="#" class="icon_hvr_img_box sbbg1" style="background-image: url(images/service/1.jpg);">
+							<div class="overlay">
+								<div class="icon"><span class="flaticon-pen"></span></div>
+								<div class="details">
+									<h5>{{ $jobCategory->category_name }}</h5>
+									<p>{{ $countOpenJobs }}</p>
+								</div>
 							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg2" style="background-image: url(images/service/2.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-mortarboard"></span></div>
-							<div class="details">
-								<h5>Education Training</h5>
-								<p>48 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg3" style="background-image: url(images/service/3.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-bars"></span></div>
-							<div class="details">
-								<h5>Accounting / Finance</h5>
-								<p>97 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg4" style="background-image: url(images/service/4.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-interview"></span></div>
-							<div class="details">
-								<h5>Human Resource</h5>
-								<p>17 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg5" style="background-image: url(images/service/5.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-antenna"></span></div>
-							<div class="details">
-								<h5>Telecommunications</h5>
-								<p>60 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg6" style="background-image: url(images/service/6.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-food"></span></div>
-							<div class="details">
-								<h5>Restaurant / Food Service</h5>
-								<p>22 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg7" style="background-image: url(images/service/7.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-customer-support"></span></div>
-							<div class="details">
-								<h5>Construction / Facilities</h5>
-								<p>05 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-6 col-lg-3">
-					<a href="#" class="icon_hvr_img_box sbbg8" style="background-image: url(images/service/8.jpg);">
-						<div class="overlay">
-							<div class="icon"><span class="flaticon-care"></span></div>
-							<div class="details">
-								<h5>Health</h5>
-								<p>10 Open Positions</p>
-							</div>
-						</div>
-					</a>
-				</div>
+						</a>
+					</div>
+				@endforeach
 				<div class="col-lg-6 offset-lg-3">
 					<div class="pjc_all_btn text-center">
 						<a class="btn btn-transparent" href="#">Browse All Categories <span class="flaticon-right-arrow pl10"></span></a>
@@ -222,7 +154,7 @@
 									@if($job->is_negotiable == 1)
 										<li class="list-inline-item"><span class="flaticon-price pl20"></span> Negotiable</li>
 									@else
-										<li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $job->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $job->max_salary/1000 .'k' }} {{ $currency->code }}</li>
+										<li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $job->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $job->max_salary/1000 .'k' }} {{ $currency->code }} @php $salary_terms = str_replace('_', ' ', $job->salary_terms) @endphp {{ ucwords(strtolower($salary_terms)) }}</li>
 									@endif
 								</ul>
 							</div>

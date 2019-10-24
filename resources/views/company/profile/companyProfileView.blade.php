@@ -152,7 +152,7 @@
                                                 @if($jobPostedByThisCompany->is_negotiable == 1)
                                                     <li class="list-inline-item"><span class="flaticon-price pl20"></span> Negotiable</li>
                                                 @else
-                                                    <li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $jobPostedByThisCompany->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $jobPostedByThisCompany->max_salary/1000 .'k' }} {{ $currency->code }}</li>
+                                                    <li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $jobPostedByThisCompany->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $jobPostedByThisCompany->max_salary/1000 .'k' }} {{ $currency->code }} @php $salary_terms = str_replace('_', ' ', $jobPostedByThisCompany->salary_terms) @endphp {{ ucwords(strtolower($salary_terms)) }}</li>
                                                 @endif
                                             </ul>
                                         </div>
@@ -203,7 +203,7 @@
                             @endphp
                         <div class="col-lg-12">
                             <div class="candidate_review_posted style2 result">
-                                <h4 class="title mb30">Company Review</h4>
+                                <h4 class="title mb30">Company Reviews</h4>
                                 @if($candidateRating != 0)
                                 @php
                                     $limit = 3;
@@ -276,7 +276,7 @@
                                                 continue;
                                             }
                                         @endphp
-                                        @endauth
+                                    @endauth
                                     <div class="details ratingBox">
                                     <img class="img-fluid rounded-circle float-left" src="{{ asset($data->image) }}" alt="1.jpg">
                                     <h4>{{ $data->review_title }}
@@ -341,7 +341,7 @@
                                 <div class="col-lg-12">
                                     <div class="job_shareing">
                                         <div class="candidate_social_widget bgc-fa">
-                                            <div style="text-align: center">No Rating!</div>
+                                            <div style="text-align: center">No Review!</div>
                                         </div>
                                     </div>
                                 </div>

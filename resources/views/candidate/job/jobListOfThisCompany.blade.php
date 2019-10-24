@@ -636,7 +636,7 @@
                                             @if($job->is_negotiable == 1)
                                                 <li class="list-inline-item"><span class="flaticon-price pl20"></span> Negotiable</li>
                                             @else
-                                                <li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $job->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $job->max_salary/1000 .'k' }} {{ $currency->code }}</li>
+                                                <li class="list-inline-item"><span class="flaticon-price pl20"></span> {{ $job->min_salary/1000 .'k' }} {{ $currency->code }} - {{ $job->max_salary/1000 .'k' }} {{ $currency->code }} @php $salary_terms = str_replace('_', ' ', $job->salary_terms) @endphp {{ ucwords(strtolower($salary_terms)) }}</li>
                                             @endif
                                         </ul>
                                     </div>

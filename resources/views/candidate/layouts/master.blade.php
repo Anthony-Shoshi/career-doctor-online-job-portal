@@ -16,7 +16,7 @@
 <!-- toastr -->
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <!-- Title -->
-<title>Career Doctor</title>
+<title>{{ get_option('website_name') }}</title>
 <!-- Favicon -->
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 <link href="{{ asset('candidate_company/assets/images/favicon.ico') }}" sizes="128x128" rel="shortcut icon" />

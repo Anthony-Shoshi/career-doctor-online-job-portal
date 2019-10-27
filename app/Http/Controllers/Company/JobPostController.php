@@ -326,6 +326,7 @@ class JobPostController extends Controller
         $data['jobIndustries'] = JobIndustry::orderBy('industry_name', 'ASC')->where('is_deleted', 0)->get();
         $data['jobQualifications'] = JobQualification::orderBy('qualification_name', 'ASC')->where('is_deleted', 0)->get();
         $data['jobCategories'] = JobCategory::orderBy('category_name', 'ASC')->where('is_deleted', 0)->get();
+        $data['currencies'] = Currency::orderBy('code', 'ASC')->where('is_deleted', 0)->get();
         $jobs = Job::where('is_published','1');
         if ($request->keyword != '') {
             $jobs = $jobs->where('title', 'LIKE', '%'.$request->keyword.'%');
@@ -342,6 +343,13 @@ class JobPostController extends Controller
             }
             if ($request->location != '') {
                 $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', $request->location);
+            }
+            $jobs = $jobs->where('min_salary', '>=' , $request->min)->where('max_salary', '<=' , $request->max);
+            if ($request->salaryTerm != '') {
+                $jobs = $jobs->where('salary_terms', $request->salaryTerm);
+            }
+            if ($request->currency != '') {
+                $jobs = $jobs->where('currency', $request->currency);
             }
             if ($request->category != '' && $request->category != 'all') {
                 $jobs = $jobs->where('job_category', $request->category);

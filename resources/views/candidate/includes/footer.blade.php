@@ -96,7 +96,7 @@
 				<div class="col-sm-8 col-md-6 col-md-3 col-lg-4">
 					<div class="newsletter_widget">
 						<h4>Newsletter</h4>
-						<p>Subscribe to Career Doctor Pacific newsletter to get the latest jobs posted, candidates ,and other latest news stay updated.</p>
+						<p>Subscribe to {{ get_option('website_name') }} Pacific newsletter to get the latest jobs posted, candidates ,and other latest news stay updated.</p>
 						<form class="form-inline mailchimp_form">
 							<label class="sr-only" for="inlineFormInputMail2">Name</label>
 							<input type="email" class="form-control mb-2 mr-sm-2" id="inlineFormInputMail2" placeholder="Enter your email address">

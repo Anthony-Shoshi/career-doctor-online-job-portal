@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
     Auth::routes();
 
-//Without auth middleware route listpa
+//Without auth middleware route list
 Route::get('/aboutUs', 'PageController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'PageController@contactUs')->name('contactUs');
 Route::get('/termsAndConditions', 'PageController@termsAndConditions')->name('termsAndConditions');

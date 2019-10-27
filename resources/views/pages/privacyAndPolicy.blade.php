@@ -29,10 +29,10 @@
                 <div class="col-lg-12">
                     <h4 class="fz20 mt0">Website Privacy and Policy</h4>
                     <p>
-                        Welcome to Career Doctor!
+                        Welcome to {{ get_option('website_name') }}!
                         <br>
                         These terms and conditions outline the rules and regulations for the use of Company Name's Website, located at Website.com.<br>
-                        By accessing this website we assume you accept these terms and conditions. Do not continue to use Career Doctor if you do not agree to take all of the terms and conditions stated on this page.<br>
+                        By accessing this website we assume you accept these terms and conditions. Do not continue to use {{ get_option('website_name') }} if you do not agree to take all of the terms and conditions stated on this page.<br>
                         The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: “Client”, “You” and “Your” refers to you, the person log on this website and compliant to the Company's terms and conditions. The company refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client's needs in respect of provision of the Company's stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.<br>
                     </p>
                 </div>
@@ -48,13 +48,13 @@
                 <div class="col-lg-12">
                     <h4 class="fz20">License</h4>
                     <p>
-                        Unless otherwise stated, Company Name and/or its licensors own the intellectual property rights for all material on Website Name. All intellectual property rights are reserved. You may access this from Website Name for your own personal use subjected to restrictions set in these terms and conditions.<br>
+                        Unless otherwise stated, Company Name and/or its licensors own the intellectual property rights for all material on {{ get_option('website_name') }}. All intellectual property rights are reserved. You may access this from {{ get_option('website_name') }} for your own personal use subjected to restrictions set in these terms and conditions.<br>
                         You must not:
                     <ul>
-                        <li>Republish material from Website Name</li>
-                        <li>Sell, rent or sub-license material from Website Name</li>
-                        <li>Reproduce, duplicate or copy material from Website Name</li>
-                        <li>Redistribute content from Website Name</li>
+                        <li>Republish material from {{ get_option('website_name') }}</li>
+                        <li>Sell, rent or sub-license material from {{ get_option('website_name') }}</li>
+                        <li>Reproduce, duplicate or copy material from {{ get_option('website_name') }}</li>
+                        <li>Redistribute content from {{ get_option('website_name') }}</li>
                     </ul>
                     </p>
                 </div>

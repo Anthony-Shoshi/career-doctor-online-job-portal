@@ -84,6 +84,25 @@
                         <p class="text-center">
                             <input class="sl_input" name="salary" type="text" id="amount">
                         </p>
+                        <div class="container" style="margin-left: -30px;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="form-control salary-term" style="margin-top: 15px;">
+                                        <option value="">Salary Term</option>
+                                        <option value="PER_MONTH">Per Month</option>
+                                        <option value="PER_YEAR">Per Year</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <select class="form-control currency" style="margin-top: 15px;">
+                                        <option value="">Select Currency</option>
+                                        @foreach($currencies as $currency)
+                                            <option value="{{ $currency->id }}">{{ $currency->code }} ({{ $currency->symbol }})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="cl_skill_checkbox mb30">
                         <h4 class="fz20 mb20">Skills</h4>
@@ -551,10 +570,17 @@
 @section('myJs')
     <script>
         $(document).ready(function () {
-            $(document).on('change keyup blur','.search-keyword,.custom-category,.date-posted,.jobType,.experience,.gender,.industry,.qualification,.search-location', function () {
+            $(document).on('change keyup blur','.search-keyword,.custom-category,.date-posted,.jobType,.experience,.gender,.industry,.qualification,.search-location,.salary-term,.currency', function () {
                 dataList('{{ route('jobListView') }}');
             });
         });
+
+        $('#slider-range').slider({
+            change: function(event, ui) {
+                dataList('{{ route('jobListView') }}');
+            }
+        });
+
         $(document).on('click', '.qualification', function () {
             if ($('.qualification').is(':checked') == true) {
                 $('.qualification').prop('checked', false);
@@ -638,6 +664,10 @@
                 '_token': '{{ csrf_token() }}',
                 'keyword': $('.search-keyword').val(),
                 'location': $('.search-location').val(),
+                'salaryTerm': $('.salary-term').val(),
+                'currency': $('.currency').val(),
+                'min': $('#slider-range').slider("values")[0],
+                'max': $('#slider-range').slider("values")[1],
                 'category': $('.custom-category:checkbox:checked').val(),
                 'datePosted': $('.date-posted:radio:checked').val(),
                 'jobType': $('.jobType:checkbox:checked').val(),
@@ -646,7 +676,7 @@
                 'industry': $('.industry:checkbox:checked').val(),
                 'qualification': $('.qualification:checkbox:checked').val()
             };
-            //alert($('.search-location').val());
+            //alert($('.currency').val());
             $.ajax({
                 method: "POST",
                 url: link,

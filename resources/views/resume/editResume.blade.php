@@ -220,8 +220,16 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <div class="my_resume_skill">
+                                            @php
+                                                $skills = \App\ExperienceSkillRecord::select('*')
+                                                                                    ->join('job_skills', 'job_skills.id', 'experience_skill_records.job_skill')
+                                                                                    ->where('candidate_experience', $candidateExperience->id)
+                                                                                    ->pluck('skill_name')
+                                                                                    ->toArray();
+                                            $skill_name = implode(', ', $skills);
+                                            @endphp
                                             <label>Skills <span class="required">*</span></label>
-                                            <input type="text" id="skill_name" name="skill_name[]" value="{{ $candidateExperience->skill_name }}" data-role="tagsinput" placeholder="Add Skills" required>
+                                            <input type="text" data-role="tagsinput" class="skill_name" name="skill_name[]" placeholder="Add Skills" value="{{ $skill_name }}">
                                         </div>
                                     </div>
                                 </div>
@@ -456,7 +464,7 @@
                     <div class="form-group col-md-12">
                         <div class="my_resume_skill">
                             <label>Skills</label>
-                            <input type="text" name="skill_name[]" id="skill_name" placeholder="Add Skills">
+                            <input type="text" name="skill_name[]" id="skill_tag" placeholder="Add Skills">
                         </div>
                     </div>
                 </div>
@@ -554,7 +562,7 @@
             var form = $('.experienceRepeat').clone().removeClass('experienceRepeat').css('display','block');
             form.find('#experienceNumber').text(ex);
             form.find('select').val('');
-            form.find('#tags').tagsinput({
+            form.find('#skill_tag').tagsinput({
                 typeaheadjs: {
                     name:'skill_name',
                     source: skill_name.ttAdapter()
@@ -576,6 +584,7 @@
                     url: '{{ url('/remove/exp') }}/' + id,
                     type: 'GET',
                     success: function (data) {
+                        alert(data);
                         dis.parent().parent().remove();
                     }
                 })
@@ -699,7 +708,7 @@
 
         skill_name.initialize();
 
-        $('#skill_name').tagsinput({
+        $('.skill_name').tagsinput({
             typeaheadjs: {
                 name:'skill_name',
                 source: skill_name.ttAdapter()

@@ -10,7 +10,7 @@ class CreateExperienceSkillRecordTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'experience_skill_record';
+    public $tableName = 'experience_skill_records';
 
     /**
      * Run the migrations.

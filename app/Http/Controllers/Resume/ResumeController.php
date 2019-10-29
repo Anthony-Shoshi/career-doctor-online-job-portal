@@ -9,6 +9,7 @@ use App\CandidateGeneralInfo;
 use App\City;
 use App\Country;
 use App\EducationDegree;
+use App\ExperienceSkillRecord;
 use App\JobIndustry;
 use App\JobSkill;
 use App\JobSkillsTemp;
@@ -116,6 +117,17 @@ class ResumeController extends Controller
                             $jobSkillsTemp->updated_by = auth::user()->id;
                             $jobSkillsTemp->save();
                         }
+                    }
+
+                    foreach (JobSkill::whereIn('skill_name', $skills)->get() as $skill) {
+                        $experienceSkills = new ExperienceSkillRecord();
+                        $experienceSkills->user = Auth::user()->id;
+                        $experienceSkills->candidate_experience = $candidateExperience->id;
+                        $experienceSkills->job_skill = $skill->id;
+                        $experienceSkills->created_by = Auth::user()->id;
+                        $experienceSkills->updated_by = Auth::user()->id;
+                        $experienceSkills->save();
+
                     }
                 }
             }
@@ -241,7 +253,7 @@ class ResumeController extends Controller
                         $candidateExperience->created_by = auth::user()->id;
                         $candidateExperience->updated_by = auth::user()->id;
                         $candidateExperience->save();
-                        //Job skills
+
                     } else {
                         $candidateExperience = new CandidateExperience();
                         $candidateExperience->position = $request->position[$i];
@@ -256,7 +268,45 @@ class ResumeController extends Controller
                         $candidateExperience->created_by = auth::user()->id;
                         $candidateExperience->updated_by = auth::user()->id;
                         $candidateExperience->save();
-                        //Job skills
+                    }
+
+                    //Job skills
+                    $skills = explode(',', $request->skill_name[$i]);
+                    foreach ($skills as $skill){
+                        if (! JobSkill::where('skill_name', ucwords($skill))->exists() && $skill != ''){
+                            $jobSkillsTemp = new JobSkillsTemp();
+                            $jobSkillsTemp->user = auth::user()->id;
+                            $jobSkillsTemp->skill_name = ucwords($skill);
+                            $jobSkillsTemp->status = 'PENDING';
+                            $jobSkillsTemp->created_by = auth::user()->id;
+                            $jobSkillsTemp->updated_by = auth::user()->id;
+                            $jobSkillsTemp->save();
+                        }
+                    }
+
+                    //$experienceSkills = ExperienceSkillRecord::where('candidate_experience', $candidateExperience->id)->delete();
+
+                    foreach (JobSkill::whereIn('skill_name', $skills)->get() as $skill) {
+
+//                        foreach () {
+//
+//                        }
+//                        ExperienceSkillRecord::where('candidate_experience', $candidateExperience->id)
+//                            ->whereNotIn('job_skill', $experienceSkills->job_skill)
+//                            ->delete();
+//                        dd($experienceSkills);
+
+                        $checkSkills = ExperienceSkillRecord::where('candidate_experience', $candidateExperience->id)->where('job_skill', $skill->id)->exists();
+                        if ($checkSkills) {
+                            continue;
+                        }
+                        $experienceSkills = new ExperienceSkillRecord();
+                        $experienceSkills->user = Auth::user()->id;
+                        $experienceSkills->candidate_experience = $candidateExperience->id;
+                        $experienceSkills->job_skill = $skill->id;
+                        $experienceSkills->created_by = Auth::user()->id;
+                        $experienceSkills->updated_by = Auth::user()->id;
+                        $experienceSkills->save();
                     }
                 }
             }
@@ -302,8 +352,11 @@ class ResumeController extends Controller
             $candidateAchievement = CandidateAchievement::findOrFail($id);
             $candidateAchievement->delete();
         } else {
+            $experienceSkill = ExperienceSkillRecord::where('candidate_experience', $id);
+            $experienceSkill->delete();
             $candidateExperience = CandidateExperience::findOrFail($id);
             $candidateExperience->delete();
+
         }
         return 'success';
     }

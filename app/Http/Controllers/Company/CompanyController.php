@@ -100,7 +100,7 @@ class CompanyController extends Controller
     public function companyProfileView($id){
 
         $ip = \Request::ip();
-        $now = Carbon::today();
+        $now = date('Y-m-d');
         $viewcompanies = ViewCompany::where('from_ip',$ip)->where('company',$id)->whereDate('created_at', $now)->exists();
 
         if (!$viewcompanies){

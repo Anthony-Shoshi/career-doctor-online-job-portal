@@ -17,6 +17,15 @@
                                                         ->where('jobs.company', Auth::user()->id)
                                                         ->orderBy('candidate_job_application_statuses.created_at', 'DESC')
                                                         ->count();
+
+	$companyID = Auth::user()->id;
+	$recentAppliedCandidates = \App\CandidateJobApplicationStatus::select('*', 'candidate_job_application_statuses.id AS id', 'candidate_job_application_statuses.created_at AS appliedDate')
+															->join('users', 'users.id', 'candidate_job_application_statuses.user')
+															->join('candidate_general_infos', 'candidate_general_infos.user_id', 'candidate_job_application_statuses.user')
+															->join('jobs', 'jobs.id', 'candidate_job_application_statuses.job')
+															->where('jobs.company', $companyID)
+															->orderBy('candidate_job_application_statuses.created_at', 'DESC')
+															->paginate(3);
 @endphp
 <div class="col-sm-12 col-lg-8 col-xl-9">
 					<div class="row">
@@ -61,26 +70,29 @@
 						</div>
 						<div class="col-xl-8">
 							<div class="application_statics">
-								<h4>Applications Statistics</h4>
+								<h4>Job Post Statistics</h4>
 								<div class="c_container"></div>
 							</div>
 						</div>
+						@php
+							$now = \Carbon\Carbon::today();
+							$todaysViewer = \App\ViewCompany::where('company', Auth::user()->id)->whereDate('created_at', $now)->count();
+							$totalViewer = \App\ViewCompany::where('company', Auth::user()->id)->count();
+						@endphp
 						<div class="col-xl-4">
 							<div class="recent_job_trafic">
-								<h4>Traffic</h4>
+								<h4>Profile View Statistics</h4>
 								<div class="trafic_details">
-									<div class="circlechart" data-percentage="60">1.5 M</div>
-									<h4>Traffic for the day</h4>
-									<p>Traffic through the sources google and facebook for the day</p>
+									<div class="circlechart" data-percentage="{{ $todaysViewer }}">{{ $todaysViewer }}</div>
 									<ul class="trafic_list float-left">
-										<li>40%</li>
+										<li>{{ $totalViewer }}</li>
 										<li class="list-inline-item"><span class="bgc-fb"></span></li>
-										<li class="list-inline-item">Facebook</li>
+										<li class="list-inline-item">Total View</li>
 									</ul>
 									<ul class="trafic_list">
-										<li>60%</li>
+										<li>{{ $todaysViewer }}</li>
 										<li class="list-inline-item"><span class="bgc-gogle"></span></li>
-										<li class="list-inline-item">Facebook</li>
+										<li class="list-inline-item">Today's View</li>
 									</ul>
 								</div>
 							</div>
@@ -88,69 +100,71 @@
 						<div class="col-xl-8">
 							<div class="recent_job_apply">
 								<h4 class="title">Recent Applicants</h4>
+								@if($recentAppliedCandidates->count() != 0)
+								@foreach($recentAppliedCandidates as $recentAppliedCandidate)
+									@php
+										$city = \App\City::where('id',$recentAppliedCandidate->current_city_id)->first();
+                                        $country = \App\Country::where('id',$recentAppliedCandidate->current_country_id)->first();
+                                        $totalRaters = \App\CandidateRating::where('candidate_id', $recentAppliedCandidate->user)->where('candidate_ratings.is_deleted', 0)->count();
+                                        $totalRating = \App\CandidateRating::where('candidate_id', $recentAppliedCandidate->user)->where('candidate_ratings.is_deleted', 0)->sum('rating');
+                                        $avgRating = 0;
+                                        if ($totalRaters > 0) {
+                                            $avgRating = round($totalRating / $totalRaters, 1);
+                                        }
+									@endphp
 								<div class="candidate_list_view style3 mb50">
 									<div class="thumb">
-										<img class="img-fluid rounded-circle" src="images/team/1.jpg" alt="1.jpg">
-										<div class="cpi_av_rating"><span>4.5</span></div>
+										<img class="img-fluid rounded-circle" src="{{ asset($recentAppliedCandidate->image) }}" alt="1.jpg">
+										<div class="cpi_av_rating"><span>{{ $avgRating }}</span></div>
 									</div>
 									<div class="content">
-										<h4 class="title">Ali TUFAN<span class="verified text-thm pl10"><i class="fa fa-check-circle"></i></span></h4>
-										<p>App Designer</p>
+										<h4 class="title">{{ $recentAppliedCandidate->name }}<span class="verified text-thm pl10"><i class="fa fa-check-circle"></i></span></h4>
+										@if($recentAppliedCandidate->current_position != '')
+											<p>{{ $recentAppliedCandidate->current_position }}</p>
+										@endif
 										<ul class="review_list">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+											@if( $avgRating == 1 || $avgRating < 1.5)
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+											@elseif( $avgRating == 2 || $avgRating < 2.5)
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+											@elseif( $avgRating == 3 || $avgRating < 3.5)
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+											@elseif( $avgRating == 4 || $avgRating < 4.5)
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
+											@elseif( $avgRating == 5 || $avgRating >= 4.5)
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+											@endif
 										</ul>
 									</div>
 					    			<ul class="freelancer_place mt25 float-right fn-xsd tac-xsd">
-										<li class="list-inline-item"><a href="#"><span class="flaticon-location-pin"></span> Istanbul</a></li>
-										<li class="list-inline-item"><a href="#"><button class="btn btn-thm">Hire</button></a></li>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-location-pin"></span> {{ $city->name }}, {{ $country->name }}</a></li>
+										<li class="list-inline-item"><a target="_blank" href="{{ route('candidateProfileView', $recentAppliedCandidate->user) }}"><button class="btn btn-thm">View</button></a></li>
 					    			</ul>
 								</div>
-								<div class="candidate_list_view style3 mb50">
-									<div class="thumb">
-										<img class="img-fluid rounded-circle" src="images/team/c4.jpg" alt="c4.jpg">
-										<div class="cpi_av_rating"><span>4.5</span></div>
-									</div>
-									<div class="content">
-										<h4 class="title">Peter KING<span class="verified text-thm pl10"><i class="fa fa-check-circle"></i></span></h4>
-										<p>iOS Expert + Node Dev</p>
-										<ul class="review_list">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
-										</ul>
-									</div>
-					    			<ul class="freelancer_place mt25 float-right fn-xsd tac-xsd">
-										<li class="list-inline-item"><a href="#"><span class="flaticon-location-pin"></span> Istanbul</a></li>
-										<li class="list-inline-item"><a href="#"><button class="btn btn-thm">Hire</button></a></li>
-					    			</ul>
-								</div>
-								<div class="candidate_list_view style3">
-									<div class="thumb">
-										<img class="img-fluid rounded-circle" src="images/team/c2.jpg" alt="c2.jpg">
-										<div class="cpi_av_rating"><span>4.5</span></div>
-									</div>
-									<div class="content">
-										<h4 class="title">Nateila JOHN<span class="verified text-thm pl10"><i class="fa fa-check-circle"></i></span></h4>
-										<p>Front-End Developer</p>
-										<ul class="review_list">
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-											<li class="list-inline-item"><a href="#"><i class="fa fa-star-o"></i></a></li>
-										</ul>
-									</div>
-					    			<ul class="freelancer_place mt25 float-right fn-xsd tac-xsd">
-										<li class="list-inline-item"><a href="#"><span class="flaticon-location-pin"></span> Istanbul</a></li>
-										<li class="list-inline-item"><a href="#"><button class="btn btn-thm">Hire</button></a></li>
-					    			</ul>
-								</div>
+								@endforeach
+								@else
+									<div class="text-center">No Recent Applicants!</div>
+								@endif
 							</div>
 						</div>
 						<div class="col-xl-4">
@@ -202,5 +216,57 @@
 						</div>
 					</div>
 				</div>
+@endsection
+@section('myJs')
+	<script>
+		function createConfig() {
+			return {
+				type: 'line',
+				data: {
+					labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					datasets: [{
+						label: 'Number of Job',
+						borderColor: 'rgb(110,255,181)',
+						backgroundColor: 'rgb(3,0,255)',
+						data: {{ $perMonthJob }},
+						fill: false,
+					}]
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Sample tooltip with border'
+					},
+					tooltips: {
+						position: 'nearest',
+						mode: 'index',
+						intersect: false,
+						yPadding: 10,
+						xPadding: 10,
+						caretSize: 8,
+						backgroundColor: 'rgb(252,255,232)',
+						titleFontColor: 'rgb(0,1,6)',
+						bodyFontColor: window.chartColors.black,
+						borderColor: 'rgba(0,0,0,1)',
+						borderWidth: 4
+					},
+				}
+			};
+		}
 
+		window.onload = function() {
+			var c_container = document.querySelector('.c_container');
+			var div = document.createElement('div');
+			div.classList.add('chart-container');
+
+			var canvas = document.createElement('canvas');
+			div.appendChild(canvas);
+			c_container.appendChild(div);
+
+			var ctx = canvas.getContext('2d');
+			var config = createConfig();
+			new Chart(ctx, config);
+		};
+	</script>
 @endsection

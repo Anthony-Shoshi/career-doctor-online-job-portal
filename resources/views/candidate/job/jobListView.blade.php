@@ -571,7 +571,7 @@
     <script>
         $(document).ready(function () {
             $(document).on('change keyup blur','.search-keyword,.custom-category,.date-posted,.jobType,.experience,.gender,.industry,.qualification,.search-location,.salary-term,.currency', function () {
-                dataList('{{ route('jobListView') }}');
+                dataList('{{ url('/list/job/view/', '') }}');
             });
         });
 

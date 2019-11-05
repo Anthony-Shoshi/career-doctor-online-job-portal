@@ -144,13 +144,13 @@
   font-size: 5px;
 }
 .success-stroke {
-  stroke: #e94f85;
+  stroke: #ffbb33;
 }
 .warning-stroke {
   stroke: #ffbb33;
 }
 .danger-stroke {
-  stroke: #ff4444;
+  stroke: #ffbb33;
 }
 @keyframes circle-chart-fill {
   to { stroke-dasharray: 0 100; }

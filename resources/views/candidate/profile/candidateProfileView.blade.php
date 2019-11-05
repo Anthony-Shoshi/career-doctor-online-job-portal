@@ -78,7 +78,7 @@
                                 </form>
                             </button>
                         @endif
-                        <button class="btn btn-block btn-thm"><span class="flaticon-ticket"></span> Make An Offer</button>
+                        <a href="{{ 'mailto:'.$candidateGeneralInfo->contact_email }}" class="btn btn-block btn-thm"><span class="flaticon-ticket"></span> Make An Offer</a>
                     </div>
                 </div>
             </div>

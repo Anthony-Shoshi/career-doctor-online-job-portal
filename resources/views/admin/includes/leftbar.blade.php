@@ -32,6 +32,46 @@
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview {{Request::is('jobListForAdmin') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('jobListForAdmin') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-briefcase"></i>
+              <p>
+                Manage Jobs
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('jobListForAdmin')}}" class="nav-link {{Request::is('jobListForAdmin') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Job List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('candidateListForAdmin') ? 'menu-open' : '' || Request::is('companyListForAdmin') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('candidateListForAdmin') ? 'active' : '' || Request::is('companyListForAdmin') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Users
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('candidateListForAdmin')}}" class="nav-link {{Request::is('candidateListForAdmin') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Candidate List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('companyListForAdmin')}}" class="nav-link {{Request::is('companyListForAdmin') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Company List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <!-- menu-open -->
           <li class="nav-item has-treeview {{Request::is('addIndustry') ? 'menu-open' : '' || Request::is('industryList') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{Request::is('addIndustry') ? 'active' : '' || Request::is('industryList') ? 'active' : ''}}">
@@ -242,6 +282,23 @@
                 <a href="{{route('candidateReviewListForAdmin')}}" class="nav-link {{Request::is('candidateReviewListForAdmin') ? 'active' : ''}}">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Candidate Review List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview {{Request::is('get/contactus/messages') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('get/contactus/messages') ? 'active' : ''}}">
+              <i class="nav-icon fa fa-envelope-open"></i>
+              <p>
+                Messages
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('getContactUsMessages')}}" class="nav-link {{Request::is('get/contactus/messages') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Inbox</p>
                 </a>
               </li>
             </ul>

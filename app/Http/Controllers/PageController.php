@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactMailLog;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class PageController extends Controller
 {
@@ -33,5 +36,34 @@ class PageController extends Controller
     public function allBlog()
     {
         return view();
+    }
+
+    public function sendContactEmail(Request $request) {
+
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+        //create message
+        $message = new ContactMailLog();
+        $message->name = $request->name;
+        $message->email = $request->email;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+
+        $message->save();
+
+        $data = array('name' => $request->name,
+                    'email' => $request->email,
+                    'subject' => $request->subject,
+                    'message' => $request->message,
+        );
+
+        Mail::to('probal@gmail.com')->send(new ContactMail($data));
+
+        return back()->with('success', 'Your email has been successfully sent!');
     }
 }

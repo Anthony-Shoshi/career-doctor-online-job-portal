@@ -368,12 +368,18 @@ class ResumeController extends Controller
 
     public function viewResume(){
         $candidateGeneralInfo = CandidateGeneralInfo::where('user_id', Auth::user()->id)->first();
+        $skills = ExperienceSkillRecord::select('*', 'experience_skill_records.id AS id')
+                                        ->join('job_skills', 'job_skills.id', 'experience_skill_records.job_skill')
+                                        ->where('experience_skill_records.user', Auth::user()->id)
+                                        ->pluck('skill_name')
+                                        ->toArray();
+        $skill_name = implode(', ', $skills);
         $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
         $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->get();
         $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user', Auth::user()->id)->get();
         $data['city'] = City::where('id', $candidateGeneralInfo->current_city_id)->first();
         $data['country'] = Country::where('id', $candidateGeneralInfo->current_country_id)->first();
-        return view('resume.viewResume', $data)->with('candidateGeneralInfo', $candidateGeneralInfo);
+        return view('resume.viewResume', $data)->with('candidateGeneralInfo', $candidateGeneralInfo)->with('skill_name', $skill_name);
     }
 
 }

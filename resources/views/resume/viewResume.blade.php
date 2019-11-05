@@ -87,7 +87,7 @@
             <div class="col-lg-12">
                 <div class="my_resume_skill">
                     <h4 class="title">Skills</h4>
-                    <input disabled type="text" data-role="tagsinput" value="Sketch App,User Interface Design,Graphic Design,Web Design">
+                    <input disabled type="text" data-role="tagsinput" value="{{ $skill_name }}" readonly>
                 </div>
             </div>
             <div class="col-lg-12">

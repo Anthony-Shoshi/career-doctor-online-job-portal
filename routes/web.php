@@ -33,12 +33,13 @@ Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
 Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
 Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin');
 Route::get('/single/job/view/{id}', 'Company\JobPostController@singleJobView')->name('singleJobView');
-Route::any('/list/job/view', 'Company\JobPostController@jobListView')->name('jobListView');
+Route::any('/list/job/view/{company_id?}', 'Company\JobPostController@jobListView')->name('jobListView');
 Route::get('/company/profile/view/{id}', 'Company\CompanyController@companyProfileView')->name('companyProfileView');
 Route::get('/company/job/list/view/{id}', 'Company\JobPostController@jobListOfThisCompany')->name('jobListOfThisCompany');
 Route::get('/all/review/{company_id}', 'Candidate\RatingController@allReview')->name('allReview');
 //Searches
 Route::get('search/jobs/by/', 'Candidate\SearchJobsController@searchJobsBy')->name('searchJobsBy');
+Route::post('send/contact/email', 'PageController@sendContactEmail')->name('sendContactEmail');
 
 //Auth middleware route list
 Route::group(['middleware'=>'auth'], function() {
@@ -49,6 +50,11 @@ Route::group(['middleware'=>'auth'], function() {
     Route::group(['namespace' => 'Admin', 'middleware' => 'checkAdmin'], function () {
         //Route::get('/backoffice', 'AdminController@index')->name('adminHome');
         //Route::get('/backoffice', 'SignInController@adminLogin')->name('adminLogin');
+        //Job List
+        Route::get('/jobListForAdmin', 'JobController@jobListForAdmin')->name('jobListForAdmin');
+        //Users
+        Route::get('/candidateListForAdmin', 'JobController@candidateListForAdmin')->name('candidateListForAdmin');
+        Route::get('/companyListForAdmin', 'JobController@companyListForAdmin')->name('companyListForAdmin');
         //Category
         Route::get('/addCategory', 'CategoryController@addCategory')->name('addCategory');
         Route::post('/saveCategory', 'CategoryController@saveCategory')->name('saveCategory');
@@ -109,6 +115,8 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/editEducationDegree/{id}', 'EducationDegreeController@editEducationDegree')->name('editEducationDegree');
         Route::post('/updateEducationDegree', 'EducationDegreeController@updateEducationDegree')->name('updateEducationDegree');
         Route::get('/deleteEducationDegree/{id}', 'EducationDegreeController@deleteEducationDegree')->name('deleteEducationDegree');
+        //Messages
+        Route::get('get/contactus/messages', 'ContactMessageController@getContactUsMessages')->name('getContactUsMessages');
         //Settings
         Route::get('/generalSettings', 'SettingsController@generalSettings')->name('generalSettings');
         Route::post('/update/general/settings', 'SettingsController@updateGeneralSettings')->name('updateGeneralSettings');

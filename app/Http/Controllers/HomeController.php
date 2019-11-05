@@ -45,7 +45,26 @@ class HomeController extends Controller
             return view('candidate.dashboard');
         }
         if (Auth::user()->user_type == 'company') {
-            return view('company.dashboard');
+            $perMonthJob = $this->monthly_jobs();
+            return view('company.dashboard')->with('perMonthJob', $perMonthJob);
         }
+    }
+
+    private function monthly_jobs(){
+        $year = date("Y");
+        $company_id = Auth::user()->id;
+        $job = "[";
+        $jobPerMonth = \DB::select("SELECT m.month, IFNULL(COUNT(id),0) as total_job 
+        FROM ( SELECT 1 AS MONTH UNION SELECT 2 AS MONTH UNION SELECT 3 AS MONTH 
+        UNION SELECT 4 AS MONTH UNION SELECT 5 AS MONTH UNION SELECT 6 AS MONTH 
+        UNION SELECT 7 AS MONTH UNION SELECT 8 AS MONTH UNION SELECT 9 AS MONTH 
+        UNION SELECT 10 AS MONTH UNION SELECT 11 AS MONTH UNION SELECT 12 AS MONTH ) AS m
+        LEFT JOIN jobs ON m.month = MONTH(jobs.created_at) AND YEAR(jobs.created_at) = $year 
+        AND company = $company_id
+        GROUP BY m.month");
+        foreach($jobPerMonth as $row){
+            $job .= $row->total_job . ",";
+        }
+        return $job."]";
     }
 }

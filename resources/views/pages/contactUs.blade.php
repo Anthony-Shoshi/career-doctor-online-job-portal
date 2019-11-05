@@ -51,27 +51,48 @@
 				</div>
 				<div class="col-lg-7 form_grid">
 					<h4 class="mb25">We want to hear form you!</h4>
-		            <form class="contact_form" id="contact_form" name="contact_form" action="#" method="post" novalidate="novalidate">
+		            <form class="contact_form" id="contact_form" name="contact_form" action="{{ route('sendContactEmail') }}" method="post" novalidate="novalidate">
+						@csrf
 						<div class="row">
 			                <div class="col-sm-6">
 			                    <div class="form-group">
-									<input id="form_name" name="form_name" class="form-control" placeholder="Your Name" required="required" type="text">
+									<input id="form_name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Your Name" required="required" type="text">
+									@error('name')
+									<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+									@enderror
 								</div>
 			                </div>
 			                <div class="col-sm-6">
 			                    <div class="form-group">
-			                    	<input id="form_email" name="form_email" class="form-control required email" placeholder="Email Address" required="required" type="email">
-			                    </div>
+			                    	<input id="form_email" name="email" class="form-control required email @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email Address" required="required" type="email">
+									@error('email')
+									<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+									@enderror
+								</div>
 			                </div>
 			                <div class="col-sm-12">
 			                    <div class="form-group">
-				                    <input id="form_subject" name="form_subject" class="form-control required" placeholder="Subject" required="required" type="text">
+				                    <input id="form_subject" name="subject" class="form-control required @error('subject') is-invalid @enderror" value="{{ old('subject') }}" placeholder="Subject" required="required" type="text">
+									@error('subject')
+									<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+									@enderror
 								</div>
 			                </div>
 			                <div class="col-sm-12">
 	                            <div class="form-group">
-	                                <textarea id="form_message" name="form_message" class="form-control required" placeholder="Message" rows="8" required="required"></textarea>
-	                            </div>
+	                                <textarea id="form_message" name="message" class="form-control required @error('message') is-invalid @enderror" value="{{ old('message') }}" placeholder="Message" rows="8" required="required"></textarea>
+									@error('message')
+									<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+									@enderror
+								</div>
 			                    <div class="form-group text-right">
 				                    <button type="submit" class="btn btn-lg btn-thm">Submit</button>
 			                    </div>

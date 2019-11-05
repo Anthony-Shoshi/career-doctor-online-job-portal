@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Candidate;
 
 use App\CandidateCoverLetter;
+use App\CandidateGeneralInfo;
 use App\CandidateJobApplicationStatus;
 use App\Job;
 use App\Message;
@@ -23,9 +24,14 @@ class JobApplyController extends Controller
     }
 
     public function applyJob($id) {
-        $job = Job::where('id', $id)->first();
+        $checkResumeCreated = CandidateGeneralInfo::where('user_id', Auth::user()->id)->exists();
+        if (!$checkResumeCreated) {
+            return redirect('/create/resume')->with('delete', 'Create Resume to apply through internal system!');
+        } else {
+            $job = Job::where('id', $id)->first();
             $coverLetters = CandidateCoverLetter::where('user', Auth::user()->id)->where('status', 'PUBLISHED')->get();
             return view('candidate.job.applyJob')->with('job', $job)->with('coverLetters', $coverLetters);
+        }
     }
 
     public function saveApplyJob(Request $request) {

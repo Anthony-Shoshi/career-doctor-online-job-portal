@@ -321,13 +321,17 @@ class JobPostController extends Controller
         return view('candidate.job.singleJobView')->with('job',$job)->with('recommendedJobs',$recommendedJobs)->with('perDayViewer',$perDayViewer)->with('totalViewer',$totalViewer);
     }
 
-    public function jobListView(Request $request){
+    public function jobListView(Request $request, $company_id = null){
         $data['jobTypes'] = JobType::where('is_deleted', 0)->get();
         $data['jobIndustries'] = JobIndustry::orderBy('industry_name', 'ASC')->where('is_deleted', 0)->get();
         $data['jobQualifications'] = JobQualification::orderBy('qualification_name', 'ASC')->where('is_deleted', 0)->get();
         $data['jobCategories'] = JobCategory::orderBy('category_name', 'ASC')->where('is_deleted', 0)->get();
         $data['currencies'] = Currency::orderBy('code', 'ASC')->where('is_deleted', 0)->get();
-        $jobs = Job::where('is_published','1');
+        if($company_id != null) {
+            $jobs = Job::where('is_published','1')->where('company', $company_id);
+        } else {
+            $jobs = Job::where('is_published','1');
+        }
         if ($request->keyword != '') {
             $jobs = $jobs->where('title', 'LIKE', '%'.$request->keyword.'%');
         }

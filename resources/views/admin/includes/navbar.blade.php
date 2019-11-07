@@ -9,61 +9,40 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      @php
+        $unSeen = \App\ContactMailLog::where('message_type', 'contact')->where('is_seen', 0)->count();
+        $unSeenMessages = \App\ContactMailLog::where('message_type', 'contact')->where('is_seen', 0)->where('is_deleted', 0)->get();
+      @endphp
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="fa fa-comments-o"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+          <span class="badge badge-danger navbar-badge">{{ $unSeen }}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
+        @if($unSeenMessages->count() != 0)
+          @foreach($unSeenMessages as $unSeenMessage)
+          <a href="{{ route('readContactMessage', $unSeenMessage->id) }}" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fa fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
+                  {{ $unSeenMessage->name }}
                   <span class="float-right text-sm text-warning"><i class="fa fa-star"></i></span>
                 </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>
+                <p class="text-sm"> {{ $unSeenMessage->subject }}</p>
+                <p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i>
+                  {{ (date_format($unSeenMessage->created_at, 'Y-m-d') == \Carbon\Carbon::today()->toDateString()) ? 'Today '.date_format($unSeenMessage->created_at, 'h:i A')  : date_format($unSeenMessage->created_at, 'd M, Y h:i A') }}
+                </p>
               </div>
             </div>
             <!-- Message End -->
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          <a href="{{ route('getContactUsMessages') }}" class="dropdown-item dropdown-footer">See All Messages</a>
+          @endforeach
+          @else
+            <div class="text-center">No Messages!</div>
+          @endif
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
@@ -82,17 +61,6 @@
             <i class="fa fa-cogs mr-2"></i> {{ $newJobSkills }} new skills added
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
       <li class="nav-item">

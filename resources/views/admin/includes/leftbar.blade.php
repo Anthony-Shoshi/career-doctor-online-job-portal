@@ -286,8 +286,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview {{Request::is('get/contactus/messages') ? 'menu-open' : ''}}">
-            <a href="#" class="nav-link {{Request::is('get/contactus/messages') ? 'active' : ''}}">
+          <li class="nav-item has-treeview {{Request::is('getContactUsMessages') ? 'menu-open' : '' || Request::is('sentItemMessages') ? 'menu-open' : ''}}">
+            <a href="#" class="nav-link {{Request::is('getContactUsMessages') ? 'active' : '' || Request::is('sentItemMessages') ? 'active' : ''}}">
               <i class="nav-icon fa fa-envelope-open"></i>
               <p>
                 Messages
@@ -296,9 +296,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('getContactUsMessages')}}" class="nav-link {{Request::is('get/contactus/messages') ? 'active' : ''}}">
+                <a href="{{route('getContactUsMessages')}}" class="nav-link {{Request::is('getContactUsMessages') ? 'active' : ''}}">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Inbox</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('sentItemMessages')}}" class="nav-link {{Request::is('sentItemMessages') ? 'active' : ''}}">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Sent</p>
                 </a>
               </li>
             </ul>

@@ -128,21 +128,21 @@ $(function () {
     element   : 'revenue-chart',
     resize    : true,
     data      : [
-      { y: '2011 Q1', item1: 2666, item2: 2666 },
-      { y: '2011 Q2', item1: 2778, item2: 2294 },
-      { y: '2011 Q3', item1: 4912, item2: 1969 },
-      { y: '2011 Q4', item1: 3767, item2: 3597 },
-      { y: '2012 Q1', item1: 6810, item2: 1914 },
-      { y: '2012 Q2', item1: 5670, item2: 4293 },
-      { y: '2012 Q3', item1: 4820, item2: 3795 },
-      { y: '2012 Q4', item1: 15073, item2: 5967 },
-      { y: '2013 Q1', item1: 10687, item2: 4460 },
-      { y: '2013 Q2', item1: 8432, item2: 5713 }
+      { y: '2011 Q1', Candidate: 2666, Company: 2666 },
+      { y: '2011 Q2', Candidate: 2778, Company: 2294 },
+      { y: '2011 Q3', Candidate: 4912, Company: 1969 },
+      { y: '2011 Q4', Candidate: 3767, Company: 3597 },
+      { y: '2012 Q1', Candidate: 6810, Company: 1914 },
+      { y: '2012 Q2', Candidate: 5670, Company: 4293 },
+      { y: '2012 Q3', Candidate: 4820, Company: 3795 },
+      { y: '2012 Q4', Candidate: 15073, Company: 5967 },
+      { y: '2013 Q1', Candidate: 10687, Company: 4460 },
+      { y: '2013 Q2', Candidate: 8432, Company: 5713 }
     ],
     xkey      : 'y',
-    ykeys     : ['item1', 'item2'],
-    labels    : ['Item 1', 'Item 2'],
-    lineColors: ['rgba(44,12,255,0.71)', '#6aff4d'],
+    ykeys     : ['Candidate', 'Company'],
+    labels    : ['Candidate', 'Company'],
+    lineColors: ['rgba(43,144,255,0.71)', '#6aff4d'],
     hideHover : 'auto'
   })
   var line = new Morris.Line({
@@ -173,19 +173,6 @@ $(function () {
     gridLineColor    : '#efefef',
     gridTextFamily   : 'Open Sans',
     gridTextSize     : 10
-  })
-
-  // Donut Chart
-  var donut = new Morris.Donut({
-    element  : 'sales-chart',
-    resize   : true,
-    colors   : ['#007bff', '#dc3545', '#28a745'],
-    data     : [
-      { label: 'Download Sales', value: 12 },
-      { label: 'In-Store Sales', value: 30 },
-      { label: 'Mail-Order Sales', value: 20 }
-    ],
-    hideHover: 'auto'
   })
 
   // Fix for charts under tabs

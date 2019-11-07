@@ -19,7 +19,9 @@ class CreateContactMailLogsTable extends Migration
             $table->string('email');
             $table->string('subject');
             $table->text('message');
+            $table->text('message_type');
             $table->tinyInteger('is_seen')->default(0);
+            $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
         });
     }

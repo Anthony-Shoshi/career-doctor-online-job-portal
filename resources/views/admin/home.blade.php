@@ -229,3 +229,18 @@
         <!-- /.row (main row) -->
 
 @endsection
+@section('myJs')
+  <script>
+    // Donut Chart
+    var donut = new Morris.Donut({
+      element  : 'sales-chart',
+      resize   : true,
+      colors   : ['#007bff', '#dc3545', '#28a745'],
+      data     : [
+        { label: 'Total Jobs', value: {{ $postedJobs }} },
+        { label: 'Published Jobs', value: {{ $openJobs }} }
+      ],
+      hideHover: 'auto'
+    })
+  </script>
+@endsection

@@ -42,7 +42,8 @@ class HomeController extends Controller
     public function dashboard()
     {
         if (Auth::user()->user_type == 'candidate') {
-            return view('candidate.dashboard');
+            $perMonthApplication = $this->monthly_application();
+            return view('candidate.dashboard')->with('perMonthApplication', $perMonthApplication);
         }
         if (Auth::user()->user_type == 'company') {
             $perMonthJob = $this->monthly_jobs();
@@ -66,5 +67,23 @@ class HomeController extends Controller
             $job .= $row->total_job . ",";
         }
         return $job."]";
+    }
+
+    private function monthly_application(){
+        $year = date("Y");
+        $candidate_id = Auth::user()->id;
+        $application = "[";
+        $applicationPerMonth = \DB::select("SELECT m.month, IFNULL(COUNT(id),0) as total_application 
+        FROM ( SELECT 1 AS MONTH UNION SELECT 2 AS MONTH UNION SELECT 3 AS MONTH 
+        UNION SELECT 4 AS MONTH UNION SELECT 5 AS MONTH UNION SELECT 6 AS MONTH 
+        UNION SELECT 7 AS MONTH UNION SELECT 8 AS MONTH UNION SELECT 9 AS MONTH 
+        UNION SELECT 10 AS MONTH UNION SELECT 11 AS MONTH UNION SELECT 12 AS MONTH ) AS m
+        LEFT JOIN candidate_job_application_statuses ON m.month = MONTH(candidate_job_application_statuses.created_at) AND YEAR(candidate_job_application_statuses.created_at) = $year 
+        AND user = $candidate_id
+        GROUP BY m.month");
+        foreach($applicationPerMonth as $row){
+            $application .= $row->total_application . ",";
+        }
+        return $application."]";
     }
 }

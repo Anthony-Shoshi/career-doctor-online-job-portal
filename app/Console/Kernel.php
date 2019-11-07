@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('Check:Deadline')
                   ->everyMinute();
+
+         $schedule->command('resume:update')
+                  ->everyMinute();
     }
 
     /**

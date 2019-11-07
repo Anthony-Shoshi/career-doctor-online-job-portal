@@ -60,22 +60,25 @@
 								<div class="c_container"></div>
 							</div>
 						</div>
+						@php
+							$now = \Carbon\Carbon::today();
+							$todaysViewer = \App\ViewCandidate::where('candidate', Auth::user()->id)->whereDate('created_at', $now)->count();
+							$totalViewer = \App\ViewCandidate::where('candidate', Auth::user()->id)->count();
+						@endphp
 						<div class="col-xl-4">
 							<div class="recent_job_trafic">
-								<h4>Traffic</h4>
+								<h4>Profile View Statistics</h4>
 								<div class="trafic_details">
-									<div class="circlechart" data-percentage="60">1.5 M</div>
-									<h4>Traffic for the day</h4>
-									<p>Traffic through the sources google and facebook for the day</p>
+									<div class="circlechart" data-percentage="{{ $todaysViewer }}">{{ $todaysViewer }}</div>
 									<ul class="trafic_list float-left">
-										<li>40%</li>
+										<li>{{ $totalViewer }}</li>
 										<li class="list-inline-item"><span class="bgc-fb"></span></li>
-										<li class="list-inline-item">Facebook</li>
+										<li class="list-inline-item">Total View</li>
 									</ul>
 									<ul class="trafic_list">
-										<li>60%</li>
+										<li>{{ $todaysViewer }}</li>
 										<li class="list-inline-item"><span class="bgc-gogle"></span></li>
-										<li class="list-inline-item">Facebook</li>
+										<li class="list-inline-item">Today's View</li>
 									</ul>
 								</div>
 							</div>
@@ -174,4 +177,57 @@
 						</div>
 					</div>
                 </div>
+@endsection
+@section('myJs')
+	<script>
+		function createConfig() {
+			return {
+				type: 'line',
+				data: {
+					labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+					datasets: [{
+						label: 'Number of Application',
+						borderColor: 'rgb(110,255,181)',
+						backgroundColor: 'rgb(3,0,255)',
+						data: {{ $perMonthApplication }},
+						fill: false,
+					}]
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Sample tooltip with border'
+					},
+					tooltips: {
+						position: 'nearest',
+						mode: 'index',
+						intersect: false,
+						yPadding: 10,
+						xPadding: 10,
+						caretSize: 8,
+						backgroundColor: 'rgb(252,255,232)',
+						titleFontColor: 'rgb(0,1,6)',
+						bodyFontColor: window.chartColors.black,
+						borderColor: 'rgba(0,0,0,1)',
+						borderWidth: 4
+					},
+				}
+			};
+		}
+
+		window.onload = function() {
+			var c_container = document.querySelector('.c_container');
+			var div = document.createElement('div');
+			div.classList.add('chart-container');
+
+			var canvas = document.createElement('canvas');
+			div.appendChild(canvas);
+			c_container.appendChild(div);
+
+			var ctx = canvas.getContext('2d');
+			var config = createConfig();
+			new Chart(ctx, config);
+		};
+	</script>
 @endsection

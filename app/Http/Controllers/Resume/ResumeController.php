@@ -14,6 +14,7 @@ use App\JobIndustry;
 use App\JobSkill;
 use App\JobSkillsTemp;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -186,6 +187,7 @@ class ResumeController extends Controller
         $candidateGeneralInfo->current_status = $request->current_status;
         $candidateGeneralInfo->created_by = auth::user()->id;
         $candidateGeneralInfo->updated_by = auth::user()->id;
+        $candidateGeneralInfo->updated_at = Carbon::now();
         $candidateGeneralInfo->save();
 
         // candidate image save in User table

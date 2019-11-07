@@ -53,6 +53,7 @@ class PageController extends Controller
         $message->email = $request->email;
         $message->subject = $request->subject;
         $message->message = $request->message;
+        $message->message_type = 'contact';
 
         $message->save();
 
@@ -62,7 +63,7 @@ class PageController extends Controller
                     'message' => $request->message,
         );
 
-        Mail::to('probal@gmail.com')->send(new ContactMail($data));
+        Mail::to('anthony@gmail.com')->send(new ContactMail($data));
 
         return back()->with('success', 'Your email has been successfully sent!');
     }

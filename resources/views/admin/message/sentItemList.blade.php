@@ -41,32 +41,31 @@
                 <div class="table-responsive mailbox-messages">
                     <table class="table table-hover table-striped">
                         <thead>
-                            <th>Sl.</th>
-                            <th>Name</th>
-                            <th>Subject</th>
-                            <th>Action</th>
+                        <th>Sl.</th>
+                        <th>To</th>
+                        <th>Subject</th>
+                        <th>Action</th>
                         </thead>
                         <tbody>
-                        @if($contactMessages->count() != 0)
+                        @if($replyMessages->count() != 0)
                             @php
                                 $i = 1;
                             @endphp
-                        @foreach($contactMessages as $contactMessage)
-                        <tr>
-                            <td class="mailbox-star">{{ $i }}</td>
-                            <td class="mailbox-name" style="color: #137828;">{{ $contactMessage->name }}</td>
-                            <td class="mailbox-subject"><b>{{ $contactMessage->subject }}</b> - {{ Str::words($contactMessage->message, 12, ' . . .') }}
-                            </td>
-                            <td class="mailbox-date">
-                                <a class="btn btn-info btn-sm" href="{{ route('readContactMessage', $contactMessage->id) }}">Read</a>
-                                <a class="btn btn-success btn-sm" href="{{ route('replyContactMessage', $contactMessage->id) }}">Reply</a>
-                                <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this mail?');" href="{{ route('deleteMessage', $contactMessage->id) }}">Delete</a>
-                            </td>
-''                        </tr>
-                            @php
-                                $i++;
-                            @endphp
-                        @endforeach
+                            @foreach($replyMessages as $replyMessage)
+                                <tr>
+                                    <td class="mailbox-star">{{ $i }}</td>
+                                    <td class="mailbox-name" style="color: #137828;">{{ $replyMessage->name }}</td>
+                                    <td class="mailbox-subject"><b>{{ $replyMessage->subject }}</b> - {{ Str::words($replyMessage->message, 12, ' . . .') }}
+                                    </td>
+                                    <td class="mailbox-date">
+                                        <a class="btn btn-info btn-sm" href="{{ route('readContactMessage', $replyMessage->id) }}">Read</a>
+                                        <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this mail?');" href="{{ route('deleteMessage', $replyMessage->id) }}">Delete</a>
+                                    </td>
+                                    ''                        </tr>
+                                @php
+                                    $i++;
+                                @endphp
+                            @endforeach
                         @else
                             <div class="text-center">No Messages!</div>
                         @endif

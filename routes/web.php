@@ -33,7 +33,7 @@ Route::get('/getSkillsTag', 'Resume\ResumeController@getSkillsTag');
 Route::post('/company/register/save', 'Company\SignInController@saveRegisterCompany')->name('saveRegisterCompany');
 Route::get('/backoffice', 'Admin\SignInController@adminLogin')->name('adminLogin');
 Route::get('/single/job/view/{id}', 'Company\JobPostController@singleJobView')->name('singleJobView');
-Route::any('/list/job/view/{company_id?}', 'Company\JobPostController@jobListView')->name('jobListView');
+Route::any('/list/job/view', 'Company\JobPostController@jobListView')->name('jobListView');
 Route::get('/company/profile/view/{id}', 'Company\CompanyController@companyProfileView')->name('companyProfileView');
 Route::get('/company/job/list/view/{id}', 'Company\JobPostController@jobListOfThisCompany')->name('jobListOfThisCompany');
 Route::get('/all/review/{company_id}', 'Candidate\RatingController@allReview')->name('allReview');
@@ -116,7 +116,12 @@ Route::group(['middleware'=>'auth'], function() {
         Route::post('/updateEducationDegree', 'EducationDegreeController@updateEducationDegree')->name('updateEducationDegree');
         Route::get('/deleteEducationDegree/{id}', 'EducationDegreeController@deleteEducationDegree')->name('deleteEducationDegree');
         //Messages
-        Route::get('get/contactus/messages', 'ContactMessageController@getContactUsMessages')->name('getContactUsMessages');
+        Route::get('getContactUsMessages', 'ContactMessageController@getContactUsMessages')->name('getContactUsMessages');
+        Route::get('sentItemMessages', 'ContactMessageController@sentItemMessages')->name('sentItemMessages');
+        Route::get('readContactMessage/{id}', 'ContactMessageController@readContactMessage')->name('readContactMessage');
+        Route::get('replyContactMessage/{id}', 'ContactMessageController@replyContactMessage')->name('replyContactMessage');
+        Route::post('replyMessage', 'ContactMessageController@replyMessage')->name('replyMessage');
+        Route::get('deleteMessage/{id}', 'ContactMessageController@deleteMessage')->name('deleteMessage');
         //Settings
         Route::get('/generalSettings', 'SettingsController@generalSettings')->name('generalSettings');
         Route::post('/update/general/settings', 'SettingsController@updateGeneralSettings')->name('updateGeneralSettings');

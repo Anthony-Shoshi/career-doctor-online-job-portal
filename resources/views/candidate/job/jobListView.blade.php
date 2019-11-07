@@ -569,17 +569,22 @@
 @endsection
 @section('myJs')
     <script>
+
         $(document).ready(function () {
             $(document).on('change keyup blur','.search-keyword,.custom-category,.date-posted,.jobType,.experience,.gender,.industry,.qualification,.search-location,.salary-term,.currency', function () {
-                dataList('{{ url('/list/job/view/', '') }}');
+                dataList('{{ route('jobListView') }}');
+            });
+            var one = $('#slider-range').slider("values")[0];
+            var two = $('#slider-range').slider("values")[1];
+            $('#slider-range').slider({
+                change: function(event, ui) {
+                    if(ui.values[ 0 ] != one || ui.values[ 0 ] != two) {
+                        dataList('{{ route('jobListView') }}');
+                    }
+                }
             });
         });
 
-        $('#slider-range').slider({
-            change: function(event, ui) {
-                dataList('{{ route('jobListView') }}');
-            }
-        });
 
         $(document).on('click', '.qualification', function () {
             if ($('.qualification').is(':checked') == true) {

@@ -147,13 +147,19 @@
 								$currency = \App\Currency::where('id',$job->currency)->first();
 								$company = \App\CompanyGeneralInfo::where('user_id',$job->company)->first();
 								$companyImage = \App\User::where('id',$job->company)->first()->image;
+								$total_job = \App\job::where('company', $job->company)->count();
 							@endphp
 							<h5 class="job_chedule text-thm mt0">{{ $jobTpe->title }}</h5>
 							<div class="thumb fn-smd">
 								<img class="img-fluid" src="{{ asset($companyImage) }}" alt="1.jpg" height ="120px" width="120px">
 							</div>
 							<h4>{{ $job->title }}</h4>
-							<p>Posted : {{ date_format(new DateTime($job->created_at),'d M, Y') }} by <a class="text-thm" target="_blank" href="{{route('companyProfileView',[$job->company])}}">{{ $company->company_name }}</a></p>
+							<p>Posted : {{ date_format(new DateTime($job->created_at),'d M, Y') }} by
+								<a class="text-thm" target="_blank" href="{{route('companyProfileView',[$job->company])}}">{{ $company->company_name }}</a>
+								@if($total_job >= 10)
+								<i style="color:white;padding: 3px;background: orange;border-radius: 100%;" class="fa fa-star-o" aria-hidden="true"></i>
+								@endif
+							</p>
 							<p>
 							@if($job->is_visa_sponsor == '1')
 								<span class="fa fa-dot-circle-o"></span> Visa Sponsored

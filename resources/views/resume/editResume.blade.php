@@ -170,7 +170,7 @@
                             @php
                                 $cities = \App\City::where('country_id',$candidateExperience->country)->orderBy('name','asc')->get();
                             @endphp
-                            <input type="hidden" name="experience_id[]" value="{{ $candidateExperience->id }}">
+                            <input type="hidden" class="experience_id" name="experience_id[]" value="{{ $candidateExperience->id }}">
                             <div class="experienceFieldGroup">
                                 <h4>Experience <span id="experienceNumber">{{ $ex }}</span> @if( $ex !=1 )<button class="btn btn-danger btn-sm float-right" data-id="{{ $candidateExperience->id }}" type="button" id="experienceRemove"><i class="fa fa-minus"></i></button>@endif</h4>
                                 <div class="form-row">
@@ -220,6 +220,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <div class="my_resume_skill">
+                                            <input type="hidden" id="e_id" value="{{ $candidateExperience->id }}">
                                             @php
                                                 $skills = \App\ExperienceSkillRecord::select('*')
                                                                                     ->join('job_skills', 'job_skills.id', 'experience_skill_records.job_skill')
@@ -712,6 +713,20 @@
             typeaheadjs: {
                 name:'skill_name',
                 source: skill_name.ttAdapter()
+            }
+        });
+
+        $(".skill_name").on('itemRemoved', function(event) {
+            var experience_id = $(this).parent().find('#e_id').val();
+            var skill = event.item;
+            if (experience_id != '' && experience_id != 'undefined'){
+                $.ajax({
+                    url: '{{ url('remove_skill') }}/' + skill + '/' + experience_id,
+                    type: 'GET',
+                    success:function(data){
+                        //
+                    }
+                })
             }
         });
     </script>

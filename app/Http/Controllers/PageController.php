@@ -7,11 +7,17 @@ use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use App\Job;
 
 class PageController extends Controller
 {
     public function welcomePage(){
-        $jobs = DB::table('jobs')->where('is_published','1')->orderBy('created_at','DESC')->limit('4')->get();
+        $jobs = Job::select('jobs.*')
+                        ->where('is_published','1')
+                        ->orderBy('created_at','DESC')
+                        ->limit('4')
+                        ->get();
+
         return view('welcome')->with('jobs',$jobs);
     }
 

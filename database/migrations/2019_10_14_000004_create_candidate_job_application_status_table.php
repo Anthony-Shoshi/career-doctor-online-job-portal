@@ -39,6 +39,7 @@ class CreateCandidateJobApplicationStatusTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->enum('status', ['APPLIED', 'PROCESSING', 'APPROVED', 'DECLINED', 'WITHDRAWN'])->default('APPLIED');
+            $table->string('template')->default('simple');
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->tinyInteger('is_deleted')->default(0);

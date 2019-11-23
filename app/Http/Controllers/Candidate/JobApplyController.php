@@ -40,9 +40,11 @@ class JobApplyController extends Controller
 
         $this->validate($request, [
             'coverLetter' => 'required',
+            'template' => 'required',
         ],
         [
             'coverLetter.required' => 'The cover letter field is required.',
+            'template.required' => 'The cv template field is required.',
         ]);
 
         $messageThread = new MessageThread();
@@ -58,6 +60,7 @@ class JobApplyController extends Controller
         $jobApplicationStatus->user = Auth::user()->id;
         $jobApplicationStatus->job = $request->job_id;
         $jobApplicationStatus->message_thread = $messageThread->id;
+        $jobApplicationStatus->template = $request->template;
         $jobApplicationStatus->created_by = Auth::user()->id;
         $jobApplicationStatus->updated_by = Auth::user()->id;
 
@@ -73,7 +76,7 @@ class JobApplyController extends Controller
 
         $message->save();
 
-        return redirect('/dashboard')->with('success', 'Job applied successfully!');
+        return redirect('/candidate/applied/jobs')->with('success', 'Job applied successfully!');
 
     }
 

@@ -51,3 +51,6 @@
 .rating-edit-delete-candidate a:hover{
     color: #79b530;
 }
+.highcharts-credits{
+    display: none;
+}

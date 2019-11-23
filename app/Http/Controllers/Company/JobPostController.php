@@ -10,13 +10,16 @@ use App\JobCategory;
 use App\JobIndustry;
 use App\JobQualification;
 use App\JobType;
+use App\Mail\JobSuggestion;
 use App\Rules\ApplyMethod;
 use App\Rules\IsNegotiable;
+use App\ShortListedJob;
 use App\ViewJob;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Mail;
 
 class JobPostController extends Controller
 {
@@ -32,6 +35,7 @@ class JobPostController extends Controller
     }
 
     public function savePostJob(Request $request){
+
         $request->validate([
 
             'job_category' => 'required',
@@ -106,6 +110,30 @@ class JobPostController extends Controller
         $job->created_by = auth::user()->id;
         $job->updated_by = auth::user()->id;
         $job->save();
+
+        if ($request->is_published == 1) {
+
+            $users = ShortListedJob::select('*')
+                ->join('users', 'users.id', 'short_listed_jobs.candidate')
+                ->join('jobs', 'jobs.id', 'short_listed_jobs.job')
+                ->join('job_categories', 'job_categories.id', 'jobs.job_category')
+                ->groupBy('users.email')
+                ->get();
+            foreach ($users as $user) {
+                if ($user->job_category == $request->job_category || $user->job_industry == $request->job_industry) {
+                    if ($user->email != '') {
+                        $data = array(
+                            'userName' => $user->name,
+                            'jobTitle' => $job->title,
+                            'jobId' => $job->id,
+                            'categoryName' => $user->category_name,
+                        );
+
+                        Mail::to($user->email)->send(new JobSuggestion($data));
+                    }
+                }
+            }
+        }
 
         return redirect()->back()->with('success','Job successfully posted!');
     }

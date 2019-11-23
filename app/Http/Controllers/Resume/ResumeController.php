@@ -273,7 +273,8 @@ class ResumeController extends Controller
                     }
 
                     //Job skills
-                    $skills = explode(',', $request->skill_name[$i]);
+                    $skills = explode(',', str_replace(' ', '', $request->skill_name[$i]));
+                    //dd($skills);
                     foreach ($skills as $skill){
                         if (! JobSkill::where('skill_name', ucwords($skill))->exists() && $skill != ''){
                             $jobSkillsTemp = new JobSkillsTemp();
@@ -286,18 +287,7 @@ class ResumeController extends Controller
                         }
                     }
 
-                    //$experienceSkills = ExperienceSkillRecord::where('candidate_experience', $candidateExperience->id)->delete();
-
                     foreach (JobSkill::whereIn('skill_name', $skills)->get() as $skill) {
-
-//                        foreach () {
-//
-//                        }
-//                        ExperienceSkillRecord::where('candidate_experience', $candidateExperience->id)
-//                            ->whereNotIn('job_skill', $experienceSkills->job_skill)
-//                            ->delete();
-//                        dd($experienceSkills);
-
                         $checkSkills = ExperienceSkillRecord::where('candidate_experience', $candidateExperience->id)->where('job_skill', $skill->id)->exists();
                         if ($checkSkills) {
                             continue;
@@ -382,6 +372,14 @@ class ResumeController extends Controller
         $data['city'] = City::where('id', $candidateGeneralInfo->current_city_id)->first();
         $data['country'] = Country::where('id', $candidateGeneralInfo->current_country_id)->first();
         return view('resume.viewResume', $data)->with('candidateGeneralInfo', $candidateGeneralInfo)->with('skill_name', $skill_name);
+    }
+
+    public function remove_skill($skill = '', $experience_id = '')
+    {
+        $skill = JobSkill::where('skill_name', str_replace(' ', '', $skill))->first();
+        $experience_skill = ExperienceSkillRecord::where('job_skill', $skill->id)->where('candidate_experience', $experience_id)->first();
+        $experience_skill->delete();
+        return 'success';
     }
 
 }

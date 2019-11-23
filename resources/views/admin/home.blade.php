@@ -1,5 +1,41 @@
 @extends('admin.layouts.master')
+@section('myCss')
+  <style>
+    @import 'https://code.highcharts.com/css/highcharts.css';
 
+    #users {
+      height: 400px;
+      margin: 0 auto;
+    }
+
+    /* Link the series colors to axis colors */
+    #users .highcharts-color-0 {
+      fill: #7cb5ec;
+      stroke: #7cb5ec;
+    }
+    #users .highcharts-axis.highcharts-color-0 .highcharts-axis-line {
+      stroke: #7cb5ec;
+    }
+    #users .highcharts-axis.highcharts-color-0 text {
+      fill: #7cb5ec;
+    }
+    #users .highcharts-color-1 {
+      fill: #90ed7d;
+      stroke: #90ed7d;
+    }
+    #users .highcharts-axis.highcharts-color-1 .highcharts-axis-line {
+      stroke: #90ed7d;
+    }
+    #users .highcharts-axis.highcharts-color-1 text {
+      fill: #90ed7d;
+    }
+
+
+    #users .highcharts-yaxis .highcharts-axis-line {
+      stroke-width: 2px;
+    }
+  </style>
+@endsection
 @section('content')
 <!-- content header -->
 @php
@@ -7,6 +43,8 @@
   $companies = \App\User::where('user_type', 'company')->count();
   $postedJobs = \App\Job::all()->count();
   $openJobs = \App\Job::where('is_published', 1)->count();
+  $now =\Carbon\Carbon::today();
+  $todayViewers = \App\ViewJob::whereDate('created_at', $now)->count();
 @endphp
 <div class="content-header">
       <div class="container-fluid">
@@ -74,9 +112,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{ $todayViewers }}</h3>
 
-                <p>Unique Visitors</p>
+                <p>Today Visitors</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -90,136 +128,82 @@
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
+          <section class="col-lg-12 connectedSortable">
+            <!-- solid sales graph -->
+            <div class="card">
+              <div class="card-body">
+                <div id="job_views" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+          </section>
+          <section class="col-lg-12 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
-              <div class="card-header d-flex p-0">
-                <h3 class="card-title p-3">
-                  <i class="fa fa-pie-chart mr-1"></i>
-                  Sales
-                </h3>
-                <ul class="nav nav-pills ml-auto p-2">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                  </li>
-                </ul>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;"></div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
-                </div>
-              </div><!-- /.card-body -->
+              <div class="card-body p-0">
+            <div id="users"></div>
+              </div>
             </div>
             <!-- /.card -->
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
+          <section class="col-lg-6 connectedSortable">
 
             <!-- Map card -->
-            <div class="card bg-primary-gradient">
-              <div class="card-header no-border">
-                <h3 class="card-title">
-                  <i class="fa fa-map-marker mr-1"></i>
-                  Visitors
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button"
-                          class="btn btn-primary btn-sm daterange"
-                          data-toggle="tooltip"
-                          title="Date range">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                  <button type="button"
-                          class="btn btn-primary btn-sm"
-                          data-widget="collapse"
-                          data-toggle="tooltip"
-                          title="Collapse">
-                    <i class="fa fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
+
+            <div id="posted_jobs" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
             <!-- /.card -->
-
-            <!-- solid sales graph -->
-            <div class="card bg-info-gradient">
-              <div class="card-header no-border">
-                <h3 class="card-title">
-                  <i class="fa fa-th mr-1"></i>
-                  Sales Graph
-                </h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn bg-info btn-sm" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn bg-info btn-sm" data-widget="remove">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </div>
+          </section>
+          <section class="col-lg-3">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Most Views Jobs</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0" style="height: 394px; overflow-y: auto;">
+              <ul class="products-list product-list-in-card pl-2 pr-2">
+                <!-- /.item -->
+                @foreach($most_views_jobs AS $most_views_job)
+                <li class="item">
+                  <div class="product-img" style="background: #c9e0f9; padding: 17px;">
+                    <span class="fa fa-briefcase"></span>
+                  </div>
+                  <div class="product-info">
+                    <span class="product-title">{{ $most_views_job->title }}</span>
+                    <span class="product-description">{{ $most_views_job->views }} Views</span>
+                  </div>
+                </li>
+                @endforeach
+              </ul>
+            </div>
+            <!-- /.card-footer -->
+          </div>
+          </section>
+          <section class="col-lg-3">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Top Job Posted Company</h3>
               </div>
-              <div class="card-body">
-                <div class="chart" id="line-chart" style="height: 250px;"></div>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                           data-fgColor="#39CCCC">
-
-                    <div class="text-white">Mail-Orders</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                           data-fgColor="#39CCCC">
-
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                           data-fgColor="#39CCCC">
-
-                    <div class="text-white">In-Store</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
+              <!-- /.card-header -->
+              <div class="card-body p-0" style="height: 394px; overflow-y: auto;">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  <!-- /.item -->
+                  @foreach($top_companies AS $top_company)
+                    @if($top_company->jobs >= 10)
+                    <li class="item">
+                      <div class="product-img" style="background: #c9e0f9; padding: 17px;">
+                        <span class="fa fa-handshake-o"></span>
+                      </div>
+                      <div class="product-info">
+                        <span class="product-title">{{ $top_company->company_name }}</span>
+                        <i style="color:white;padding: 3px;background: orange;border-radius: 100%;" class="fa fa-star-o" aria-hidden="true"></i>
+                        <span class="product-description">{{ $top_company->jobs }} Jobs</span>
+                      </div>
+                    </li>
+                    @endif
+                  @endforeach
+                </ul>
               </div>
               <!-- /.card-footer -->
             </div>
@@ -231,16 +215,123 @@
 @endsection
 @section('myJs')
   <script>
-    // Donut Chart
-    var donut = new Morris.Donut({
-      element  : 'sales-chart',
-      resize   : true,
-      colors   : ['#007bff', '#dc3545', '#28a745'],
-      data     : [
-        { label: 'Total Jobs', value: {{ $postedJobs }} },
-        { label: 'Published Jobs', value: {{ $openJobs }} }
-      ],
-      hideHover: 'auto'
-    })
+    Highcharts.chart('job_views', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Monthly Viewers'
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      },
+      yAxis: {
+        title: {
+          text: 'Number Of Viewers'
+        },
+      },
+      series: [{
+        name: 'Views',
+        data: {{ $monthly_jobs_views }}
+      }]
+    });
+
+    //Pie chart
+    // Radialize the colors
+    Highcharts.setOptions({
+      colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+          radialGradient: {
+            cx: 0.5,
+            cy: 0.3,
+            r: 0.7
+          },
+          stops: [
+            [0, color],
+            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+          ]
+        };
+      })
+    });
+
+    // Build the chart
+    Highcharts.chart('posted_jobs', {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Posted Jobs Statistics'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            connectorColor: 'silver'
+          }
+        }
+      },
+      series: [{
+        name: 'Share',
+        data: [
+          { name: 'Total Jobs', y: {{ $postedJobs }} },
+          { name: 'Active Jobs', y: {{ $openJobs }} },
+        ]
+      }]
+    });
+
+    //Candidate and Company
+    Highcharts.chart('users', {
+
+      chart: {
+        type: 'column',
+        styledMode: true
+      },
+
+      title: {
+        text: 'Candidates and Company Statistics'
+      },
+
+      yAxis: [{
+        className: 'highcharts-color-0',
+        title: {
+          text: 'Candidates'
+        }
+      }, {
+        className: 'highcharts-color-1',
+        opposite: true,
+        title: {
+          text: 'Companies'
+        }
+      }],
+
+      plotOptions: {
+        column: {
+          borderRadius: 5
+        }
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      },
+      series: [{
+        name: 'Candidates',
+        data: {{ $monthly_candidate }}
+      }, {
+        name: 'Companies',
+        data: {{ $monthly_company }},
+        yAxis: 1
+      }]
+
+    });
   </script>
 @endsection

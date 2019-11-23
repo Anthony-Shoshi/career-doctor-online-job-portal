@@ -30,28 +30,30 @@ class JobApplicationController extends Controller
     }
 
     public function viewResumePdf($id) {
-        $data['user'] = User::where('id', $id)->first();
-        $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', $id)->first();
-        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', $id)->get();
-        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', $id)->get();
-        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user', $id)->get();
+        $data['candidateApplication'] = CandidateJobApplicationStatus::findOrFail($id);
+        $data['user'] = User::where('id', $data['candidateApplication']->user)->first();
+        $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', $data['candidateApplication']->user)->first();
+        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
+        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
+        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user',$data['candidateApplication']->user)->get();
         $data['city'] = City::where('id', $data['candidateGeneralInfo']->current_city_id)->first();
         $data['country'] = Country::where('id', $data['candidateGeneralInfo']->current_country_id)->first();
 
-        $pdf = PDF::loadView('resume.viewResumePdf', $data);
+        $pdf = PDF::loadView('resume.templates.' . $data['candidateApplication']->template, $data);
         return $pdf->stream($data['user']->name);
     }
 
     public function downloadResume($id) {
-        $data['user'] = User::where('id', $id)->first();
-        $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', $id)->first();
-        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', $id)->get();
-        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', $id)->get();
-        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user', $id)->get();
+        $data['candidateApplication'] = CandidateJobApplicationStatus::findOrFail($id);
+        $data['user'] = User::where('id', $data['candidateApplication']->user)->first();
+        $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', $data['candidateApplication']->user)->first();
+        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
+        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
+        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user',$data['candidateApplication']->user)->get();
         $data['city'] = City::where('id', $data['candidateGeneralInfo']->current_city_id)->first();
         $data['country'] = Country::where('id', $data['candidateGeneralInfo']->current_country_id)->first();
 
-        $pdf = PDF::loadView('resume.viewResumePdf', $data);
+        $pdf = PDF::loadView('resume.templates.' . $data['candidateApplication']->template, $data);
         return $pdf->download( $data['user']->name.'.pdf');
     }
 

@@ -26,12 +26,16 @@
         .applyButton {
             margin-left: -75px;
         }
+        .selected_card{
+            border: 1px solid #ff0000;
+        }
     </style>
 @endsection
 @section('content')
     <div class="col-sm-12 col-lg-8 col-xl-9">
         <form action="{{ route('saveApplyJob') }}" method="post">
             <input type="hidden" name="job_id" value="{{ $job->id }}">
+            <input type="hidden" name="template" value="simple">
             @csrf
             <div class="my_profile_form_area">
                 <div class="row">
@@ -64,6 +68,28 @@
                             <a href="{{ route('createNewCoverLetter') }}" target="_blank">Add New <span class="flaticon-right-arrow"></span></a>
                         </div>
                     </div>
+                    <div class="col-md-12 col-lg-12 pb-4">
+                        <label style="color: #221f1f; padding-bottom: 10px;">Resume Template<span class="required"> *</span></label>
+                        <br>
+                        <div class="card mr-4 selected_card" style="width: 18rem; float: left;cursor: pointer;" data-template="simple">
+                            <img src="http://localhost/CareerDoctor/upload/company/profile/1215237468.jpg" class="card-img" alt="...">
+                            <div class="card-body">
+                                <h4>Simple</h4>
+                            </div>
+                        </div>
+                        <div class="card mr-4" style="width: 18rem; float: left;cursor: pointer;" data-template="functional">
+                            <img src="http://localhost/CareerDoctor/upload/company/profile/1215237468.jpg" class="card-img" alt="...">
+                            <div class="card-body">
+                                <h4>Functional</h4>
+                            </div>
+                        </div>
+                        <div class="card mr-4" style="width: 18rem; float: left; cursor: pointer;" data-template="professional">
+                            <img src="http://localhost/CareerDoctor/upload/company/profile/1215237468.jpg" class="card-img" alt="...">
+                            <div class="card-body">
+                                <h4>Professsional</h4>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-md-2 col-lg-2">
                         <div class="my_profile_input refreshButton">
@@ -83,6 +109,16 @@
 @endsection
 @section('myJs')
     <script>
+        $(document).on('click', '.card', function () {
+            if($(this).hasClass('selected_card')){
+                $(this).removeClass('selected_card');
+                $('input[name=template]').val('simple');
+            }else{
+                $('.card').removeClass('selected_card');
+                $(this).addClass('selected_card');
+                $('input[name=template]').val($(this).data('template'));
+            }
+        });
         $(document).on('click', '#reload', function () {
             $.ajax({
                 url: '{{ url('get/cover/letter') }}',

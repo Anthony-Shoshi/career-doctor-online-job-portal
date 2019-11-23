@@ -85,12 +85,7 @@ class CompanyController extends Controller
             $imageName = rand(time(), 1000) . '.' . $image->getClientOriginalExtension();
             $uploadPath = 'upload/company/profile/';
             \Image::make($image)->resize(150,130)->save(public_path('upload/company/profile/') . $imageName);
-            if ($user->image != 'upload/company/profile/default.jpg'){
-                unlink($user->image);
-                $user->image = $uploadPath . $imageName;
-            } else {
-                $user->image = $uploadPath . $imageName;
-            }
+            $user->image = $uploadPath . $imageName;
         }
         $user->save();
 

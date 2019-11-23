@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Inbox</h1>
+                    <h1>Sent</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Messages</a></li>
-                        <li class="breadcrumb-item active">Inbox</li>
+                        <li class="breadcrumb-item active">Sent</li>
                     </ol>
                 </div>
             </div>
@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Inbox</h3>
+                <h3 class="card-title">Sent Item</h3>
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm">
@@ -61,7 +61,7 @@
                                         <a class="btn btn-info btn-sm" href="{{ route('readContactMessage', $replyMessage->id) }}">Read</a>
                                         <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this mail?');" href="{{ route('deleteMessage', $replyMessage->id) }}">Delete</a>
                                     </td>
-                                    ''                        </tr>
+                                    </tr>
                                 @php
                                     $i++;
                                 @endphp

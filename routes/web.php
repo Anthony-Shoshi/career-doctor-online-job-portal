@@ -194,6 +194,7 @@ Route::group(['middleware'=>'auth'], function() {
         Route::POST('/candidate/resume/update', 'ResumeController@updateCandidateResume')->name('updateCandidateResume');
         Route::get('/remove/{type}/{id}', 'ResumeController@remove')->name('removeEdu');
         Route::get('/view/resume', 'ResumeController@viewResume')->name('viewResume');
+        Route::get('/remove_skill/{skill}/{experience_id}', 'ResumeController@remove_skill')->name('remove_skill');
     });
 
 //Cover Letter

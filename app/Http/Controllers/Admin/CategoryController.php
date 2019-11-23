@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\JobCategory;
 use Illuminate\Support\Facades\View;
+use Auth;
 
 class CategoryController extends Controller
 {

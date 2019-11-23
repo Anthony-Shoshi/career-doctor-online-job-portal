@@ -169,49 +169,16 @@
 						</div>
 						<div class="col-xl-4">
 							<div class="recent_job_activity">
-								<h4 class="title">Activity</h4>
+								<h4 class="title">Most Views Jobs</h4>
+								@foreach($most_views_jobs AS $most_views_job)
 								<div class="grid">
-									<div class="color_bg float-left"></div>
+									<div class="color_bg fa fa-briefcase float-left" style="text-align: center; padding-top: 9px;"></div>
 									<ul>
-										<li><span>Dobrick </span>published an article</li>
-										<li>2 hours ago</li>
+										<li><span>{{ $most_views_job->title }} </span></li>
+										<li>{{ $most_views_job->views }} Views</li>
 									</ul>
 								</div>
-								<div class="grid">
-									<div class="color_bg two float-left"></div>
-									<ul>
-										<li><span>Stella </span>created an event</li>
-										<li>2 hours ago</li>
-									</ul>
-								</div>
-								<div class="grid">
-									<div class="color_bg three float-left"></div>
-									<ul>
-										<li><span>Peter </span>submitted the reports</li>
-										<li>2 hours ago</li>
-									</ul>
-								</div>
-								<div class="grid">
-									<div class="color_bg four float-left"></div>
-									<ul>
-										<li><span>Nateila </span>updated the docs</li>
-										<li>2 hours ago</li>
-									</ul>
-								</div>
-								<div class="grid">
-									<div class="color_bg float-left"></div>
-									<ul>
-										<li><span>Dobrick </span>published an article</li>
-										<li>2 hours ago</li>
-									</ul>
-								</div>
-								<div class="grid mb0">
-									<div class="color_bg two float-left"></div>
-									<ul>
-										<li><span>Stella </span>created an event</li>
-										<li>2 hours ago</li>
-									</ul>
-								</div>
+								@endforeach
 							</div>
 						</div>
 					</div>

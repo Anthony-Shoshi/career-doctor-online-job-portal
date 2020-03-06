@@ -20,8 +20,8 @@
                             </p>
                             <ul class="address_list">
                                 @if($company->website != '')<li class="list-inline-item"><a href="{{ $company->website }}" target="_blank"><span class="flaticon-link text-thm2"></span> {{ $company->website }} </a></li>@endif
-                                @if($company->contact_person_phone != '')<li class="list-inline-item"><a href="#"><span class="flaticon-phone-call text-thm2"></span> {{ $company->contact_person_phone }} </a></li>@endif
-                                <li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm2"></span>{{ $company->contact_person_email }}</a></li>
+                                @if($company->contact_person_phone != '')<li class="list-inline-item"><a href="tel:{{ $company->contact_person_phone }}"><span class="flaticon-phone-call text-thm2"></span> {{ $company->contact_person_phone }} </a></li>@endif
+                                <li class="list-inline-item"><a href="mailto:{{ $company->contact_person_email }}"><span class="flaticon-mail text-thm2"></span>{{ $company->contact_person_email }}</a></li>
                             </ul>
                             <ul class="review_list">
                                 @if( $avgRating == 1 || $avgRating < 1.5)
@@ -66,18 +66,15 @@
                         @if($checkFollwer = \App\CompanyFollower::where('candidate', auth::user()->id)->where('company',$company->user_id)->exists())
                         <button class="btn btn-block btn-thm mb15 submit">Unfollow</button>
                         <input type="hidden" id="company" value="{{$company->user_id}}">
-                        <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
                         @else
                         <button class="btn btn-block btn-thm mb15 submit"> Follow Us</button>
                         <input type="hidden" id="company" value="{{$company->user_id}}">
-                        <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
                         @endif
                         @endif
                         @endauth
                         @guest
                         <button class="btn btn-block btn-thm mb15 submit"> Follow Us</button>
                         <input type="hidden" id="company" value="{{$company->user_id}}">
-                        <button class="btn btn-block btn-gray"><span class="flaticon-consulting-message pr10"></span> Add a Review</button>
                         @endguest
                     </div>
                 </div>
@@ -99,19 +96,19 @@
                             </div>
                         </div>
                         @endif
-                        <div class="col-lg-12">
-                            <div class="job_shareing">
-                                <div class="candidate_social_widget bgc-fa">
-                                    <ul>
-                                        <li>Share This Company:</li>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
+                            <div class="col-lg-12">
+                                <div class="job_shareing">
+                                    <div class="candidate_social_widget bgc-fa">
+                                        <ul>
+                                            <li>Share This Job:</li>
+                                            <li><a href="javascript:void(0)" data-social="facebook" class="share"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="javascript:void(0)" data-social="twitter" class="share" data-text="{{ $company->company_name }}"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="javascript:void(0)" data-social="linkedin" class="share"><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a href="javascript:void(0)" data-social="pinterest" class="share" data-media="{{ get_logo() }}"><i class="fa fa-pinterest"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="col-lg-12">
                             <div class="my_resume_eduarea">
                                 <h4 class="title mb30">Open Jobs of this Company</h4>
@@ -434,11 +431,8 @@
                         @endguest
                     </div>
                 </div>
+            </div>
                 <div class="col-xl-4">
-                    <div class="map_sidebar_widget mb30">
-                        <h4 class="fz20 mb30">Job Location</h4>
-                        <div class="h300" id="map-canvas"></div>
-                    </div>
                     <h4 class="fz20 mb30">Company Information</h4>
                     <div class="candidate_working_widget style2 bgc-fa">
                         <div class="icon text-thm"><span class="flaticon-eye"></span></div>
@@ -481,24 +475,6 @@
                             <p class="color-black22">Followers</p>
                             <p>{{ $companyFollower }}</p>
                         </div>
-                    </div>
-                    <h4 class="fz20 mb30">Contact Qiwo</h4>
-                    <div class="candidate_contact_form bgc-fa">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Your Email">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Subject">
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Message"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-block btn-thm">Send Now <span class="flaticon-right-arrow"></span></button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -572,6 +548,34 @@
                     $('.rating-edit-delete li').css('display', 'none');
                 }
             });
+        });
+
+        $(document).ready(function () {
+            //share url
+            var share_url = '{{ route('companyProfileView',$company->user_id) }}';
+
+            $(document).on('click', '.share', function(){
+                var status = false;
+
+                if ($(this).data('social') == 'facebook') {
+                    var status = true;
+                    var url = 'http://www.facebook.com/sharer.php?u=' + share_url;
+                }else if ($(this).data('social') == 'twitter') {
+                    var status = true;
+                    var url = 'http://twitter.com/share?text=' + $(this).data('text') + '&' + 'url=' + share_url;
+                }else if ($(this).data('social') == 'linkedin') {
+                    var status = true;
+                    var url = 'http://www.linkedin.com/shareArticle?mini=true&url=' + share_url;
+                }else if ($(this).data('social') == 'pinterest') {
+                    var status = true;
+                    var url = 'http://pinterest.com/pin/create/button/?url=' + share_url + '&media=' + $(this).data('media');
+                }
+
+                if(status == true){
+                    window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+                    return true;
+                }
+            })
         });
 
     </script>

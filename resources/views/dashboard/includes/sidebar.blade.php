@@ -12,7 +12,6 @@
 						<ul style="list-style: none;">
 							@if(auth::user()->user_type == 'candidate')
 							<li class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"><span class="flaticon-dashboard"></span> Dashboard</a></li>
-							<li class="{{Request::is('candidate/profile') ? 'active' : ''}}"><a href="{{route('candidateProfile')}}"><span class="flaticon-profile"></span> Profile</a></li>
 							@php
 							$candidate = \App\CandidateGeneralInfo::where('user_id', Auth::user()->id)->exists();
 							@endphp
@@ -26,7 +25,6 @@
 							<li class="{{Request::is('shortListed/job') ? 'active' : ''}}"><a href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a></li>
 							<li class="{{Request::is('candidate/messages') ? 'active' : ''}}"><a href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a></li>
 							<li class="{{Request::is('candidate/review/list') ? 'active' : ''}}"><a href="{{ route('candidateReviewList') }}"><span class="flaticon-rating"></span> Reviews</a></li>
-							<li><a href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a></li>
 							<li class="{{Request::is('candidate/changePassword') ? 'active' : ''}}"><a href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a></li>
 							<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
 								document.getElementById('logout-form').submit();"><span class="flaticon-logout"></span> Logout</a>
@@ -34,7 +32,6 @@
 									@csrf
 								</form>
 							</li>
-							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif
 							@if(auth::user()->user_type == 'company')
 							<li class="{{Request::is('dashboard') ? 'active' : ''}}"><a href="{{route('dashboard')}}"><span class="flaticon-dashboard"></span> Dashboard</a></li>
@@ -53,7 +50,6 @@
 									@csrf
 								</form>
 							</li>
-							<li><a href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a></li>
 							@endif
 						</ul>
 					</div>

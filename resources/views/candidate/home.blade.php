@@ -13,12 +13,12 @@
 				</div>
 				<div class="col-lg-12">
 					<div class="home-job-search-box mt20 mb20">
-						<form class="form-inline" target="_blank" method="POST" action="{{ route('jobListView') }}">
+						<form class="form-inline" method="POST" action="{{ route('jobListView') }}">
 							@csrf
 							<div class="search_option_one">
 							    <div class="form-group">
 							    	<label for="exampleInputName"><span class="flaticon-search"></span></label>
-							    	<input type="text" name="keyword" class="form-control h70" id="exampleInputName" placeholder="Job Title or Keywords">
+							    	<input type="text" name="keyword" class="form-control h70" id="keyword" placeholder="Job Title or Keywords">
 							    </div>
 							</div>
 							<div class="search_option_two">
@@ -52,6 +52,7 @@
 				@php
 					$jobCategories = \App\JobCategory::all()->random(8);
 				@endphp
+				@if($jobCategories->count() != 0)
 				@foreach($jobCategories as $jobCategory)
 					@php
 						$countOpenJobs = \App\Job::where('job_category', $jobCategory->id)->where('is_published', 1)->count();
@@ -59,7 +60,7 @@
 					<div class="col-sm-6 col-lg-3">
 						<a href="#" class="icon_hvr_img_box sbbg1" style="background-image: url(images/service/1.jpg);">
 							<div class="overlay">
-								<div class="icon"><span class="flaticon-pen"></span></div>
+								<div class="icon"><span class="{{ $jobCategory->category_icon }}"></span></div>
 								<div class="details">
 									<h5>{{ $jobCategory->category_name }}</h5>
 									<p>{{ $countOpenJobs }}</p>
@@ -68,6 +69,9 @@
 						</a>
 					</div>
 				@endforeach
+				@else
+					No Category!
+				@endif
 				<div class="col-lg-6 offset-lg-3">
 					<div class="pjc_all_btn text-center">
 						<a class="btn btn-transparent" href="#">Browse All Categories <span class="flaticon-right-arrow pl10"></span></a>
@@ -131,6 +135,7 @@
 				</div>
 			</div>
 			<div class="row">
+				@if($jobs->count() != 0)
 				@foreach($jobs as $job)
 					<div class="col-sm-12 col-lg-12">
 						<div class="fj_post">
@@ -142,13 +147,18 @@
                                     $currency = \App\Currency::where('id',$job->currency)->first();
                                     $company = \App\CompanyGeneralInfo::where('user_id',$job->company)->first();
 									$companyImage = \App\User::where('id',$job->company)->first()->image;
+									$total_job = \App\job::where('company', $job->company)->count();
 								@endphp
 								<h5 class="job_chedule text-thm mt0">{{ $jobTpe->title }}</h5>
 								<div class="thumb fn-smd">
 									<img class="img-fluid" src="{{ asset($companyImage) }}" alt="1.jpg" height ="100px" width="120px">
 								</div>
 								<h4>{{ $job->title }}</h4>
-								<p>Posted : {{ date_format(new DateTime($job->created_at),'d M, Y') }} by <a class="text-thm" target="_blank" href="{{route('companyProfileView',[$job->company])}}">{{ $company->company_name }}</a></p>
+								<p>Posted : {{ date_format(new DateTime($job->created_at),'d M, Y') }} by
+									<a class="text-thm" target="_blank" href="{{route('companyProfileView',[$job->company])}}">{{ $company->company_name }}</a></p>
+									@if($total_job >= 1)
+										<i style="color:white;padding: 3px;background: orange;border-radius: 100%;" title="Active Company" class="fa fa-star-o" aria-hidden="true"></i>
+									@endif
 								<ul class="featurej_post">
 									<li class="list-inline-item"><span class="flaticon-location-pin"></span> {{ $city->name }}, {{ $country->name }}</li>
 									@if($job->is_negotiable == 1)
@@ -162,6 +172,9 @@
 						</div>
 					</div>
 				@endforeach
+				@else
+					No Jobs!
+				@endif
 			</div>
 		</div>
 	</section>
@@ -236,378 +249,34 @@
 		</div>
 	</section>
 
-	<!-- Expert Freelancer List -->
-	<section class="expert-freelancer bgc-fa">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="ulockd-main-title">
-						<h3 class="mt0">Hire Expert Freelancer</h3>
-						<a class="text-thm float-right" href="#">Browse All Freelancers <i class="flaticon-right-arrow pl15"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="ef_slider">
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/1.jpg" alt="1.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Ali TUFAN</h4>
-									<p>App Designer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">100%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$85</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/2.jpg" alt="2.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Dominikus YURI</h4>
-									<p>Front-end Developer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>United States</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/usa.png" alt="usa.png"></li>
-										</ul>
-										
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">100%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$200</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/3.jpg" alt="3.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Deanna ROSE</h4>
-									<p>UI - UX Designer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Brazil</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/brazil.png" alt="brazil.png"></li>
-										</ul>
-										
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">100%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/4.jpg" alt="4.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Lori Ramos</h4>
-									<p>UX/UI Designer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">88%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/5.jpg" alt="5.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Michele Snyder</h4>
-									<p>Front-End Developer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">88%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/6.jpg" alt="6.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Randall Warren</h4>
-									<p>Graphics Designer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">88%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/7.jpg" alt="7.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Peter Hawkins</h4>
-									<p>Magento Certified Developer</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">88%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/8.jpg" alt="8.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Martha Griffin</h4>
-									<p>Medical Professed</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">88%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="ef_post">
-								<div class="ef_header">
-									<h4 class="hr_rate"><span class="text-thm">$150</span> <small>/hr</small></h4>
-									<a class="ef_bookmark" href="#" title="BookMark Freelancer"><span class="flaticon-bookmark"></span></a>
-								</div>
-								<div class="thumb text-center">
-									<img class="img-fluid" src="images/team/9.jpg" alt="9.jpg">
-								</div>
-								<div class="freelancer_review">
-									<div class="everage_rating">4.5</div>
-									<ul class="rating_list">
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star color-golden"></span></a></li>
-										<li class="list-inline-item"><a href="#"><span class="fa fa-star-o"></span></a></li>
-									</ul>
-									<h4 class="title">Kathleen Moreno</h4>
-									<p>Marketing Expert</p>
-								</div>
-								<div class="details">
-									<div class="job_locate">
-										<p>Location</p>
-										<ul class="float-right">
-											<li class="list-inline-item m0"><p>Turkey</p></li>
-											<li class="list-inline-item m0"><img class="img-fluid pl5" src="images/resource/turkey.png" alt="turkey.png"></li>
-										</ul>
-									</div>
-									<div class="job_srate">
-										<p>Job Success</p>
-										<p class="float-right">88%</p>
-									</div>
-									<div class="ef_prf_link mt10">
-										<a class="btn btn-block btn-transparent" href="#">View Profile <i class="flaticon-right-arrow pl10"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+@endsection
 
+@section('myJs')
 
+	<script>
+		$(document).ready(function() {
+			$( "#keyword" ).autocomplete({
+
+				source: function(request, response) {
+					$.ajax({
+						url: "{{route('autocomplete')}}",
+						data: {
+							term : request.term
+						},
+						dataType: "json",
+						success: function(data){
+							var resp = $.map(data,function(obj){
+								//console.log(obj.city_name);
+								return obj.title;
+							});
+
+							response(resp);
+						}
+					});
+				},
+				minLength: 1
+			});
+		});
+
+	</script>
 @endsection

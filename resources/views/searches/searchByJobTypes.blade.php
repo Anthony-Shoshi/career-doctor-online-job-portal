@@ -75,5 +75,12 @@
     <div class="text-center">
         No Search Result Found!
     </div>
-
 @endif
+
+<script>
+    @if($jobs->count() > 0)
+        $('.countSearchResult').text('{{ $jobs->count() }} Job Found')
+    @else
+        $('.countSearchResult').text('0 Job Found')
+    @endif
+</script>

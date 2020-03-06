@@ -24,6 +24,7 @@ class CreateJobSkillsTempTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('user');
+            $table->integer('experience_id');
             $table->string('skill_name', 100);
             $table->text('skill_description')->nullable()->default(null);
             $table->enum('status', ['PENDING', 'ACCEPTED', 'REJECTED'])->default('PENDING');

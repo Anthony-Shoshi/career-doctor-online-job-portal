@@ -63,7 +63,7 @@
                                             <ul class="view_edit_delete_list">
                                                 <li class="list-inline-item"><a href="{{ route('viewResumePdf', $jobApplicationStatus->id) }}" data-toggle="tooltip" target="_blank" data-placement="bottom" title="View Resume"><span class="flaticon-eye"></span></a></li>
                                                 <li class="list-inline-item"><a href="{{ route('editStatus', $jobApplicationStatus->id) }}" class="ajax-modal" data-title="Edit Status" data-toggle="tooltip" data-placement="bottom" title="Edit Status"><span class="flaticon-edit"></span></a></li>
-                                                <li class="list-inline-item"><a href="{{ route('downloadResume', $jobApplicationStatus->id) }}" data-toggle="tooltip" data-placement="bottom" title="Download Resume"><span class="flaticon-download"></span></a></li>
+                                                <li class="list-inline-item"><a href="{{ route('viewResumePrint', $jobApplicationStatus->id) }}" data-toggle="tooltip" data-placement="bottom" title="Print Resume"><span class="flaticon-printer"></span></a></li>
                                             </ul>
                                         </td>
                                     </tr>

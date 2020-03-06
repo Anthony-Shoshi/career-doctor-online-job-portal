@@ -18,7 +18,7 @@
 		        <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
 		        <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
 		            <li>
-		                <a href="{{ url('/') }}"><span class="title">Home</span></a>
+		                <a href="{{ url('/home') }}"><span class="title">Home</span></a>
 					</li>
 					@guest
 		            <li>
@@ -77,7 +77,7 @@
 		</div><!-- /.mobile-menu -->
 		<nav id="menu" class="stylehome1">
 			<ul>
-				<li><a href="{{ url('/') }}">Home</a></li>
+				<li><a href="{{ url('/home') }}">Home</a></li>
 				@guest
 				<li><a href="{{ route('jobListView') }}">Find a Job</a></li>
 				@else

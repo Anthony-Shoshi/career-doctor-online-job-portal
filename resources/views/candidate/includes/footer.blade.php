@@ -93,17 +93,6 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-sm-8 col-md-6 col-md-3 col-lg-4">
-					<div class="newsletter_widget">
-						<h4>Newsletter</h4>
-						<p>Subscribe to {{ get_option('website_name') }} Pacific newsletter to get the latest jobs posted, candidates ,and other latest news stay updated.</p>
-						<form class="form-inline mailchimp_form">
-							<label class="sr-only" for="inlineFormInputMail2">Name</label>
-							<input type="email" class="form-control mb-2 mr-sm-2" id="inlineFormInputMail2" placeholder="Enter your email address">
-							<button type="submit" class="btn btn-primary mb-2"><span class="fa fa-paper-plane-o"></span></button>
-						</form>
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -122,15 +111,6 @@
 						<ul>
 							<li class="list-inline-item"><a href="{{ route('privacyAndPolicy') }}">Privacy Policy</a></li>
 							<li class="list-inline-item"><a href="{{ route('termsAndConditions') }}">Terms of Service</a></li>
-							<li class="list-inline-item">
-								<select class="selectpicker show-tick">
-									<option>English</option>
-									<option>Frenc</option>
-									<option>Italian</option>
-									<option>Spanish</option>
-									<option>Turkey</option>
-								</select>
-							</li>
 						</ul>
 					</div>
 				</div>

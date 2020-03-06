@@ -24,6 +24,7 @@ class CreateJobCategoriesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('category_name', 100);
+            $table->string('category_icon');
             $table->string('category_code', 10);
             $table->text('category_description')->nullable()->default(null);
             $table->integer('created_by');

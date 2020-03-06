@@ -72,19 +72,19 @@
                         <label style="color: #221f1f; padding-bottom: 10px;">Resume Template<span class="required"> *</span></label>
                         <br>
                         <div class="card mr-4 selected_card" style="width: 18rem; float: left;cursor: pointer;" data-template="simple">
-                            <img src="http://localhost/CareerDoctor/upload/company/profile/1215237468.jpg" class="card-img" alt="...">
+                            <img src="http://localhost/CareerDoctor/upload/CV template/simple.png" class="card-img" alt="...">
                             <div class="card-body">
                                 <h4>Simple</h4>
                             </div>
                         </div>
                         <div class="card mr-4" style="width: 18rem; float: left;cursor: pointer;" data-template="functional">
-                            <img src="http://localhost/CareerDoctor/upload/company/profile/1215237468.jpg" class="card-img" alt="...">
+                            <img src="http://localhost/CareerDoctor/upload/CV template/functional.png" class="card-img" alt="...">
                             <div class="card-body">
                                 <h4>Functional</h4>
                             </div>
                         </div>
                         <div class="card mr-4" style="width: 18rem; float: left; cursor: pointer;" data-template="professional">
-                            <img src="http://localhost/CareerDoctor/upload/company/profile/1215237468.jpg" class="card-img" alt="...">
+                            <img src="http://localhost/CareerDoctor/upload/CV template/professional.png" class="card-img" alt="...">
                             <div class="card-body">
                                 <h4>Professsional</h4>
                             </div>

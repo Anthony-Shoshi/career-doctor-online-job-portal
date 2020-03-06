@@ -19,15 +19,18 @@ class CategoryController extends Controller
     {
         $request->validate(
             [
-                'category_name' => 'required'
+                'category_name' => 'required',
+                'category_icon' => 'required'
             ],
             [
-                'category_name.required' => 'Category Name is required!'
+                'category_name.required' => 'Category Name is required!',
+                'category_icon.required' => 'Category Icon is required!'
             ]
         );
 
         $jobCategories = new JobCategory();
         $jobCategories->category_name = $request->category_name;
+        $jobCategories->category_icon = $request->category_icon;
         $jobCategories->category_code = rand(1, 1000000);
         $jobCategories->category_description = $request->category_description;
         $jobCategories->created_by = auth::user()->id;
@@ -53,15 +56,18 @@ class CategoryController extends Controller
     {
         $request->validate(
             [
-                'category_name' => 'required'
+                'category_name' => 'required',
+                'category_icon' => 'required'
             ],
             [
-                'category_name.required' => 'Category Name is required!'
+                'category_name.required' => 'Category Name is required!',
+                'category_icon.required' => 'Category Icon is required!'
             ]
         );
 
         $jobCategories = JobCategory::findOrFail($request->id);
         $jobCategories->category_name = $request->category_name;
+        $jobCategories->category_icon = $request->category_icon;
         $jobCategories->category_code = rand(1, 1000000);
         $jobCategories->category_description = $request->category_description;
         $jobCategories->created_by = auth::user()->id;

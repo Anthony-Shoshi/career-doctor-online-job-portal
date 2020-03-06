@@ -55,25 +55,7 @@
         <div class="my_profile_form_area">
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="fz20 mb20">Post a New Job</h4>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <div class="icon_boxs">
-                        <div class="icon"><span class="flaticon-work"></span></div>
-                        <div class="details"><h4>2 Job Posted</h4></div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <div class="icon_boxs">
-                        <div class="icon style2"><span class="flaticon-resume"></span></div>
-                        <div class="details"><h4>3 Applications</h4></div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <div class="icon_boxs">
-                        <div class="icon style3"><span class="flaticon-work"></span></div>
-                        <div class="details"><h4>1 Active Jobs</h4></div>
-                    </div>
+                    <h4 class="fz20 mb20">Edit Posted Job</h4>
                 </div>
                 <div class="col-lg-12 mt30">
                     <div class="my_profile_thumb_edit"></div>
@@ -315,7 +297,7 @@
                         <label class="email {{ ($job->submission_type != 'EMAIL') ? 'hiddenField' : '' }}">Email<span class="required"> *</span></label>
                         <input type="email" value="{{ $job->submission_type_value }}" class="form-control email{{ ($job->submission_type != 'EMAIL') ? ' hiddenField' : '' }}" name="submission_type_value" {{ ($job->submission_type != 'EMAIL') ? 'disabled' : '' }}>
                         <label class="link {{ ($job->submission_type != 'LINK') ? 'hiddenField' : '' }}">External Link<span class="required"> *</span></label>
-                        <input type="email" value="{{ $job->submission_type_value }}" class="form-control @error('submission_type_value') is-invalid @enderror link{{ ($job->submission_type != 'LINK') ? ' hiddenField' : '' }}" name="submission_type_value" {{ ($job->submission_type != 'LINK') ? 'disabled' : '' }}>
+                        <input type="url" value="{{ $job->submission_type_value }}" class="form-control @error('submission_type_value') is-invalid @enderror link{{ ($job->submission_type != 'LINK') ? ' hiddenField' : '' }}" name="submission_type_value" {{ ($job->submission_type != 'LINK') ? 'disabled' : '' }}>
                         @error('submission_type_value')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

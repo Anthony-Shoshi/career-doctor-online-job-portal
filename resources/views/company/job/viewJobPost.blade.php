@@ -142,8 +142,8 @@
                             <div class="job_info_widget">
                                 <ul style="list-style: none;">
                                     <li><span class="flaticon-24-hours-support text-thm2"></span> <span>{{ $diff }}</span> <span>Day</span></li>
-                                    <li><span class="flaticon-zoom-in text-thm2"></span> <span>35697</span> <span>Displayed</span></li>
-                                    <li><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span> <span>300-500</span> <span>Application</span></li>
+                                    <li><span class="flaticon-eye text-thm2"></span> <span> {{ $perDayViewer }}</span> <span>Today Views</h5></li>
+                                    <li><span class="flaticon-zoom-in text-thm2"></span> <span> {{ $totalViewer }}</span> <span>Total Views</h5></li>
                                 </ul>
                             </div>
                         </div>

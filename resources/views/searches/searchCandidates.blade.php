@@ -72,3 +72,11 @@
         No Candidate Found!
     </div>
 @endif
+
+<script>
+    @if($candidates->count() > 0)
+    $('.countSearchResult').text('{{ $candidates->count() }} Candidate Found')
+    @else
+    $('.countSearchResult').text('0 Candidate Found')
+    @endif
+</script>

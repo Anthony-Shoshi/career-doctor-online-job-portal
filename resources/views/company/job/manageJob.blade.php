@@ -5,22 +5,20 @@
             <div class="col-lg-12">
                 <h4 class="mb30">Manage Jobs</h4>
             </div>
+            @php
+                $postedJob = \App\Job::where('company', Auth::user()->id)->where('is_deleted', 0)->count();
+                $postedJobActive = \App\Job::where('company', Auth::user()->id)->where('is_deleted', 0)->where('is_published', 1)->count();
+            @endphp
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                 <div class="icon_boxs">
                     <div class="icon"><span class="flaticon-work"></span></div>
-                    <div class="details"><h4>2 Job Posted</h4></div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <div class="icon_boxs">
-                    <div class="icon style2"><span class="flaticon-resume"></span></div>
-                    <div class="details"><h4>3 Applications</h4></div>
+                    <div class="details"><h4>{{ $postedJob }} Posted Job</h4></div>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                 <div class="icon_boxs">
                     <div class="icon style3"><span class="flaticon-work"></span></div>
-                    <div class="details"><h4>1 Active Jobs</h4></div>
+                    <div class="details"><h4>{{ $postedJobActive }} Active Job</h4></div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">

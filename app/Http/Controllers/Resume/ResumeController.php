@@ -79,7 +79,7 @@ class ResumeController extends Controller
                     $candidateEducation->institute_name = $request->institute_name[$i];
                     $candidateEducation->location = $request->location[$i];
                     $candidateEducation->grade = $request->grade[$i];
-                    $candidateEducation->passing_year = $request->passing_year[$i];
+                    $candidateEducation->passing_year = isset($request->passing_year[$i]) ? $request->passing_year[$i] : null;
                     $candidateEducation->is_running = $request->is_running[$i];
                     $candidateEducation->created_by = auth::user()->id;
                     $candidateEducation->updated_by = auth::user()->id;
@@ -98,7 +98,7 @@ class ResumeController extends Controller
                     $candidateExperience->city = $request->city[$i];
                     $candidateExperience->country = $request->country[$i];
                     $candidateExperience->start_date = $request->start_date[$i];
-                    $candidateExperience->end_date = $request->end_date[$i];
+                    $candidateExperience->end_date = isset($request->end_date[$i]) ? $request->end_date[$i] : null;
                     $candidateExperience->is_current = $request->is_current[$i];
                     $candidateExperience->experience_summary = $request->experience_summary[$i];
                     $candidateExperience->user_id = auth::user()->id;
@@ -112,6 +112,7 @@ class ResumeController extends Controller
                         if (! JobSkill::where('skill_name', ucwords($skill))->exists() && $skill != ''){
                             $jobSkillsTemp = new JobSkillsTemp();
                             $jobSkillsTemp->user = auth::user()->id;
+                            $jobSkillsTemp->experience_id = $candidateExperience->id;
                             $jobSkillsTemp->skill_name = ucwords($skill);
                             $jobSkillsTemp->status = 'PENDING';
                             $jobSkillsTemp->created_by = auth::user()->id;
@@ -249,7 +250,7 @@ class ResumeController extends Controller
                         $candidateExperience->country = $request->country[$i];
                         $candidateExperience->start_date = $request->start_date[$i];
                         $candidateExperience->end_date = $request->end_date[$i];
-                        $candidateExperience->is_current = $request->is_current[$i];
+                        $candidateExperience->is_current = isset($request->is_current[$i]) ? $request->is_current[$i] : null;
                         $candidateExperience->experience_summary = $request->experience_summary[$i];
                         $candidateExperience->user_id = auth::user()->id;
                         $candidateExperience->created_by = auth::user()->id;
@@ -279,6 +280,7 @@ class ResumeController extends Controller
                         if (! JobSkill::where('skill_name', ucwords($skill))->exists() && $skill != ''){
                             $jobSkillsTemp = new JobSkillsTemp();
                             $jobSkillsTemp->user = auth::user()->id;
+                            $jobSkillsTemp->experience_id = $candidateExperience->id;
                             $jobSkillsTemp->skill_name = ucwords($skill);
                             $jobSkillsTemp->status = 'PENDING';
                             $jobSkillsTemp->created_by = auth::user()->id;

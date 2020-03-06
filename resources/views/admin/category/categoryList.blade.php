@@ -29,6 +29,7 @@
                 <thead>
                 <tr>
                   <th>Category Name</th>
+                  <th>Category Icon</th>
                   <th>Category Code</th>
                   <th>Description</th>
                   <th>Action</th>
@@ -38,6 +39,7 @@
                 @foreach($jobCategories as $jobCategory)
                 <tr>
                   <td>{{$jobCategory->category_name}}</td>
+                  <td><i class="{{$jobCategory->category_icon}}"></i></td>
                   <td>{{$jobCategory->category_code}}</td>
                   <td>{{$jobCategory->category_description}}</td>
                   <td>

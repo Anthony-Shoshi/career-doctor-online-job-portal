@@ -9,6 +9,7 @@ use App\CandidateGeneralInfo;
 use App\CandidateRating;
 use App\City;
 use App\Country;
+use App\ExperienceSkillRecord;
 use App\JobIndustry;
 use App\User;
 use App\ViewCandidate;
@@ -22,6 +23,19 @@ class CandidateListController extends Controller
     public function candidateListView(Request $request) {
         $candidates = CandidateGeneralInfo::whereIn('current_status', [1, 2]);
         $data['jobIndustries'] = JobIndustry::orderBy('industry_name', 'ASC')->where('is_deleted', 0)->get();
+
+        if ($request->candidate != '') {
+            $candidates = $candidates->select('*', 'candidate_general_infos.id AS id')
+                ->join('users', 'users.id', 'candidate_general_infos.user_id')
+                ->where('users.name', 'LIKE', '%'.$request->candidate.'%');
+        }
+
+        if ($request->candidate_location != '') {
+            $candidates = $candidates->select('*', 'candidate_general_infos.id AS id')
+                ->join('cities', 'cities.id', 'candidate_general_infos.current_city_id')
+                ->where('cities.name', 'LIKE', '%'.$request->candidate_location.'%');
+        }
+
         if ($request->ajax()) {
             if ($request->keyword != '') {
                 $candidates = $candidates->select('*', 'candidate_general_infos.id AS id')
@@ -36,13 +50,20 @@ class CandidateListController extends Controller
             if($request->position != '') {
                 $candidates = $candidates->where('current_position', $request->position);
             }
+            if($request->sort != '') {
+                $candidates = $candidates->orderBy('candidate_general_infos.created_at', $request->sort);
+            }
+            if($request->skill != '') {
+                $candidates = $candidates->join('experience_skill_records', 'experience_skill_records.user', 'candidate_general_infos.user_id')
+                ->where('experience_skill_records.job_skill', $request->skill);
+            }
             if ($request->gender != '') {
                 $candidates = $candidates->where('gender', $request->gender);
             }
             if($request->industry != '') {
                 $candidates = $candidates->where('industry_id', $request->industry);
             }
-            $candidates = $candidates->orderBy('candidate_general_infos.created_at','DESC')->paginate('3');
+            $candidates = $candidates->paginate('3');
             return view('searches.searchCandidates', $data)->with('candidates', $candidates);
         }
         $candidates = $candidates->orderBy('candidate_general_infos.created_at','DESC')->paginate('3');
@@ -70,6 +91,10 @@ class CandidateListController extends Controller
         $data['country'] = Country::where('id', $candidateGeneralInfo->current_country_id)->first();
         $data['perDayViewer'] = ViewCandidate::where('candidate',$id)->whereDate('created_at', $now)->count();
         $data['totalViewer'] = ViewCandidate::where('candidate',$id)->count();
+        $data['skills'] = ExperienceSkillRecord::select('*', 'experience_skill_records.id AS id')
+            ->join('job_skills', 'job_skills.id', 'experience_skill_records.job_skill')
+            ->where('experience_skill_records.user', $user->id)
+            ->get();
         $data['candidateRatings'] = array();
         $data['candidateRating'] = array();
         $candidateRatings = CandidateRating::select('*', 'candidate_ratings.id AS id', 'candidate_ratings.created_at AS rating_created')
@@ -97,5 +122,16 @@ class CandidateListController extends Controller
         }
 
         return view('candidate.profile.candidateProfileView', $data)->with('user', $user)->with('candidateGeneralInfo', $candidateGeneralInfo);
+    }
+
+    public function autocompleteCandidate(Request $request) {
+        $search = $request->get('term');
+
+        $result = CandidateGeneralInfo::whereIn('current_status', [1, 2])
+                                        ->join('users', 'users.id', 'candidate_general_infos.user_id')
+                                        ->where('users.name', 'LIKE', '%'.$search.'%')
+                                        ->get();
+
+        return response()->json($result);
     }
 }

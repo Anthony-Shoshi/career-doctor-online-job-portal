@@ -8,7 +8,7 @@
                     <div class="faq_search_widget mb30">
                         <h4 class="fz20 mb15">Search Keywords</h4>
                         <div class="input-group mb-3">
-                            <input type="text" name="keyword" class="form-control search-keyword" placeholder="e.g. web design" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input type="text" name="keyword" id="keyword" class="form-control search-keyword" placeholder="e.g. web design" aria-label="Recipient's username" aria-describedby="button-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="flaticon-search"></span></button>
                             </div>
@@ -104,88 +104,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="cl_skill_checkbox mb30">
-                        <h4 class="fz20 mb20">Skills</h4>
-                        <div class="content ui_kit_checkbox text-left">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">HTML 5</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2">Javascript</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                <label class="custom-control-label" for="customCheck3">PHP</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                <label class="custom-control-label" for="customCheck4">jQuery</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck5">
-                                <label class="custom-control-label" for="customCheck5">UX/UI Design</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck6">
-                                <label class="custom-control-label" for="customCheck6">Design</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck7">
-                                <label class="custom-control-label" for="customCheck7">Web Design</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck8">
-                                <label class="custom-control-label" for="customCheck8">Graphic Design</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck9">
-                                <label class="custom-control-label" for="customCheck9">Sketch App</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck10">
-                                <label class="custom-control-label" for="customCheck10">UI Design</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck11">
-                                <label class="custom-control-label" for="customCheck11">Graphic Design</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck12">
-                                <label class="custom-control-label" for="customCheck12">Sketch App</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck13">
-                                <label class="custom-control-label" for="customCheck13">UI Design</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cl_carrer_lever mb30">
-                        <div id="accordion" class="accordion">
-                            <div class="link mb10">Career Level<i class="fa fa-caret-up"></i></div>
-                            <div class="cl_submenu">
-                                <div class="ui_kit_checkbox">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck14">
-                                        <label class="custom-control-label" for="customCheck14">Intermediate</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck15">
-                                        <label class="custom-control-label" for="customCheck15">Normal</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck16">
-                                        <label class="custom-control-label" for="customCheck16">Special</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck17">
-                                        <label class="custom-control-label" for="customCheck17">Experienced</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="cl_carrer_lever mb30">
                         <div id="accordion2" class="accordion">
                             <div class="link mb10">Experince<i class="fa fa-caret-up"></i></div>
@@ -274,33 +192,24 @@
                 <div class="col-md-12 col-lg-9 col-xl-9">
                     <div class="row">
                         <div class="col-lg-12 mb30">
-                            <h4 class="fz20 mb15">Your Selected</h4>
-                            <div class="tags-bar">
-{{--                                <span>Design<i class="close-tag">x</i></span>--}}
-{{--                                <span>UX/UI<i class="close-tag">x</i></span>--}}
-                                <div class="action-tags">
-                                    <a href="#"><i class="fa fa-trash-o"></i> Clean All</a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-12 col-lg-6" style="margin-top: -25px;">
                             <div class="candidate_job_alart_btn">
-                                <h4 class="fz20 mb15">20 Candidates Found</h4>
-                                <a class="btn btn-thm" href="#"><span class="flaticon-mail"></span> Get Job Alerts</a>
+                                <h4 class="fz20 mb15 countSearchResult"></h4>
                                 <button class="btn btn-thm btns dn db-991 float-right" type="button">Show Filter</button>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-12 col-lg-6" style="margin-top: -80px;">
                             <div class="candidate_revew_select text-right mt50 mt10-smd">
                                 <ul>
                                     <li class="list-inline-item">Sort by:</li>
                                     <li class="list-inline-item">
-                                        <select class="selectpicker show-tick">
-                                            <option>Newest</option>
-                                            <option>Recent</option>
-                                            <option>Old Review</option>
+                                        <select class="selectpicker show-tick" id="sort">
+                                            <option value="desc">Newest</option>
+                                            <option value="asc">Oldest</option>
                                         </select>
                                     </li>
                                 </ul>
@@ -388,88 +297,7 @@
                                             <input class="sl_input" type="text" id="amount2">
                                         </p>
                                     </div>
-                                    <div class="cl_skill_checkbox mb30">
-                                        <h4 class="fz20 mb20">Skills</h4>
-                                        <div class="content ui_kit_checkbox text-left">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck37">
-                                                <label class="custom-control-label" for="customCheck37">HTML 5</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck38">
-                                                <label class="custom-control-label" for="customCheck38">Javascript</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck39">
-                                                <label class="custom-control-label" for="customCheck39">PHP</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck40">
-                                                <label class="custom-control-label" for="customCheck40">jQuery</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck41">
-                                                <label class="custom-control-label" for="customCheck41">UX/UI Design</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck42">
-                                                <label class="custom-control-label" for="customCheck42">Design</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck43">
-                                                <label class="custom-control-label" for="customCheck43">Web Design</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck44">
-                                                <label class="custom-control-label" for="customCheck44">Graphic Design</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck45">
-                                                <label class="custom-control-label" for="customCheck45">Sketch App</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck46">
-                                                <label class="custom-control-label" for="customCheck46">UI Design</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck47">
-                                                <label class="custom-control-label" for="customCheck47">Graphic Design</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck48">
-                                                <label class="custom-control-label" for="customCheck48">Sketch App</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck49">
-                                                <label class="custom-control-label" for="customCheck49">UI Design</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cl_carrer_lever mb30">
-                                        <div id="accordion6" class="accordion">
-                                            <div class="link mb10">Career Level<i class="fa fa-caret-up"></i></div>
-                                            <div class="cl_submenu">
-                                                <div class="ui_kit_checkbox">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck50">
-                                                        <label class="custom-control-label" for="customCheck50">Intermediate</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck51">
-                                                        <label class="custom-control-label" for="customCheck51">Normal</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck52">
-                                                        <label class="custom-control-label" for="customCheck52">Special</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck53">
-                                                        <label class="custom-control-label" for="customCheck53">Experienced</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="cl_carrer_lever mb30">
                                         <div id="accordion7" class="accordion">
                                             <div class="link mb10">Experince<i class="fa fa-caret-up"></i></div>
@@ -571,7 +399,7 @@
     <script>
 
         $(document).ready(function () {
-            $(document).on('change keyup blur','.search-keyword,.custom-category,.date-posted,.jobType,.experience,.gender,.industry,.qualification,.search-location,.salary-term,.currency', function () {
+            $(document).on('change keyup blur','.search-keyword,.custom-category,.date-posted,.jobType,.experience,.gender,.industry,.qualification,.search-location,.salary-term,#sort,.currency', function () {
                 dataList('{{ route('jobListView') }}');
             });
             var one = $('#slider-range').slider("values")[0];
@@ -668,8 +496,9 @@
             var values = {
                 '_token': '{{ csrf_token() }}',
                 'keyword': $('.search-keyword').val(),
-                'location': $('.search-location').val(),
+                'city': $('.search-location').val(),
                 'salaryTerm': $('.salary-term').val(),
+                'sort': $('#sort').val(),
                 'currency': $('.currency').val(),
                 'min': $('#slider-range').slider("values")[0],
                 'max': $('#slider-range').slider("values")[1],
@@ -681,7 +510,8 @@
                 'industry': $('.industry:checkbox:checked').val(),
                 'qualification': $('.qualification:checkbox:checked').val()
             };
-            //alert($('.currency').val());
+            //alert($('#sort').val());
+            //console.log($('.sort').val());
             $.ajax({
                 method: "POST",
                 url: link,
@@ -694,5 +524,32 @@
             });
 
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $( "#keyword" ).autocomplete({
+
+                source: function(request, response) {
+                    $.ajax({
+                        url: "{{route('autocomplete')}}",
+                        data: {
+                            term : request.term
+                        },
+                        dataType: "json",
+                        success: function(data){
+                            var resp = $.map(data,function(obj){
+                                //console.log(obj.city_name);
+                                return obj.title;
+                            });
+
+                            response(resp);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        });
+
     </script>
 @endsection

@@ -100,4 +100,12 @@ class SearchJobsController extends Controller
 
         return view('searches.searchByJobTypes')->with('jobs', $jobs);
     }
+
+    public function autocomplete(Request $request) {
+        $search = $request->get('term');
+
+        $result = Job::where('title', 'LIKE', '%'. $search. '%')->where('is_published', 1)->get();
+
+        return response()->json($result);
+    }
 }

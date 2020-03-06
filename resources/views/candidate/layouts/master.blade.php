@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/style.css') }}">
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="{{ asset('candidate_company/assets/css/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
 <!-- toastr -->
 <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 <!-- Title -->
@@ -141,6 +142,7 @@
 </div>
 <!-- Wrapper End -->
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/jquery-3.3.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-ui.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/popper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('candidate_company/assets/js/bootstrap.min.js') }}"></script>

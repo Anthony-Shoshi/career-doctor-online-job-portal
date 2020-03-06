@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
     Auth::routes();
 
 //Without auth middleware route list
+Route::get('/redirect', 'Candidate\SocialAuthGoogleController@redirect')->name('redirect');
+Route::get('/callback', 'Candidate\SocialAuthGoogleController@callback');
 Route::get('/aboutUs', 'PageController@aboutUs')->name('aboutUs');
 Route::get('/contactUs', 'PageController@contactUs')->name('contactUs');
 Route::get('/termsAndConditions', 'PageController@termsAndConditions')->name('termsAndConditions');
@@ -39,6 +41,8 @@ Route::get('/company/job/list/view/{id}', 'Company\JobPostController@jobListOfTh
 Route::get('/all/review/{company_id}', 'Candidate\RatingController@allReview')->name('allReview');
 //Searches
 Route::get('search/jobs/by/', 'Candidate\SearchJobsController@searchJobsBy')->name('searchJobsBy');
+Route::get('autocomplete', 'Candidate\SearchJobsController@autocomplete')->name('autocomplete');
+Route::get('autocompleteCandidate', 'Company\CandidateListController@autocompleteCandidate')->name('autocompleteCandidate');
 Route::post('send/contact/email', 'PageController@sendContactEmail')->name('sendContactEmail');
 
 //Auth middleware route list
@@ -129,8 +133,7 @@ Route::group(['middleware'=>'auth'], function() {
 
 //Candidate
     Route::group(['namespace' => 'Candidate', 'middleware' => 'checkCandidate'], function () {
-        Route::get('/redirect', 'SocialAuthGoogleController@redirect')->name('redirect');
-        Route::get('/callback', 'SocialAuthGoogleController@callback');
+
         Route::get('/candidate/profile', 'CandidateController@candidateProfile')->name('candidateProfile');
         //Change Password
         Route::get('/candidate/changePassword', 'ChangePasswordController@changePassword')->name('candidateChangePassword');
@@ -173,6 +176,7 @@ Route::group(['middleware'=>'auth'], function() {
         //Job Applications
         Route::get('company/job/applications','JobApplicationController@jobApplication')->name('jobApplication');
         Route::get('view/resume/pdf/{id}','JobApplicationController@viewResumePdf')->name('viewResumePdf');
+        Route::get('view/resume/print/{id}','JobApplicationController@viewResumePdf')->name('viewResumePrint');
         Route::get('download/resume/{id}','JobApplicationController@downloadResume')->name('downloadResume');
         Route::get('edit/status/{id}','JobApplicationController@editStatus')->name('editStatus');
         Route::post('update/status','JobApplicationController@updateStatus')->name('updateStatus');

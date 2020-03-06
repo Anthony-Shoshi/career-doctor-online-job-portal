@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\ExperienceSkillRecord;
 use App\JobSkill;
 use App\JobSkillsTemp;
 use Illuminate\Http\Request;
@@ -79,9 +80,11 @@ class JobSkillsController extends Controller
     }
 
     public function acceptNewJobSkill($id){
+
         $jobSkillsTemp = JobSkillsTemp::findOrFail($id);
         $jobSkillsTemp->status = 'ACCEPTED';
         $jobSkillsTemp->save();
+
         $jobSkill = new JobSkill();
         $jobSkill->skill_name = ucwords($jobSkillsTemp->skill_name);
         $jobSkill->skill_code = rand(1, 1000000);
@@ -89,6 +92,15 @@ class JobSkillsController extends Controller
         $jobSkill->created_by = Auth::user()->id;
         $jobSkill->updated_by = Auth::user()->id;
         $jobSkill->save();
+
+        $experienceSkills = new ExperienceSkillRecord();
+        $experienceSkills->user = $jobSkillsTemp->user;
+        $experienceSkills->candidate_experience = $jobSkillsTemp->experience_id;
+        $experienceSkills->job_skill = $jobSkill->id;
+        $experienceSkills->created_by = Auth::user()->id;
+        $experienceSkills->updated_by = Auth::user()->id;
+        $experienceSkills->save();
+
         return redirect()->back()->with('success','New skill accepted!');
     }
 

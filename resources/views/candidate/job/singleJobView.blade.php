@@ -164,7 +164,7 @@
                                         <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
                                     @endif
                                 @endif
-                                <a class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</a>
+
                                 @endif
                                 @endauth
                                 @guest
@@ -175,7 +175,7 @@
                                     @else
                                         <a class="btn btn-lg btn-thm mb15" target="_blank" href="{{ route('applyJob',$job->id) }}">Apply Now <span class="flaticon-right-arrow pl10"></span></a>
                                     @endif
-                                    <a class="btn btn-lg btn-gray float-right"><span class="flaticon-mail pr10"></span> Get Job Alerts</a>
+
                                 @endguest
                             </div>
                         </div>
@@ -184,10 +184,10 @@
                                 <div class="candidate_social_widget bgc-fa">
                                     <ul>
                                         <li>Share This Job:</li>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-social="facebook" class="share"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-social="twitter" class="share" data-text="{{ $job->title }}"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-social="linkedin" class="share"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="javascript:void(0)" data-social="pinterest" class="share" data-media="{{ get_logo() }}"><i class="fa fa-pinterest"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -368,15 +368,45 @@
                             <li><span class="flaticon-24-hours-support text-thm2"></span> <span>{{ $diff }}</span> <span>@if($diff == 1) Day @else Days @endif Left</h5></li>
                             <li><span class="flaticon-eye text-thm2"></span> <span> {{ $perDayViewer }}</span> <span>Today Views</h5></li>
                             <li><span class="flaticon-zoom-in text-thm2"></span> <span> {{ $totalViewer }}</span> <span>Total Views</h5></li>
-                            <li><span class="flaticon-businessman-paper-of-the-application-for-a-job text-thm2"></span> <span>300-500</span> <span>Application</h5></li>
                         </ul>
                     </div>
-                    <div class="map_sidebar_widget">
-                        <h4 class="fz20 mb30">Job Location</h4>
-                        <div class="h300" id="map-canvas"></div>
-                    </div>
+{{--                    <div class="map_sidebar_widget">--}}
+{{--                        <h4 class="fz20 mb30">Job Location</h4>--}}
+{{--                        <div class="h300" id="map-canvas"></div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>
     </section>
+@endsection
+@section('myJs')
+    <script>
+        $(document).ready(function () {
+            //share url
+            var share_url = '{{ route('singleJobView',$job->id) }}';
+
+            $(document).on('click', '.share', function(){
+                var status = false;
+
+                if ($(this).data('social') == 'facebook') {
+                    var status = true;
+                    var url = 'http://www.facebook.com/sharer.php?u=' + share_url;
+                }else if ($(this).data('social') == 'twitter') {
+                    var status = true;
+                    var url = 'http://twitter.com/share?text=' + $(this).data('text') + '&' + 'url=' + share_url;
+                }else if ($(this).data('social') == 'linkedin') {
+                    var status = true;
+                    var url = 'http://www.linkedin.com/shareArticle?mini=true&url=' + share_url;
+                }else if ($(this).data('social') == 'pinterest') {
+                    var status = true;
+                    var url = 'http://pinterest.com/pin/create/button/?url=' + share_url + '&media=' + $(this).data('media');
+                }
+
+                if(status == true){
+                    window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+                    return true;
+                }
+            })
+        });
+    </script>
 @endsection

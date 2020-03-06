@@ -41,7 +41,7 @@ class PageController extends Controller
 
     public function allBlog()
     {
-        return view();
+        return "Coming Soon!";
     }
 
     public function sendContactEmail(Request $request) {

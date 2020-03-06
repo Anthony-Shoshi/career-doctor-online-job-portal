@@ -125,7 +125,7 @@
 						    	<div class="user_setting_content">
 									@if(auth::user()->user_type == 'candidate')
 									<a class="dropdown-item {{Request::is('dashboard') ? 'active' : ''}}" href="{{route('dashboard')}}"><span class="flaticon-dashboard"></span> Dashboard</a>
-									<a class="dropdown-item {{Request::is('candidate/profile') ? 'active' : ''}}" href="{{route('candidateProfile')}}"><span class="flaticon-profile"></span> Profile</a>
+
 									@php
 										$candidate = \App\CandidateGeneralInfo::where('user_id', Auth::user()->id)->exists();
 									@endphp
@@ -139,7 +139,6 @@
 									<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
 										<a class="dropdown-item {{Request::is('candidate/messages') ? 'active' : ''}}" href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a>
 									<a class="dropdown-item {{Request::is('candidate/review/list') ? 'active' : ''}}" href="{{ route('candidateReviewList') }}"><span class="flaticon-rating"></span> Reviews</a>
-									<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
 									<a class="dropdown-item {{Request::is('candidate/changePassword') ? 'active' : ''}}" href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 									@endif
 									@if(auth::user()->user_type == 'company')
@@ -159,7 +158,6 @@
 									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 										@csrf
 									</form>
-									<a class="dropdown-item" href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a>
 						    	</div>
 						    </div>
 						</div>
@@ -226,7 +224,6 @@
 					    	<div class="user_setting_content">
 								@if(auth::user()->user_type == 'candidate')
 								<a class="dropdown-item {{Request::is('dashboard') ? 'active' : ''}}" href="{{route('dashboard')}}"><span class="flaticon-dashboard"></span> Dashboard</a>
-								<a class="dropdown-item {{Request::is('candidate/profile') ? 'active' : ''}}" href="{{route('candidateProfile')}}"><span class="flaticon-profile"></span> Profile</a>
 								@php
 									$candidate = \App\CandidateGeneralInfo::where('user_id', Auth::user()->id)->exists();
 								@endphp
@@ -240,7 +237,6 @@
 								<a class="dropdown-item {{Request::is('shortListed/job') ? 'active' : ''}}" href="{{ route('viewShortListedJob') }}"><span class="flaticon-favorites"></span> Favourite Jobs</a>
 									<a class="dropdown-item {{Request::is('candidate/messages') ? 'active' : ''}}" href="{{ route('candidateMessages') }}"><span class="flaticon-chat"></span> Messages</a>
 								<a class="dropdown-item {{Request::is('candidate/review/list') ? 'active' : ''}}" href="{{ route('candidateReviewList') }}"><span class="flaticon-rating"></span> Reviews</a>
-								<a class="dropdown-item" href="page-candidates-job-alert.html"><span class="flaticon-alarm"></span> Job Alerts</a>
 								<a class="dropdown-item {{Request::is('candidate/changePassword') ? 'active' : ''}}" href="{{route('candidateChangePassword')}}"><span class="flaticon-locked"></span> Change Password</a>
 								@endif
 								@if(auth::user()->user_type == 'company')
@@ -260,7 +256,6 @@
 								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 									@csrf
 								</form>
-								<a class="dropdown-item" href="#"><span class="flaticon-rubbish-bin"></span> Delete Profile</a>
 					    	</div>
 					    </div>
 					</div>

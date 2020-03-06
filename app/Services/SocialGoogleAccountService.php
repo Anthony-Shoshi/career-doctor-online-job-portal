@@ -27,7 +27,7 @@ class SocialGoogleAccountService
                     'user_type' => 'candidate',
                     'image' => 'upload/candidate/profile/default.jpg',
                     'hash_key' => 'something',
-                    'unique_id' => 'something',
+                    'unique_id' => rand(1,10000),
                     'created_by' => rand(1,100),
                     'updated_by' => rand(1,100),
                     'password' => md5(rand(1, 10000)),

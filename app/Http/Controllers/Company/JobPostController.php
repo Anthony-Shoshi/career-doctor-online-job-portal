@@ -135,7 +135,7 @@ class JobPostController extends Controller
             }
         }
 
-        return redirect()->back()->with('success','Job successfully posted!');
+        return redirect('company/manage/job')->with('success','Job successfully posted!');
     }
 
     public function manageJob(){
@@ -233,8 +233,11 @@ class JobPostController extends Controller
     }
 
     public function viewJobPost($id){
+        $now = Carbon::today();
+        $perDayViewer = ViewJob::where('job',$id)->whereDate('created_at', $now)->count();
+        $totalViewer = ViewJob::where('job',$id)->count();
         $job = Job::where('company',auth::user()->id)->findOrFail($id);
-        return view('company.job.viewJobPost')->with('job',$job);
+        return view('company.job.viewJobPost')->with('job',$job)->with('perDayViewer', $perDayViewer)->with('totalViewer', $totalViewer);
     }
 
     public function deleteJobPost($id){
@@ -359,22 +362,25 @@ class JobPostController extends Controller
         if ($request->keyword != '') {
             $jobs = $jobs->where('title', 'LIKE', '%'.$request->keyword.'%');
         }
-        if ($request->category != '') {
-            $jobs = $jobs->where('job_category', $request->category);
+        if ($request->ccategory != '') {
+            $jobs = $jobs->where('job_category', $request->ccategory);
         }
         if ($request->location != '') {
-            $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', $request->location);
+            $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', 'LIKE', '%'.$request->location.'%');
         }
         if ($request->ajax()) {
             if ($request->keyword != '') {
                 $jobs = $jobs->where('title', 'LIKE', '%'.$request->keyword.'%');
             }
-            if ($request->location != '') {
-                $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', $request->location);
+            if ($request->city != '') {
+                $jobs = $jobs->select('*', 'jobs.id AS id')->join('cities', 'cities.id', 'jobs.city_id')->where('cities.name', 'LIKE', '%'.$request->city.'%');
             }
             $jobs = $jobs->where('min_salary', '>=' , $request->min)->where('max_salary', '<=' , $request->max);
             if ($request->salaryTerm != '') {
                 $jobs = $jobs->where('salary_terms', $request->salaryTerm);
+            }
+            if ($request->sort != '') {
+                $jobs = $jobs->orderBy('created_at', $request->sort);
             }
             if ($request->currency != '') {
                 $jobs = $jobs->where('currency', $request->currency);
@@ -431,7 +437,7 @@ class JobPostController extends Controller
                     $jobs = $jobs->where('max_exp_year', '>=', 5);
                 }
             }
-            $jobs = $jobs->orderBy('created_at','DESC')->paginate('8');
+            $jobs = $jobs->paginate('8');
             return view('searches.searchByJobTypes', $data)->with('jobs',$jobs);
         }
         $jobs = $jobs->orderBy('jobs.created_at','DESC')->paginate('8');

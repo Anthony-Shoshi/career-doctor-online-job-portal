@@ -43,10 +43,11 @@
 						<li><a><span class="flaticon-fax"></span> Fax: 0934 343 343</a></li>
 					</ul>
 					<ul class="social_list">
-						<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-						<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
-						<li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+						<li class="list-inline-item"><a href="{{ get_option('facebook_link') }}"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="{{ get_option('twitter_link') }}"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="{{ get_option('instagram_link') }}"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="{{ get_option('linkedin_link') }}"><i class="fa fa-linkedin"></i></a></li>
+						<li class="list-inline-item"><a href="{{ get_option('pinterest_link') }}"><i class="fa fa-pinterest"></i></a></li>
 					</ul>
 				</div>
 				<div class="col-lg-7 form_grid">

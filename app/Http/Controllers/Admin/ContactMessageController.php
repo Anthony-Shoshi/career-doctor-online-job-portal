@@ -11,7 +11,7 @@ use Mail;
 class ContactMessageController extends Controller
 {
     public function getContactUsMessages() {
-        $contactMessages = ContactMailLog::where('is_deleted', 0)->where('message_type', 'contact')->get();
+        $contactMessages = ContactMailLog::where('is_deleted', 0)->orderBy('created_at', 'DESC')->where('message_type', 'contact')->get();
         return view('admin.message.messageList')->with('contactMessages', $contactMessages);
     }
 

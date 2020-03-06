@@ -9,6 +9,7 @@ use App\CandidateGeneralInfo;
 use App\CandidateJobApplicationStatus;
 use App\City;
 use App\Country;
+use App\ExperienceSkillRecord;
 use App\Job;
 use App\User;
 use Illuminate\Http\Request;
@@ -38,24 +39,28 @@ class JobApplicationController extends Controller
         $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user',$data['candidateApplication']->user)->get();
         $data['city'] = City::where('id', $data['candidateGeneralInfo']->current_city_id)->first();
         $data['country'] = Country::where('id', $data['candidateGeneralInfo']->current_country_id)->first();
-
-        $pdf = PDF::loadView('resume.templates.' . $data['candidateApplication']->template, $data);
-        return $pdf->stream($data['user']->name);
+        $data['skills'] = ExperienceSkillRecord::select('*', 'experience_skill_records.id AS id')
+            ->join('job_skills', 'job_skills.id', 'experience_skill_records.job_skill')
+            ->where('experience_skill_records.user', $data['user']->id)
+            ->get();
+        //$pdf = PDF::loadView('resume.templates.' . $data['candidateApplication']->template, $data);
+        //return $pdf->stream($data['user']->name);
+        return view('resume.templates.'. $data['candidateApplication']->template, $data);
     }
 
-    public function downloadResume($id) {
-        $data['candidateApplication'] = CandidateJobApplicationStatus::findOrFail($id);
-        $data['user'] = User::where('id', $data['candidateApplication']->user)->first();
-        $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', $data['candidateApplication']->user)->first();
-        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
-        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
-        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user',$data['candidateApplication']->user)->get();
-        $data['city'] = City::where('id', $data['candidateGeneralInfo']->current_city_id)->first();
-        $data['country'] = Country::where('id', $data['candidateGeneralInfo']->current_country_id)->first();
-
-        $pdf = PDF::loadView('resume.templates.' . $data['candidateApplication']->template, $data);
-        return $pdf->download( $data['user']->name.'.pdf');
-    }
+//    public function downloadResume($id) {
+//        $data['candidateApplication'] = CandidateJobApplicationStatus::findOrFail($id);
+//        $data['user'] = User::where('id', $data['candidateApplication']->user)->first();
+//        $data['candidateGeneralInfo'] = CandidateGeneralInfo::where('user_id', $data['candidateApplication']->user)->first();
+//        $data['candidateEducations'] = CandidateEducation::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
+//        $data['candidateExperiences'] = CandidateExperience::orderBy('created_at', 'DESC')->where('user_id', $data['candidateApplication']->user)->get();
+//        $data['candidateAchievements'] = CandidateAchievement::orderBy('created_at', 'DESC')->where('user',$data['candidateApplication']->user)->get();
+//        $data['city'] = City::where('id', $data['candidateGeneralInfo']->current_city_id)->first();
+//        $data['country'] = Country::where('id', $data['candidateGeneralInfo']->current_country_id)->first();
+//
+//        $pdf = PDF::loadView('resume.templates.' . $data['candidateApplication']->template, $data);
+//        return $pdf->download( $data['user']->name.'.pdf');
+//    }
 
     public function editStatus(Request $request, $id) {
         $applicationStatus = CandidateJobApplicationStatus::findOrFail($id);
@@ -66,6 +71,14 @@ class JobApplicationController extends Controller
         $applicationStatus = CandidateJobApplicationStatus::findOrFail($request->id);
         $applicationStatus->status = $request->status;
         $applicationStatus->save();
+        if($applicationStatus->status == 'APPROVED') {
+            $job = Job::where('id', $applicationStatus->job)->first();
+            $job->is_published = 0;
+            $job->save();
+            $candidate = CandidateGeneralInfo::where('user_id', $applicationStatus->user)->first();
+            $candidate->current_status = 3;
+            $candidate->save();
+        }
 
         return back()->with('success', 'Status updated successfully!');
     }
